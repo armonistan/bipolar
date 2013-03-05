@@ -23,16 +23,20 @@ public class ResourceHandler {
 	}
 	
 	public void parse(String args){
-		String[] split = args.split("[: ]+");
-		
-		if(split[0].equals("image")){
-			loadImage(split[1], split[2]);
+		if (!args.equals(null)) {
+			String[] split = args.split("[: ]+");
+
+			if (split[0].equals("image")) {
+				loadImage(split[1], split[2]);
+			} else if (split[0].equals("animation")) {
+				loadAnimation(split[1], split[2], Integer.parseInt(split[3]), 
+						Integer.parseInt(split[4]), Integer.parseInt(split[5]));
+			} else if (split[0].equals("sound")) {
+				loadSound(split[1], split[2]);
+			} else {
+				System.out.println("Invalid file type: " + split[0]);
+			}
 		}
-		
-		else if(split[0].equals("animation")){
-			loadAnimation(split[1], split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]));
-		}
-		
 	}
 	
 	public void loadImage(String name, String path){
@@ -68,7 +72,7 @@ public class ResourceHandler {
 	}
 	
 	public Image getImage(String name){
-		if(!images.ceilingEntry(name).equals(null)){
+		if (!images.ceilingEntry(name).equals(null)) {
 			return images.ceilingEntry(name).getValue();
 		}
 		System.out.println("Can't find image " + name);
@@ -77,7 +81,7 @@ public class ResourceHandler {
 	}
 	
 	public Animation getAnimation(String name){
-		if(!animations.ceilingEntry(name).equals(null)){
+		if (!animations.ceilingEntry(name).equals(null)) {
 			return animations.ceilingEntry(name).getValue();
 		}
 		System.out.println("Can't find image " + name);
@@ -86,10 +90,11 @@ public class ResourceHandler {
 	}
 	
 	public Sound getSound(String name){
-		if(!sounds.ceilingEntry(name).equals(null)){
+		if (!sounds.ceilingEntry(name).equals(null)) {
 			return sounds.ceilingEntry(name).getValue();
 		}
 		System.out.println("Can't find image " + name);
+		
 		return null;
 	}
 	

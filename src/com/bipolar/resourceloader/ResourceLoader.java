@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -23,6 +26,18 @@ public class ResourceLoader extends BasicGameState{
 		this.stateID = id;
 	}
 	
+	public static Image getImage(String name){
+		return resourceHandler.getImage(name);
+	}
+	
+	public static Animation getAnimation(String name){
+		return resourceHandler.getAnimation(name);
+	}
+	
+	public static Sound getSound(String name){
+		return resourceHandler.getSound(name);
+	}
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -36,7 +51,7 @@ public class ResourceLoader extends BasicGameState{
 		}
 		
 		finishedLoading = false;
-		while(s.hasNextLine()){
+		while (s.hasNextLine()) {
 			resourceHandler.parse(s.nextLine());
 		}
 		finishedLoading = true;
@@ -55,7 +70,7 @@ public class ResourceLoader extends BasicGameState{
 			throws SlickException {
 		// TODO RENDER LOADING BAR AND LOADING BACKGROUND
 		System.out.println("loading...");
-		if(finishedLoading){
+		if (finishedLoading) {
 			game.enterState(Bipolar.MENUSTATE);
 		}
 	}

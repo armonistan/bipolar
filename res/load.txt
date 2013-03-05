@@ -1,2 +1,3 @@
 image:menubackground:/res/menus/textures/menubackground.png
-animation:test:/res/levels/spritesheets/test.png:16:16:400
+animation:gobutton:/res/menus/textures/menubutton.png:125:85:100
+sound:testsound:/res/levels/sounds/test.wav

@@ -30,7 +30,7 @@ public class Intro extends BasicGameState{
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		// TODO Auto-generated method stub
-		g.drawString("intro", container.getWidth()/2, container.getHeight()/4);
+		g.drawString("Temporary intro scene", container.getWidth()/2, container.getHeight()/4);
 	}
 
 	@Override
