@@ -19,7 +19,8 @@ public class MainMenu extends BasicGameState{
 	Input in;
 	Image bkg;
 	Sound testSound;
-	MenuButton b;
+	MenuButton newGame;
+	MenuButton loadGame;
 	
 	public MainMenu(int id){
 		this.stateID = id;
@@ -31,8 +32,18 @@ public class MainMenu extends BasicGameState{
 		// TODO Auto-generated method stub
 		this.in = container.getInput();
 		this.bkg = ResourceLoader.getImage("menubackground");
-		this.testSound = ResourceLoader.getSound("testsound");
-		this.b = new MenuButton(250, 250, ResourceLoader.getAnimation("gobutton"), in);
+		
+		this.newGame = new MenuButton(ResourceLoader.getAnimation("newbutton"), in);
+		this.loadGame = new MenuButton(ResourceLoader.getAnimation("loadbutton"), in);
+		
+		this.newGame.setPosition((container.getWidth()/3) -
+				(this.newGame.getWidth() / 2), 250);
+		this.loadGame.setPosition((2 * container.getWidth()/3) -
+				(this.loadGame.getWidth() / 2), 250);
+	}
+	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game){
 	}
 
 	@Override
@@ -40,16 +51,23 @@ public class MainMenu extends BasicGameState{
 			throws SlickException {
 		// TODO Auto-generated method stub
 		bkg.draw();
-		b.render();
+		newGame.render();
+		loadGame.render();
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		// TODO Auto-generated method stub
-		b.update();
-		if (b.getClicked()) {
+		newGame.update();
+		loadGame.update();
+		
+		if (newGame.getClicked()) {
 			game.enterState(Bipolar.INTROSTATE);
+		}
+		
+		if (loadGame.getClicked()) {
+			game.enterState(Bipolar.WORLDSTATE);
 		}
 	}
 

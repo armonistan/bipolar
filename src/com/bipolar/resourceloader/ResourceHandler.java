@@ -39,6 +39,12 @@ public class ResourceHandler {
 		}
 	}
 	
+	public void loadGame(String args){
+		if(!args.equals(null)){
+			
+		}
+	}
+	
 	public void loadImage(String name, String path){
 		try {
 			this.img = new Image(path);

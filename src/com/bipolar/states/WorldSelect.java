@@ -31,6 +31,9 @@ public class WorldSelect extends BasicGameState{
 			throws SlickException {
 		// TODO Auto-generated method stub
 		g.drawString("world select", container.getWidth()/3, container.getHeight()/3);
+		for(int i = 0; i < Bipolar.level.size(); i++){
+			g.drawString(Bipolar.level.get(i).toString(), 100, 100 + 15 * i);
+		}
 	}
 
 	@Override
@@ -41,7 +44,7 @@ public class WorldSelect extends BasicGameState{
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		}
 		if(in.isKeyPressed(Input.KEY_A)){
-			game.enterState(Bipolar.INTROSTATE);
+			game.enterState(Bipolar.MENUSTATE);
 		}
 		
 	}

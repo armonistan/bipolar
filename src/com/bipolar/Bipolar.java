@@ -1,5 +1,7 @@
 package com.bipolar;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -25,11 +27,23 @@ public class Bipolar extends StateBasedGame{
 	public static final int WORLDSTATE		= 3;
 	public static final int SUBWORLDSTATE	= 4;
 	public static final int LEVELSTATE		= 5;
+	public static final int NUMWORLDS		= 8;
+	public static final int LEVELPERWORLD	= 10;
+	
+	public static boolean intro;
+	public static boolean world[];
+	public static ArrayList<boolean[]> level;
 	
 	public static ResourceHandler resources;
 	
 	public Bipolar(String name) {
 		super(name);
+		
+		world = new boolean[NUMWORLDS];
+		level = new ArrayList<boolean[]>();
+		for(int i = 0; i < NUMWORLDS; i++){
+			level.add(new boolean[LEVELPERWORLD]);
+		}
 		
 		this.addState(new ResourceLoader(LOADINGSTATE));
 		this.addState(new MainMenu(MENUSTATE));

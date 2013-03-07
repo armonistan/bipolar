@@ -1,3 +1,5 @@
 image:menubackground:/res/menus/textures/menubackground.png
 animation:gobutton:/res/menus/textures/menubutton.png:125:85:100
+animation:newbutton:/res/menus/textures/newgame.png:125:85:100
+animation:loadbutton:/res/menus/textures/loadgame.png:125:85:100
 sound:testsound:/res/levels/sounds/test.wav

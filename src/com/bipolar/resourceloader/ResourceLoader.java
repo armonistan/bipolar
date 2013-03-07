@@ -19,6 +19,7 @@ public class ResourceLoader extends BasicGameState{
 	
 	public int stateID;
 	public static ResourceHandler resourceHandler = new ResourceHandler();
+	public String loadString;
 	boolean finishedLoading;
 	Scanner s;
 	
@@ -27,15 +28,15 @@ public class ResourceLoader extends BasicGameState{
 	}
 	
 	public static Image getImage(String name){
-		return resourceHandler.getImage(name);
+		return resourceHandler.getImage(name.toLowerCase());
 	}
 	
 	public static Animation getAnimation(String name){
-		return resourceHandler.getAnimation(name);
+		return resourceHandler.getAnimation(name.toLowerCase());
 	}
 	
 	public static Sound getSound(String name){
-		return resourceHandler.getSound(name);
+		return resourceHandler.getSound(name.toLowerCase());
 	}
 	
 	@Override
@@ -51,11 +52,24 @@ public class ResourceLoader extends BasicGameState{
 		}
 		
 		finishedLoading = false;
+		loadString = "loading resources...";
 		while (s.hasNextLine()) {
 			resourceHandler.parse(s.nextLine());
 		}
-		finishedLoading = true;
 		
+		//loadString = "loading save data...";
+		try {
+			s = new Scanner(new File("res/sav.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Cannot find load file");
+			e.printStackTrace();
+		}
+		while (s.hasNextLine()) {
+			resourceHandler.loadGame(s.nextLine());
+		}
+		
+		finishedLoading = true;
 	}
 	
 	@Override
@@ -69,7 +83,7 @@ public class ResourceLoader extends BasicGameState{
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		// TODO RENDER LOADING BAR AND LOADING BACKGROUND
-		System.out.println("loading...");
+		System.out.println(loadString);
 		if (finishedLoading) {
 			game.enterState(Bipolar.MENUSTATE);
 		}

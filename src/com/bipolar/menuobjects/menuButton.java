@@ -9,15 +9,28 @@ public class MenuButton {
 	Animation anim;
 	Input in;
 	
-	public MenuButton(int x, int y, Animation anim, Input in){
-		this.x = x;
-		this.y = y;
+	public MenuButton(Animation anim, Input in){
 		this.anim = anim;
 		this.anim.stop();
 		this.in = in;
 		this.width = this.anim.getWidth();
 		this.height = this.anim.getHeight();
 		setUnhover();
+	}
+	
+	public MenuButton(int x, int y, Animation anim, Input in){
+		this.anim = anim;
+		this.anim.stop();
+		this.in = in;
+		this.width = this.anim.getWidth();
+		this.height = this.anim.getHeight();
+		setPosition(x, y);
+		setUnhover();
+	}
+	
+	public void setPosition(int x, int y){
+		this.x = x;
+		this.y = y;
 	}
 	
 	public void setHover(){
@@ -28,8 +41,12 @@ public class MenuButton {
 		this.anim.setCurrentFrame(0);
 	}
 	
-	public void render(){
-		this.anim.draw(x, y);
+	public int getWidth(){
+		return this.width;
+	}
+	
+	public int getHeight(){
+		return this.height;
 	}
 	
 	public boolean getClicked(){
@@ -38,6 +55,10 @@ public class MenuButton {
 			return true;
 		}
 		return false;
+	}
+	
+	public void render(){
+		this.anim.draw(x, y);
 	}
 	
 	public void update(){
