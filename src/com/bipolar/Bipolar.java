@@ -1,5 +1,6 @@
 package com.bipolar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.newdawn.slick.AppGameContainer;
@@ -27,21 +28,23 @@ public class Bipolar extends StateBasedGame{
 	public static final int WORLDSTATE		= 3;
 	public static final int SUBWORLDSTATE	= 4;
 	public static final int LEVELSTATE		= 5;
-	public static final int NUMWORLDS		= 8;
+	public static final int NUMWORLDS		= 2;
 	public static final int LEVELPERWORLD	= 10;
 	
+	public static int currentWorld;
+	public static int currentLevel;
 	public static boolean intro;
 	public static boolean world[];
 	public static ArrayList<boolean[]> level;
 	
-	public static ResourceHandler resources;
+	public static ResourceHandler resources = ResourceLoader.resourceHandler;
 	
 	public Bipolar(String name) {
 		super(name);
 		
 		world = new boolean[NUMWORLDS];
 		level = new ArrayList<boolean[]>();
-		for(int i = 0; i < NUMWORLDS; i++){
+		for (int i = 0; i < NUMWORLDS; i++) {
 			level.add(new boolean[LEVELPERWORLD]);
 		}
 		
@@ -55,8 +58,20 @@ public class Bipolar extends StateBasedGame{
 	}
 	
 	@Override
+	public boolean closeRequested()
+	{
+		System.out.println("closing");
+		try {
+			resources.saveGame();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
+		return false;
+	}
+	
+	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
 		this.getState(LOADINGSTATE).init(container, this);
 		this.getState(MENUSTATE).init(container, this);
 		this.getState(INTROSTATE).init(container, this);

@@ -28,11 +28,11 @@ public class ResourceLoader extends BasicGameState{
 	}
 	
 	public static Image getImage(String name){
-		return resourceHandler.getImage(name.toLowerCase());
+		return resourceHandler.getImage(name.toLowerCase()).copy();
 	}
 	
 	public static Animation getAnimation(String name){
-		return resourceHandler.getAnimation(name.toLowerCase());
+		return resourceHandler.getAnimation(name.toLowerCase()).copy();
 	}
 	
 	public static Sound getSound(String name){
@@ -42,11 +42,9 @@ public class ResourceLoader extends BasicGameState{
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO ADD ALL OF THE RESOURCE LOADING DECLARATIONS HERE
 		try {
 			s = new Scanner(new File("res/load.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Cannot find load file");
 			e.printStackTrace();
 		}
@@ -57,11 +55,9 @@ public class ResourceLoader extends BasicGameState{
 			resourceHandler.parse(s.nextLine());
 		}
 		
-		//loadString = "loading save data...";
 		try {
 			s = new Scanner(new File("res/sav.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Cannot find load file");
 			e.printStackTrace();
 		}

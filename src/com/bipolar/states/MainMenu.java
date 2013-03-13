@@ -5,7 +5,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -18,7 +17,6 @@ public class MainMenu extends BasicGameState{
 	public int stateID;
 	Input in;
 	Image bkg;
-	Sound testSound;
 	MenuButton newGame;
 	MenuButton loadGame;
 	
@@ -29,7 +27,6 @@ public class MainMenu extends BasicGameState{
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		this.in = container.getInput();
 		this.bkg = ResourceLoader.getImage("menubackground");
 		
@@ -49,31 +46,30 @@ public class MainMenu extends BasicGameState{
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		bkg.draw();
-		newGame.render();
-		loadGame.render();
+		newGame.render(g);
+		loadGame.render(g);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		newGame.update();
 		loadGame.update();
 		
-		if (newGame.getClicked()) {
+		if (newGame.getClicked() && !Bipolar.intro) {
+			Bipolar.intro = true;
+			Bipolar.world[0] = true;
 			game.enterState(Bipolar.INTROSTATE);
 		}
 		
-		if (loadGame.getClicked()) {
+		if (loadGame.getClicked() && Bipolar.intro) {
 			game.enterState(Bipolar.WORLDSTATE);
 		}
 	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return this.stateID;
 	}
 
