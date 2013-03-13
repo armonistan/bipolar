@@ -80,7 +80,7 @@ public class MenuButton {
 	}
 	
 	public void update(){
-		if (this.x != -1 && this.y != -1){
+		if (this.x != -1 && this.y != -1) {
 			if (in.getAbsoluteMouseX() < this.x + this.width 
 					&& in.getAbsoluteMouseX() > this.x
 					&& in.getAbsoluteMouseY() < this.y + this.height

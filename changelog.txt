@@ -1,0 +1,24 @@
+USE THIS FILE TO RECORD ALL CHANGES ACROSS EACH BUILD
+
+ALPHA 0.0 TO ALPHA 0.1
+----------------------
+Working game architecture setup
+Basic state transitions setup
+Resource handling and loading added
+Basic start menu functionality added
+
+ALPHA 0.2
+----------
+Working save and load system added
+World and level select added
+Fixed a bug in the resource loading class
+
+ALPHA 0.3
+----------
+Game menu system completely setup - onto levels and gameplay
+Robustness added to the resource loading and saving
+Robustness added to the level and world selection screens
+Changed the syntax of the load file to add comments
+Changed the functionality of the save file to work even if it is blank
+Added changelog
+General bugfixes and syntax updates

@@ -24,41 +24,47 @@ public class ResourceHandler {
 	public Animation anim = null;
 	public Sound sound = null;
 	
-	public ResourceHandler(){
+	public ResourceHandler() {
 		
 	}
 	
-	public void parse(String args){
-		if (!args.equals(null)) {
-			System.out.println("loading resource: " + args);
-			String[] split = args.split("[: ]+");
-			
-			String type = split[0];
-			String name = split[1];
-			String path = split[2];
-			int width = 0;
-			int height = 0;
-			int duration = 0;
-			
-			if (split.length > 3) {
-				width = Integer.parseInt(split[3]);
-				height = Integer.parseInt(split[4]);
-				duration = Integer.parseInt(split[5]);
-			}
-			
-			if (type.equals("image")) {
-				loadImage(name, path);
-			} else if (type.equals("animation")) {
-				loadAnimation(name, path, width, height, duration);
-			} else if (type.equals("sound")) {
-				loadSound(name, path);
-			} else {
-				System.out.println("Invalid file type: " + name);
+	public void parse(String args) {
+		if (!args.equals(null) && args.length() > 1) {
+			if (!args.contains("//")) {
+				System.out.println("loading resource: " + args);
+				String[] split = args.split("[: ]+");
+
+				String type = split[0];
+				String name = split[1];
+				String path = split[2];
+				int width = 0;
+				int height = 0;
+				int duration = 0;
+
+				if (split.length > 3) {
+					width = Integer.parseInt(split[3]);
+					height = Integer.parseInt(split[4]);
+					if (split.length > 5) {
+						duration = Integer.parseInt(split[5]);
+					} else {
+						duration = 100;
+					}
+				}
+
+				if (type.equals("image")) {
+					loadImage(name, path);
+				} else if (type.equals("animation")) {
+					loadAnimation(name, path, width, height, duration);
+				} else if (type.equals("sound")) {
+					loadSound(name, path);
+				} else {
+					System.out.println("Invalid file type: " + name);
+				}
 			}
 		}
 	}
 	
-	public void loadGame(String args){
+	public void loadGame(String args) {
 		if (!args.equals(null)) {
 			String[] split = args.split("[: ]+");
 			
@@ -67,7 +73,9 @@ public class ResourceHandler {
 			int levelID = 0;
 			boolean completed = false;
 			
-			if (split.length < 3){
+			if (split.length == 1) {
+				
+			} else if (split.length < 3){
 				completed = Boolean.parseBoolean(split[1]);
 			} else if (split.length < 4) {
 				worldID = Integer.parseInt(split[1]);
@@ -90,12 +98,12 @@ public class ResourceHandler {
 		}
 	}
 	
-	public void saveGame() throws IOException{
+	public void saveGame() throws IOException {
 		FileWriter fw = new FileWriter((new File("res/sav.txt").getAbsoluteFile()));
 		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write("intro:" + Bipolar.intro + "\n");
 		
-		for (int world = 0; world < Bipolar.world.length; world++){
+		for (int world = 0; world < Bipolar.world.length; world++) {
 			bw.write("world:" + world + ":" + Bipolar.world[world] +"\n");
 			for (int level = 0; level < Bipolar.level.get(world).length; level++) {
 				bw.write("level:" + world + ":" + level + ":"
@@ -106,7 +114,7 @@ public class ResourceHandler {
 		bw.close();
 	}
 	
-	public void loadImage(String name, String path){
+	public void loadImage(String name, String path) {
 		try {
 			this.img = new Image(path);
 			images.put(name, this.img);
@@ -116,7 +124,7 @@ public class ResourceHandler {
 		}
 	}
 	
-	public void loadAnimation(String name, String path, int w, int h, int duration){
+	public void loadAnimation(String name, String path, int w, int h, int duration) {
 		try {
 			this.img = new Image(path);
 			this.sheet = new SpriteSheet(this.img, w, h);
@@ -128,7 +136,7 @@ public class ResourceHandler {
 		}
 	}
 	
-	public void loadSound(String name, String path){
+	public void loadSound(String name, String path) {
 		try {
 			this.sound = new Sound(path);
 			sounds.put(name, this.sound);
@@ -138,7 +146,7 @@ public class ResourceHandler {
 		}
 	}
 	
-	public Image getImage(String name){
+	public Image getImage(String name) {
 		if (!images.ceilingEntry(name).equals(null)) {
 			return images.ceilingEntry(name).getValue();
 		}
@@ -147,7 +155,7 @@ public class ResourceHandler {
 		return null;
 	}
 	
-	public Animation getAnimation(String name){
+	public Animation getAnimation(String name) {
 		if (!animations.ceilingEntry(name).equals(null)) {
 			return animations.ceilingEntry(name).getValue();
 		}
@@ -156,7 +164,7 @@ public class ResourceHandler {
 		return null;
 	}
 	
-	public Sound getSound(String name){
+	public Sound getSound(String name) {
 		if (!sounds.ceilingEntry(name).equals(null)) {
 			return sounds.ceilingEntry(name).getValue();
 		}

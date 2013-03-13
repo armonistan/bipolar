@@ -12,7 +12,7 @@ import com.bipolar.Bipolar;
 import com.bipolar.menuobjects.MenuButton;
 import com.bipolar.resourceloader.ResourceLoader;
 
-public class MainMenu extends BasicGameState{
+public class MainMenu extends BasicGameState {
 	
 	public int stateID;
 	Input in;
@@ -20,7 +20,7 @@ public class MainMenu extends BasicGameState{
 	MenuButton newGame;
 	MenuButton loadGame;
 	
-	public MainMenu(int id){
+	public MainMenu(int id) {
 		this.stateID = id;
 	}
 
@@ -40,7 +40,7 @@ public class MainMenu extends BasicGameState{
 	}
 	
 	@Override
-	public void enter(GameContainer container, StateBasedGame game){
+	public void enter(GameContainer container, StateBasedGame game) {
 	}
 
 	@Override
@@ -60,6 +60,7 @@ public class MainMenu extends BasicGameState{
 		if (newGame.getClicked() && !Bipolar.intro) {
 			Bipolar.intro = true;
 			Bipolar.world[0] = true;
+			Bipolar.level.get(0)[0] = true;
 			game.enterState(Bipolar.INTROSTATE);
 		}
 		

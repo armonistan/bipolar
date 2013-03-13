@@ -17,7 +17,7 @@ import com.bipolar.states.MainMenu;
 import com.bipolar.states.WorldSelect;
 
 
-public class Bipolar extends StateBasedGame{
+public class Bipolar extends StateBasedGame {
 	
 	public static final int WIDTH			= 800;
 	public static final int HEIGHT			= 600;
@@ -28,8 +28,9 @@ public class Bipolar extends StateBasedGame{
 	public static final int WORLDSTATE		= 3;
 	public static final int SUBWORLDSTATE	= 4;
 	public static final int LEVELSTATE		= 5;
-	public static final int NUMWORLDS		= 2;
+	public static final int NUMWORLDS		= 1;
 	public static final int LEVELPERWORLD	= 10;
+	public static final boolean DEVMODE 	= true;
 	
 	public static int currentWorld;
 	public static int currentLevel;
@@ -58,8 +59,7 @@ public class Bipolar extends StateBasedGame{
 	}
 	
 	@Override
-	public boolean closeRequested()
-	{
+	public boolean closeRequested() {
 		System.out.println("closing");
 		try {
 			resources.saveGame();
@@ -80,7 +80,7 @@ public class Bipolar extends StateBasedGame{
 		this.getState(LEVELSTATE).init(container, this);
 	}
 	
-	public static void main(String[] args) throws SlickException{
+	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new Bipolar("Bipolar"));
 		
 		app.setDisplayMode(WIDTH, HEIGHT, false);

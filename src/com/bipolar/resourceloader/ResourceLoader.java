@@ -15,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.bipolar.Bipolar;
 
-public class ResourceLoader extends BasicGameState{
+public class ResourceLoader extends BasicGameState {
 	
 	public int stateID;
 	public static ResourceHandler resourceHandler = new ResourceHandler();
@@ -23,19 +23,19 @@ public class ResourceLoader extends BasicGameState{
 	boolean finishedLoading;
 	Scanner s;
 	
-	public ResourceLoader(int id){
+	public ResourceLoader(int id) {
 		this.stateID = id;
 	}
 	
-	public static Image getImage(String name){
+	public static Image getImage(String name) {
 		return resourceHandler.getImage(name.toLowerCase()).copy();
 	}
 	
-	public static Animation getAnimation(String name){
+	public static Animation getAnimation(String name) {
 		return resourceHandler.getAnimation(name.toLowerCase()).copy();
 	}
 	
-	public static Sound getSound(String name){
+	public static Sound getSound(String name) {
 		return resourceHandler.getSound(name.toLowerCase());
 	}
 	
