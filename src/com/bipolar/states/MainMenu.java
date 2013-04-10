@@ -21,6 +21,7 @@ public class MainMenu extends BasicGameState{
 	Sound testSound;
 	MenuButton newGame;
 	MenuButton loadGame;
+	MenuButton settings;
 	
 	public MainMenu(int id){
 		this.stateID = id;
@@ -35,11 +36,14 @@ public class MainMenu extends BasicGameState{
 		
 		this.newGame = new MenuButton(ResourceLoader.getAnimation("newbutton"), in);
 		this.loadGame = new MenuButton(ResourceLoader.getAnimation("loadbutton"), in);
+		this.settings = new MenuButton(ResourceLoader.getAnimation("gobutton"), in);
 		
 		this.newGame.setPosition((container.getWidth()/3) -
 				(this.newGame.getWidth() / 2), 250);
 		this.loadGame.setPosition((2 * container.getWidth()/3) -
 				(this.loadGame.getWidth() / 2), 250);
+		this.settings.setPosition((2 * container.getWidth()/4) -
+				(this.settings.getWidth() / 2), 250);
 	}
 	
 	@Override
@@ -49,18 +53,20 @@ public class MainMenu extends BasicGameState{
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		bkg.draw();
 		newGame.render();
 		loadGame.render();
+		settings.render();
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		newGame.update();
 		loadGame.update();
+		settings.update();
+		Bipolar.updateState(Bipolar.MENUSTATE);
+		
 		
 		if (newGame.getClicked()) {
 			game.enterState(Bipolar.INTROSTATE);
@@ -68,6 +74,10 @@ public class MainMenu extends BasicGameState{
 		
 		if (loadGame.getClicked()) {
 			game.enterState(Bipolar.WORLDSTATE);
+		}
+		
+		if (settings.getClicked()){
+			game.enterState(Bipolar.SETTINGSSTATE);
 		}
 	}
 

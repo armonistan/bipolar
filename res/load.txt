@@ -1,5 +1,12 @@
 image:menubackground:/res/menus/textures/menubackground.png
+image:settingsbackground:/res/menus/textures/settingsbackground.png
+image:tempball:/res/levels/textures/tempball.png
+image:tempballspawner:/res/levels/textures/tempballspawner.png
 animation:gobutton:/res/menus/textures/menubutton.png:125:85:100
 animation:newbutton:/res/menus/textures/newgame.png:125:85:100
 animation:loadbutton:/res/menus/textures/loadgame.png:125:85:100
+animation:upbutton:/res/menus/textures/upbutton.png:125:85:100
+animation:downbutton:/res/menus/textures/downbutton.png:125:85:100
+animation:applybutton:/res/menus/textures/applybutton.png:125:85:100
+animation:backbutton:/res/menus/textures/backbutton.png:125:85:100
 sound:testsound:/res/levels/sounds/test.wav

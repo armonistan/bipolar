@@ -14,6 +14,7 @@ import com.bipolar.states.Level;
 import com.bipolar.states.LevelSelect;
 import com.bipolar.states.MainMenu;
 import com.bipolar.states.WorldSelect;
+import com.bipolar.states.Settings;
 
 
 public class Bipolar extends StateBasedGame{
@@ -27,6 +28,7 @@ public class Bipolar extends StateBasedGame{
 	public static final int WORLDSTATE		= 3;
 	public static final int SUBWORLDSTATE	= 4;
 	public static final int LEVELSTATE		= 5;
+	public static final int SETTINGSSTATE	= 6;	
 	public static final int NUMWORLDS		= 8;
 	public static final int LEVELPERWORLD	= 10;
 	
@@ -36,9 +38,11 @@ public class Bipolar extends StateBasedGame{
 	
 	public static ResourceHandler resources;
 	
+	public static int lastState;
+	
 	public Bipolar(String name) {
 		super(name);
-		
+		lastState = 1;
 		world = new boolean[NUMWORLDS];
 		level = new ArrayList<boolean[]>();
 		for(int i = 0; i < NUMWORLDS; i++){
@@ -51,6 +55,7 @@ public class Bipolar extends StateBasedGame{
 		this.addState(new WorldSelect(WORLDSTATE));
 		this.addState(new LevelSelect(SUBWORLDSTATE));
 		this.addState(new Level(LEVELSTATE));
+		this.addState(new Settings(SETTINGSSTATE));
 		this.enterState(LOADINGSTATE);
 	}
 	
@@ -70,5 +75,13 @@ public class Bipolar extends StateBasedGame{
 		
 		app.setDisplayMode(WIDTH, HEIGHT, false);
 		app.start();
+	}
+	
+	public static int getLastState(){
+		return lastState;
+	}
+	
+	public static void updateState(int lS){
+		lastState = lS;
 	}
 }
