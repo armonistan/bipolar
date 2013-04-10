@@ -72,6 +72,7 @@ public class MainMenu extends BasicGameState {
 			game.enterState(Bipolar.INTROSTATE);
 		}
 		
+		
 		if (loadGame.getClicked() && Bipolar.intro) {
 			game.enterState(Bipolar.WORLDSTATE);
 		}

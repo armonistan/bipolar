@@ -29,7 +29,7 @@ public class Bipolar extends StateBasedGame {
 	public static final int WORLDSTATE		= 3;
 	public static final int SUBWORLDSTATE	= 4;
 	public static final int LEVELSTATE		= 5;
-	public static final int SETTINGSSTATE	= 6;	
+	public static final int SETTINGSSTATE	= 6;
 	public static final int NUMWORLDS		= 1;
 	public static final int LEVELPERWORLD	= 10;
 	public static final boolean DEVMODE 	= true;

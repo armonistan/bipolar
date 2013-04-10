@@ -36,7 +36,7 @@ public class Level extends BasicGameState {
 			throws SlickException {
 		this.in = container.getInput();
 		HashSet<Entity> entities = new HashSet<Entity>();
-		Player temp = new Player(ResourceLoader.getImage("tempball"), new Point(-1000,-1100), container.getInput());
+		Player temp = new Player(ResourceLoader.getImage("tempball"), new Point(0,0), container.getInput());
 		Ball bs = new Ball(ResourceLoader.getImage("tempball"), new Point(10,50));
 		entities.add(temp);
 		entities.add(bs);
@@ -68,7 +68,7 @@ public class Level extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		if (in.isKeyPressed(Input.KEY_A)) {
+		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		}
 		camera.update();
