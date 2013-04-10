@@ -15,38 +15,35 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.bipolar.Bipolar;
 
-public class ResourceLoader extends BasicGameState{
+public class ResourceLoader extends BasicGameState {
 	
 	public int stateID;
-	public static ResourceHandler resourceHandler = new ResourceHandler();
 	public String loadString;
 	boolean finishedLoading;
 	Scanner s;
 	
-	public ResourceLoader(int id){
+	public ResourceLoader(int id) {
 		this.stateID = id;
 	}
 	
-	public static Image getImage(String name){
-		return resourceHandler.getImage(name.toLowerCase());
+	public static Image getImage(String name) {
+		return ResourceHandler.getImage(name.toLowerCase()).copy();
 	}
 	
-	public static Animation getAnimation(String name){
-		return resourceHandler.getAnimation(name.toLowerCase());
+	public static Animation getAnimation(String name) {
+		return ResourceHandler.getAnimation(name.toLowerCase()).copy();
 	}
 	
-	public static Sound getSound(String name){
-		return resourceHandler.getSound(name.toLowerCase());
+	public static Sound getSound(String name) {
+		return ResourceHandler.getSound(name.toLowerCase());
 	}
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO ADD ALL OF THE RESOURCE LOADING DECLARATIONS HERE
 		try {
 			s = new Scanner(new File("res/load.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Cannot find load file");
 			e.printStackTrace();
 		}
@@ -54,19 +51,17 @@ public class ResourceLoader extends BasicGameState{
 		finishedLoading = false;
 		loadString = "loading resources...";
 		while (s.hasNextLine()) {
-			resourceHandler.parse(s.nextLine());
+			ResourceHandler.parse(s.nextLine());
 		}
 		
-		//loadString = "loading save data...";
 		try {
 			s = new Scanner(new File("res/sav.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Cannot find load file");
 			e.printStackTrace();
 		}
 		while (s.hasNextLine()) {
-			resourceHandler.loadGame(s.nextLine());
+			ResourceHandler.loadGame(s.nextLine());
 		}
 		
 		finishedLoading = true;

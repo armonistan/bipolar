@@ -1,12 +1,22 @@
+//BIPOLAR RESOURCE PATH LIST
+
+//MENU STUFF
 image:menubackground:/res/menus/textures/menubackground.png
 image:settingsbackground:/res/menus/textures/settingsbackground.png
 image:tempball:/res/levels/textures/tempball.png
 image:tempballspawner:/res/levels/textures/tempballspawner.png
-animation:gobutton:/res/menus/textures/menubutton.png:125:85:100
-animation:newbutton:/res/menus/textures/newgame.png:125:85:100
-animation:loadbutton:/res/menus/textures/loadgame.png:125:85:100
+animation:gobutton:/res/menus/textures/menubutton.png:125:85
+animation:newbutton:/res/menus/textures/newgame.png:125:85
+animation:loadbutton:/res/menus/textures/loadgame.png:125:85
+animation:w1button:/res/menus/textures/w1button.png:125:85
+animation:w2button:/res/menus/textures/w2button.png:125:85
+animation:w3button:/res/menus/textures/w3button.png:125:85
 animation:upbutton:/res/menus/textures/upbutton.png:125:85:100
 animation:downbutton:/res/menus/textures/downbutton.png:125:85:100
 animation:applybutton:/res/menus/textures/applybutton.png:125:85:100
 animation:backbutton:/res/menus/textures/backbutton.png:125:85:100
-sound:testsound:/res/levels/sounds/test.wav
+animation:worldbutton:/res/menus/textures/worldbutton.png:125:85
+animation:world0:/res/menus/textures/levelbuttons/world0.png:125:85
+animation:world1:/res/menus/textures/levelbuttons/world1.png:125:85
+
+//LEVEL STUFF

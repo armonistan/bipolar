@@ -1,6 +1,7 @@
 package com.bipolar.states;
 
 import java.awt.Point;
+import org.newdawn.slick.Color;
 import java.util.HashSet;
 
 import org.newdawn.slick.GameContainer;
@@ -12,26 +13,27 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.bipolar.Bipolar;
 import com.bipolar.entities.Ball;
+import com.bipolar.model.LevelController;
 import com.bipolar.entities.BallSpawner;
 import com.bipolar.entities.Entity;
 import com.bipolar.entities.Player;
 import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.view.Camera;
 
-public class Level extends BasicGameState{
+public class Level extends BasicGameState {
 	
 	public int stateID;
 	private Camera camera;
+	int worldID, levelID;
 	Input in;
 	
-	public Level(int id){
+	public Level(int id) {
 		this.stateID = id;
 	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		this.in = container.getInput();
 		HashSet<Entity> entities = new HashSet<Entity>();
 		Player temp = new Player(ResourceLoader.getImage("tempball"), new Point(-1000,-1100), container.getInput());
@@ -41,28 +43,47 @@ public class Level extends BasicGameState{
 		camera = new Camera(entities, container);
 		
 	}
-
+	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) {
+		this.worldID = Bipolar.currentWorld;
+		this.levelID = Bipolar.currentLevel;
+		if (Bipolar.DEVMODE) {
+			System.out.println("Welcome developer!");
+			//TODO set access for certain permissions here, like possible level editing
+		} else { 
+			//TODO interface with LevelController to load the appropriate level stuff
+		}
+		LevelController.enter();
+	}
+	
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		g.drawString("level", container.getWidth()/4, container.getHeight()/2);
+		g.setColor(Color.white);
+		g.drawString(this.worldID + ", " + this.levelID, container.getWidth()/2, container.getHeight()/2);
 		camera.render();
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		if(in.isKeyPressed(Input.KEY_ESCAPE)){
+		if (in.isKeyPressed(Input.KEY_A)) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		}
 		camera.update();
+		
+		if (in.isKeyPressed(Input.KEY_ENTER)) {
+			if (this.levelID + 1 < Bipolar.LEVELPERWORLD) {
+				Bipolar.level.get(this.worldID)[this.levelID + 1] = true;
+			} else if (this.worldID + 1 < Bipolar.NUMWORLDS){
+				Bipolar.world[this.worldID + 1] = true;
+			}
+		}
 	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return this.stateID;
 	}
 

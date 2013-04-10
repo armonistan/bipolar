@@ -5,7 +5,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -13,24 +12,22 @@ import com.bipolar.Bipolar;
 import com.bipolar.menuobjects.MenuButton;
 import com.bipolar.resourceloader.ResourceLoader;
 
-public class MainMenu extends BasicGameState{
+public class MainMenu extends BasicGameState {
 	
 	public int stateID;
 	Input in;
 	Image bkg;
-	Sound testSound;
 	MenuButton newGame;
 	MenuButton loadGame;
 	MenuButton settings;
 	
-	public MainMenu(int id){
+	public MainMenu(int id) {
 		this.stateID = id;
 	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		this.in = container.getInput();
 		this.bkg = ResourceLoader.getImage("menubackground");
 		
@@ -47,15 +44,15 @@ public class MainMenu extends BasicGameState{
 	}
 	
 	@Override
-	public void enter(GameContainer container, StateBasedGame game){
+	public void enter(GameContainer container, StateBasedGame game) {
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		bkg.draw();
-		newGame.render();
-		loadGame.render();
+		newGame.render(g);
+		loadGame.render(g);
 		settings.render();
 	}
 
@@ -68,11 +65,14 @@ public class MainMenu extends BasicGameState{
 		Bipolar.updateState(Bipolar.MENUSTATE);
 		
 		
-		if (newGame.getClicked()) {
+		if (newGame.getClicked() && !Bipolar.intro) {
+			Bipolar.intro = true;
+			Bipolar.world[0] = true;
+			Bipolar.level.get(0)[0] = true;
 			game.enterState(Bipolar.INTROSTATE);
 		}
 		
-		if (loadGame.getClicked()) {
+		if (loadGame.getClicked() && Bipolar.intro) {
 			game.enterState(Bipolar.WORLDSTATE);
 		}
 		
@@ -83,7 +83,6 @@ public class MainMenu extends BasicGameState{
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return this.stateID;
 	}
 

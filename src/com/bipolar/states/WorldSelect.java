@@ -8,42 +8,55 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.bipolar.Bipolar;
+import com.bipolar.menuobjects.WorldButton;
 
-public class WorldSelect extends BasicGameState{
+public class WorldSelect extends BasicGameState {
 	
 	public int stateID;
 	Input in;
+	WorldButton[] worlds;
 	
-	public WorldSelect(int id){
+	public WorldSelect(int id) {
 		this.stateID = id;
 	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		int row = 0;
 		this.in = container.getInput();
 		
+		worlds = new WorldButton[Bipolar.NUMWORLDS];
+		for (int world = 0; world < this.worlds.length; world++) {
+			this.worlds[world] = new WorldButton(world, in);
+			if (world % 4 == 0) {
+				row++;
+			}
+			this.worlds[world].setPosition(150 * world + 100, row * 100);
+		}
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		g.drawString("world select", container.getWidth()/3, container.getHeight()/3);
-		for(int i = 0; i < Bipolar.level.size(); i++){
-			g.drawString(Bipolar.level.get(i).toString(), 100, 100 + 15 * i);
+		for (int world = 0; world < this.worlds.length; world++) {
+			this.worlds[world].render(g);
 		}
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		if(in.isKeyPressed(Input.KEY_D)){
-			game.enterState(Bipolar.SUBWORLDSTATE);
+		for (int world = 0; world < this.worlds.length; world++) {
+			this.worlds[world].update();
+			if (this.worlds[world].getClicked() && Bipolar.world[world]) {
+				Bipolar.currentWorld = world;
+				System.out.println("Going to world " + world);
+				game.enterState(Bipolar.SUBWORLDSTATE);
+			}
 		}
-		if(in.isKeyPressed(Input.KEY_A)){
+		
+		if (in.isKeyPressed(Input.KEY_A)) {
 			game.enterState(Bipolar.MENUSTATE);
 		}
 		
@@ -51,7 +64,6 @@ public class WorldSelect extends BasicGameState{
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return this.stateID;
 	}
 
