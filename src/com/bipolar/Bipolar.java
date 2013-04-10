@@ -38,8 +38,6 @@ public class Bipolar extends StateBasedGame {
 	public static boolean world[];
 	public static ArrayList<boolean[]> level;
 	
-	public static ResourceHandler resources = ResourceLoader.resourceHandler;
-	
 	public Bipolar(String name) {
 		super(name);
 		
@@ -62,7 +60,7 @@ public class Bipolar extends StateBasedGame {
 	public boolean closeRequested() {
 		System.out.println("closing");
 		try {
-			resources.saveGame();
+			ResourceHandler.saveGame();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

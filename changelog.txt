@@ -22,3 +22,10 @@ Changed the syntax of the load file to add comments
 Changed the functionality of the save file to work even if it is blank
 Added changelog
 General bugfixes and syntax updates
+
+ALPHA 0.4
+-----------
+Settings menu added
+Camera added
+Changed ResourceHandler to be a static class
+Implemented LevelController, EntityController, PlayerController, Entity shells

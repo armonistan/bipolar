@@ -18,7 +18,6 @@ import com.bipolar.Bipolar;
 public class ResourceLoader extends BasicGameState {
 	
 	public int stateID;
-	public static ResourceHandler resourceHandler = new ResourceHandler();
 	public String loadString;
 	boolean finishedLoading;
 	Scanner s;
@@ -28,15 +27,15 @@ public class ResourceLoader extends BasicGameState {
 	}
 	
 	public static Image getImage(String name) {
-		return resourceHandler.getImage(name.toLowerCase()).copy();
+		return ResourceHandler.getImage(name.toLowerCase()).copy();
 	}
 	
 	public static Animation getAnimation(String name) {
-		return resourceHandler.getAnimation(name.toLowerCase()).copy();
+		return ResourceHandler.getAnimation(name.toLowerCase()).copy();
 	}
 	
 	public static Sound getSound(String name) {
-		return resourceHandler.getSound(name.toLowerCase());
+		return ResourceHandler.getSound(name.toLowerCase());
 	}
 	
 	@Override
@@ -52,7 +51,7 @@ public class ResourceLoader extends BasicGameState {
 		finishedLoading = false;
 		loadString = "loading resources...";
 		while (s.hasNextLine()) {
-			resourceHandler.parse(s.nextLine());
+			ResourceHandler.parse(s.nextLine());
 		}
 		
 		try {
@@ -62,7 +61,7 @@ public class ResourceLoader extends BasicGameState {
 			e.printStackTrace();
 		}
 		while (s.hasNextLine()) {
-			resourceHandler.loadGame(s.nextLine());
+			ResourceHandler.loadGame(s.nextLine());
 		}
 		
 		finishedLoading = true;
