@@ -1,0 +1,28 @@
+
+.metadata
+[Bb]in/
+[Tt]mp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+*.*~
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+# merge conflicts
+.orig
+
+
