@@ -56,10 +56,10 @@ public class Settings extends BasicGameState{
 			throws SlickException {
 		// TODO Auto-generated method stub
 		bkg.draw();
-		upButton.render();
-		downButton.render();
-		applyButton.render();
-		goBackButton.render();
+		upButton.render(g);
+		downButton.render(g);
+		applyButton.render(g);
+		goBackButton.render(g);
 	}
 
 	@Override

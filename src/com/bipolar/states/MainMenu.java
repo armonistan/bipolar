@@ -53,7 +53,7 @@ public class MainMenu extends BasicGameState {
 		bkg.draw();
 		newGame.render(g);
 		loadGame.render(g);
-		settings.render();
+		settings.render(g);
 	}
 
 	@Override
