@@ -14,6 +14,10 @@ public class BallSpawner extends Entity {
 		super(img, p);
 	}
 	
+	public BallSpawner(int xpos, int ypos) {
+		super(xpos, ypos);
+	}
+
 	public void update(){
 	}
 	

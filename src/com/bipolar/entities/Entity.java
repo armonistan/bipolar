@@ -15,6 +15,7 @@ public class Entity {
 	protected Point position;
 	
 	protected Image image;
+	protected boolean solid, state;
 	
 	private Polygon quad = new Polygon(); 
 	
@@ -26,6 +27,18 @@ public class Entity {
 		width = img.getWidth();
 		height = img.getHeight();
 		setPosition(position);
+	}
+	
+	public Entity(int x, int y) {
+		Point p = new Point(x, y);
+		position = p;
+	}
+	
+	public Entity(int x, int y, boolean solid, boolean state){
+		Point p = new Point(x, y);
+		this.position = p;
+		this.solid = solid;
+		this.state = state;
 	}
 	
 	public void setPosition(Point p){
@@ -46,7 +59,7 @@ public class Entity {
 			if(cP.contains(p)){
 				image.draw(position.x, position.y);
 				return;
-			}			
+			}
 		}
 	}
 	

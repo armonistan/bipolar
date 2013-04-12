@@ -1,2 +1,9 @@
 //entity type:x location:y location:solid:state
+//tells the parser where a level's objects begin and end
+#:0:0
 player:100:100:1:0
+#:0:0
+
+#:0:1
+ball:100:100:1:0
+#:0:1

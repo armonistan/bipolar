@@ -1,5 +1,10 @@
 package com.bipolar.entities;
 
-public class Wire {
+public class Wire extends Entity{
+
+	public Wire(int xpos, int ypos, boolean solid, boolean state) {
+		// TODO Auto-generated constructor stub
+		super(xpos, ypos, solid, state);
+	}
 
 }

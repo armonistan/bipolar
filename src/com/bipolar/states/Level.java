@@ -56,6 +56,7 @@ public class Level extends BasicGameState {
 			//TODO interface with LevelController to load the appropriate level stuff
 		}
 		LevelController.enter();
+		Player.setInput(in);
 	}
 	
 	@Override
