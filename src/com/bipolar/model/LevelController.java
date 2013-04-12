@@ -3,6 +3,7 @@ package com.bipolar.model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.newdawn.slick.Graphics;
@@ -17,6 +18,8 @@ public class LevelController {
 	
 	private static int levelID;
 	private static int worldID;
+	public static ArrayList<Entity> levelObjects;
+	public static Entity player;
 	private static Scanner s;
 	public static Image background, midground, foreground;
 	
@@ -33,7 +36,11 @@ public class LevelController {
 	}
 	
 	public static void init() {
-		
+		//be sure to give me the player
+	}
+	
+	public static Entity getPlayer(){
+		return player;
 	}
 	
 	public static void enter() {

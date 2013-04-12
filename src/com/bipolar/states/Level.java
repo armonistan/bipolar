@@ -2,7 +2,8 @@ package com.bipolar.states;
 
 import java.awt.Point;
 import org.newdawn.slick.Color;
-import java.util.HashSet;
+
+import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,12 +36,12 @@ public class Level extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.in = container.getInput();
-		HashSet<Entity> entities = new HashSet<Entity>();
+		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Player temp = new Player(ResourceLoader.getImage("tempball"), new Point(0,0), container.getInput());
 		Ball bs = new Ball(ResourceLoader.getImage("tempball"), new Point(10,50));
 		entities.add(temp);
 		entities.add(bs);
-		camera = new Camera(entities, container);
+		camera = new Camera(container);
 		
 	}
 	
