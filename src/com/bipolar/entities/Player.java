@@ -4,12 +4,23 @@ import java.awt.Point;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
+import com.bipolar.resourceloader.ResourceLoader;
+
 public class Player extends Entity{
 	
-	Input input;
+	static Input input;
 	
 	public Player(Image img, Point p, Input in){
 		super(img, p);
+		input = in;
+	}
+	
+	public Player(int xpos, int ypos) {
+		super(xpos, ypos);
+		this.image = ResourceLoader.getImage("tempball");
+	}
+	
+	public static void setInput(Input in) {
 		input = in;
 	}
 	

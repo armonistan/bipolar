@@ -3,8 +3,6 @@ package com.bipolar.model;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.newdawn.slick.GameContainer;
@@ -14,12 +12,24 @@ import org.newdawn.slick.SlickException;
 
 import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
+import com.bipolar.entities.BallSpawner;
 import com.bipolar.entities.Ball;
+import com.bipolar.entities.Bar;
 import com.bipolar.entities.Entity;
+import com.bipolar.entities.Field;
+import com.bipolar.entities.Fuse;
+import com.bipolar.entities.Gate;
+import com.bipolar.entities.Machine;
 import com.bipolar.entities.Player;
 import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.states.Level;
 import com.bipolar.view.Camera;
+import com.bipolar.entities.Pad;
+import com.bipolar.entities.Player;
+import com.bipolar.entities.Sparks;
+import com.bipolar.entities.Sphere;
+import com.bipolar.entities.Steam;
+import com.bipolar.entities.Wire;
 
 public class LevelController {
 	
@@ -45,7 +55,6 @@ public class LevelController {
 		EntityController.init(c);
 		camera = new Camera(c);
 	}
-	
 	
 	public static void enter() {
 		/*
@@ -77,9 +86,64 @@ public class LevelController {
 		}
 		
 		if (s != null) {
+			boolean inLevel = false;
+			
 			while (s.hasNextLine()) {
-				//convert teach one to entity and add to entity controller
+				String parsee = s.nextLine();
+				parsee = parsee.toLowerCase();
+				if (parsee.startsWith("#")) {
+					String[] split = parsee.split("[: ]+");
+					if((Integer.parseInt(split[1]) 
+							== LevelController.worldID)
+							&& (Integer.parseInt(split[2])
+							== LevelController.levelID)) {
+						inLevel = !inLevel;
+					}
+				} else if (inLevel && !(parsee.length() < 2) 
+						&& !(parsee.startsWith("//"))) {
+					LevelController.parse(parsee);
+				}
 			}
+		}
+	}
+	
+	public static void parse(String args) {
+		if (!args.equals(null) && args.length() > 1) {
+				String[] split = args.split("[: ]+");
+
+				String type = split[0];
+				int xpos = Integer.parseInt(split[1]);
+				int ypos = Integer.parseInt(split[2]);
+				boolean solid = Boolean.parseBoolean(split[3]);
+				boolean state = Boolean.parseBoolean(split[4]);
+				
+				System.out.println("Adding object: " + type + " to level.");
+				
+				if (type.equals("player")) {
+					EntityController.addEntity(new Player(xpos, ypos));
+				} else if (type.equals("ballspawner")) {
+					EntityController.addEntity(new BallSpawner(xpos, ypos));
+				} else if (type.equals("bar")) {
+					EntityController.addEntity(new Bar(xpos, ypos, solid, state));
+				} else if (type.equals("field")) {
+					EntityController.addEntity(new Field(xpos, ypos, solid, state));
+				} else if (type.equals("fuse")) {
+					EntityController.addEntity(new Fuse(xpos, ypos, solid, state));
+				} else if (type.equals("gate")) {
+					EntityController.addEntity(new Gate(xpos, ypos, solid, state));
+				} else if (type.equals("machine")) {
+					EntityController.addEntity(new Machine(xpos, ypos, solid, state));
+				} else if (type.equals("pad")) {
+					EntityController.addEntity(new Pad(xpos, ypos, solid, state));
+				} else if (type.equals("sparks")) {
+					EntityController.addEntity(new Sparks(xpos, ypos, solid, state));
+				} else if (type.equals("sphere")) {
+					EntityController.addEntity(new Sphere(xpos, ypos, solid, state));
+				} else if (type.equals("steam")) {
+					EntityController.addEntity(new Steam(xpos, ypos, solid, state));
+				} else if (type.equals("wire")) {
+					EntityController.addEntity(new Wire(xpos, ypos, solid, state));
+				}
 		}
 	}
 	
