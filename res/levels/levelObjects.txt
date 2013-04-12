@@ -1,0 +1,2 @@
+//entity type:x location:y location:solid:state
+player:100:100:1:0

@@ -11,6 +11,7 @@ import org.newdawn.slick.SlickException;
 
 import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
+import com.bipolar.entities.Entity;
 
 public class LevelController {
 	
@@ -56,23 +57,12 @@ public class LevelController {
 	}
 	
 	public static void populateLevel() throws SlickException {
-		String level = "res/levels/world" +LevelController.worldID + "/"
-				+ LevelController.worldID + "-"
-				+ LevelController.levelID + ".txt";
-		File levelFile = new File(level);
+		String level = "res/levels/levelObjects.txt";
 		
 		try {
-			s = new Scanner(levelFile);
+			s = new Scanner(new File(level));
 		} catch (FileNotFoundException e) {
-			System.out.println("Creating blank level file " 
-				+ LevelController.worldID + "," + LevelController.levelID);
-			try {
-				levelFile.createNewFile();
-				s = new Scanner(levelFile);
-			} catch (IOException e1) {
-				System.out.println("How did you get here..?");
-				e1.printStackTrace();
-			}
+			System.out.println("Could not find level object file.");
 		}
 		
 		if (s != null) {
