@@ -23,5 +23,9 @@ public class Player extends Entity{
 		else if(input.isKeyDown(input.KEY_D))
 			position.x++;
 	}
+	
+	public String toString(){
+		return "player";
+	}
 
 }

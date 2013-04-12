@@ -14,6 +14,6 @@ public class Ball extends Entity{
 	}
 	
 	public void update(){
-		position.x++;
+		
 	}
 }

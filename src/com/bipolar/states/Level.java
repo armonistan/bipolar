@@ -13,6 +13,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.bipolar.Bipolar;
+import com.bipolar.controller.EntityController;
 import com.bipolar.entities.Ball;
 import com.bipolar.model.LevelController;
 import com.bipolar.entities.BallSpawner;
@@ -36,13 +37,7 @@ public class Level extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.in = container.getInput();
-		ArrayList<Entity> entities = new ArrayList<Entity>();
-		Player temp = new Player(ResourceLoader.getImage("tempball"), new Point(0,0), container.getInput());
-		Ball bs = new Ball(ResourceLoader.getImage("tempball"), new Point(10,50));
-		entities.add(temp);
-		entities.add(bs);
-		camera = new Camera(container);
-		
+		LevelController.init(container);
 	}
 	
 	@Override
@@ -63,7 +58,7 @@ public class Level extends BasicGameState {
 			throws SlickException {
 		g.setColor(Color.white);
 		g.drawString(this.worldID + ", " + this.levelID, container.getWidth()/2, container.getHeight()/2);
-		camera.render();
+		LevelController.renderLevel(g);
 	}
 
 	@Override
@@ -72,7 +67,7 @@ public class Level extends BasicGameState {
 		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		}
-		camera.update();
+		LevelController.updateLevel();
 		
 		if (in.isKeyPressed(Input.KEY_ENTER)) {
 			if (this.levelID + 1 < Bipolar.LEVELPERWORLD) {
