@@ -49,4 +49,8 @@ public class Entity {
 			}			
 		}
 	}
+	
+	public Polygon getPosition(){
+		return quad;
+	}
 }
