@@ -53,7 +53,6 @@ public class LevelController {
 	}
 	
 	public static void init(GameContainer c) {
-		EntityController.init(c);
 		camera = new Camera(c);
 	}
 	
@@ -122,7 +121,9 @@ public class LevelController {
 				System.out.println("Adding object: " + type + " to level.");
 				
 				if (type.equals("player")) {
-					EntityController.addEntity(new Player(xpos, ypos));
+					Player temp = new Player(xpos, ypos);
+					EntityController.setPlayer(temp);
+					EntityController.addEntity(temp);
 				} else if (type.equals("platform")) {
 					EntityController.addEntity(new Platform(xpos, ypos, xsize, ysize));
 				} else if (type.equals("ballspawner")) {

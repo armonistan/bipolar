@@ -15,16 +15,12 @@ public class EntityController {
 	public static ArrayList<Entity> levelObjects = new ArrayList<Entity>();
 	public static Player player;
 	
-	public static void init(GameContainer c){
-		levelObjects = new ArrayList<Entity>();
-		player = new Player(ResourceLoader.getImage("tempball"), new Point(100,100), c.getInput());
-		//Ball bs = new Ball(ResourceLoader.getImage("tempball"), new Point(1500,50));
-		levelObjects.add(player);
-		//levelObjects.add(bs);
-	}
-	
 	public static void addEntity(Entity e){
 		EntityController.levelObjects.add(e);
+	}
+	
+	public static void setPlayer(Player p){
+		player = p;
 	}
 	
 	public static void deleteAllEntities(){

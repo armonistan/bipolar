@@ -28,16 +28,16 @@ public class Camera {
 	
 	public void update(){
 		Polygon player = EntityController.player.getPosition();
-		System.out.println(EntityController.player + "\n");
-		//System.out.println("cx: " + cameraPort.xpoints[0] + ", cy: " + cameraPort.ypoints[0]);
+		//System.out.println(EntityController.player + "\n");
+
 		
-		if(player.xpoints[0] < cameraPort.xpoints[0] + (width/5))
+		if(player.xpoints[0] <= cameraPort.xpoints[0] + (int)(width/5))
 			moveCameraPortX(-1);
-		else if(player.xpoints[1] > cameraPort.xpoints[1] - (width/5))
+		else if(player.xpoints[1] >= cameraPort.xpoints[1] - (int)(width/5))
 			moveCameraPortX(1);
-		if(player.ypoints[0] < cameraPort.ypoints[0] + (height/5))
+		if(player.ypoints[0] <= cameraPort.ypoints[0] + (int)(height/5))
 			moveCameraPortY(-1);
-		else if(player.ypoints[2] < cameraPort.xpoints[2] - (height/5))
+		else if(player.ypoints[2] >= cameraPort.ypoints[2] - (int)(height/5))
 			moveCameraPortY(1);
 	}
 	
