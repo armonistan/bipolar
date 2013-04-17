@@ -18,7 +18,7 @@ public class EntityController {
 	public static void init(GameContainer c){
 		levelObjects = new ArrayList<Entity>();
 		player = new Player(ResourceLoader.getImage("tempball"), new Point(100,100), c.getInput());
-		//Ball bs = new Ball(ResourceLoader.getImage("tempball"), new Point(10,50));
+		//Ball bs = new Ball(ResourceLoader.getImage("tempball"), new Point(1500,50));
 		levelObjects.add(player);
 		//levelObjects.add(bs);
 	}
@@ -42,7 +42,7 @@ public class EntityController {
 	
 	public static void render(Camera c){
 		for (Entity levelObject: levelObjects) {
-			levelObject.render(c.getCameraPort());
+			levelObject.render(c);
 		}
 	}
 }

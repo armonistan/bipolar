@@ -36,7 +36,7 @@ public class Player extends Entity{
 	}
 	
 	public String toString(){
-		return "player";
+		return 	("x: " + position.x + ", y: " + position.y);
 	}
 
 }

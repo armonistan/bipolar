@@ -7,22 +7,27 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
+import com.bipolar.view.Camera;
+
 public class Entity {
 	
 	protected int width;
 	protected int height;
 	
 	protected Point position;
+	protected Point transformedPosition;
 	
 	protected Image image;
 	protected boolean solid, state;
 	
 	private Polygon quad = new Polygon(); 
+	private Polygon transformedQuad = new Polygon();
 	
 	public Entity(Image img, Point p){
 		image = img;
 		
 		position = p;
+		transformedPosition = p;
 		
 		width = img.getWidth();
 		height = img.getHeight();
@@ -50,20 +55,43 @@ public class Entity {
 		quad.addPoint(position.x+width, position.y+height);
 	}
 	
+	public void setTransformedPosition(Point p){
+		Point transformedPosition = p;
+		
+		transformedQuad.addPoint(transformedPosition.x, transformedPosition.y);
+		transformedQuad.addPoint(transformedPosition.x+width, transformedPosition.y);
+		transformedQuad.addPoint(transformedPosition.x, transformedPosition.y+height);
+		transformedQuad.addPoint(transformedPosition.x+width, transformedPosition.y+height);
+	}
+	
 	public void update(){
 	}
 	
-	public void render(Polygon cP){
-		for(int i = 0; i<cP.npoints; i++){
-			Point p = new Point(quad.xpoints[i], quad.ypoints[i]);
-			if(cP.contains(p)){
-				image.draw(position.x, position.y);
+	public void render(Camera c){
+		transform(c);
+		for(int i = 0; i<c.getCameraPort().npoints; i++){
+			Point p = new Point(transformedQuad.xpoints[i], transformedQuad.ypoints[i]);
+			
+			if(c.getCameraPort().contains(p)){
+				image.draw(transformedPosition.x, transformedPosition.x);
 				return;
 			}
 		}
 	}
 	
+	public void transform(Camera c){
+		
+		int transformedX = position.x - c.getCameraPort().xpoints[0];
+		int transformedY = position.y - c.getCameraPort().ypoints[0];
+	
+		transformedPosition = new Point(transformedX, transformedY);
+		System.out.println("check: " + transformedX + "," + transformedY);
+		
+		setTransformedPosition(transformedPosition);
+	}
+	
 	public Polygon getPosition(){
+		setPosition(position);
 		return quad;
 	}
 }
