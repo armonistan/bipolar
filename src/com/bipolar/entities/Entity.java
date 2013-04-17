@@ -21,7 +21,7 @@ public class Entity {
 	protected Image image;
 	protected boolean solid, state;
 	
-	private Polygon quad = new Polygon(); 
+	private Polygon quad = new Polygon();
 	private Polygon transformedQuad = new Polygon();
 	
 	public Entity(Image img, Point p){
