@@ -15,3 +15,15 @@ animation:backbutton:/res/menus/textures/backbutton.png:125:85:100
 animation:worldbutton:/res/menus/textures/worldbutton.png:125:85
 
 //LEVEL STUFF
+image:ball:/res/levels/spritesheets/ball.png
+image:ballspawner:/res/levels/spritesheets/ballspawner.png
+image:bar:/res/levels/spritesheets/bar.png
+image:fuse:/res/levels/spritesheets/fuse.png
+image:gate:/res/levels/spritesheets/gate.png
+image:machine:/res/levels/spritesheets/machine.png
+image:pad:/res/levels/spritesheets/pad.png
+image:player:/res/levels/spritesheets/player.png
+image:playerspawner:/res/levels/spritesheets/playerspawner.png
+image:smoke:/res/levels/spritesheets/smoke.png
+image:sparks:/res/levels/spritesheets/sparks.png
+image:sphere:/res/levels/spritesheets/sphere.png
