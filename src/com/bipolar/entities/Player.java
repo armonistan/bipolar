@@ -10,11 +10,6 @@ public class Player extends Entity{
 	
 	static Input input;
 	
-	public Player(Image img, Point p, Input in){
-		super(img, p);
-		input = in;
-	}
-	
 	public Player(int xpos, int ypos) {
 		super(xpos, ypos);
 		this.image = ResourceLoader.getImage("tempball");

@@ -2,6 +2,8 @@ package com.bipolar.entities;
 
 import org.newdawn.slick.geom.Rectangle;
 
+import com.bipolar.resourceloader.ResourceLoader;
+
 public class Platform extends Entity{
 
 	int width;
@@ -10,6 +12,7 @@ public class Platform extends Entity{
 	
 	public Platform(int x, int y) {
 		super(x, y);
+		image = ResourceLoader.getImage("tempball");
 		this.width = 100;
 		this.height = 25;
 		this.setGeom(x, y, this.width, this.height);
@@ -18,6 +21,7 @@ public class Platform extends Entity{
 	
 	public Platform(int x, int y, int width, int height) {
 		super(x, y);
+		this.image = ResourceLoader.getImage("tempball");
 		this.width = width;
 		this.height = height;
 		this.setGeom(x, y, width, height);
