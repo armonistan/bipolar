@@ -19,7 +19,7 @@ public class Entity {
 	protected Image image;
 	protected boolean solid, state;
 	
-	private Polygon quad = new Polygon(); 
+	private Polygon quad = new Polygon();
 	
 	public Entity(Image img, Point p){
 		image = img;
@@ -57,7 +57,7 @@ public class Entity {
 	}
 	
 	public void render(Polygon cP){
-		for(int i = 0; i<cP.npoints; i++){
+		for (int i = 0; i<cP.npoints; i++) {
 			Point p = new Point(quad.xpoints[i], quad.ypoints[i]);
 			if(cP.contains(p) && !image.equals(null)){
 				image.draw(position.x, position.y);
