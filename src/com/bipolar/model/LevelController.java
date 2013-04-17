@@ -20,6 +20,7 @@ import com.bipolar.entities.Field;
 import com.bipolar.entities.Fuse;
 import com.bipolar.entities.Gate;
 import com.bipolar.entities.Machine;
+import com.bipolar.entities.Platform;
 import com.bipolar.entities.Player;
 import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.states.Level;
@@ -67,18 +68,17 @@ public class LevelController {
 		 */
 		LevelController.setLevel(Bipolar.currentLevel);
 		LevelController.setWorld(Bipolar.currentWorld);
-		/*try {
+		try {
 			LevelController.populateLevel();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 	}
 	
 	public static void populateLevel() throws SlickException {
 		String level = "res/levels/levelObjects.txt";
-		
 		try {
 			s = new Scanner(new File(level));
 		} catch (FileNotFoundException e) {
@@ -114,6 +114,8 @@ public class LevelController {
 				String type = split[0];
 				int xpos = Integer.parseInt(split[1]);
 				int ypos = Integer.parseInt(split[2]);
+				int xsize = Integer.parseInt(split[3]);
+				int ysize = Integer.parseInt(split[4]);
 				boolean solid = Boolean.parseBoolean(split[3]);
 				boolean state = Boolean.parseBoolean(split[4]);
 				
@@ -121,6 +123,8 @@ public class LevelController {
 				
 				if (type.equals("player")) {
 					EntityController.addEntity(new Player(xpos, ypos));
+				} else if (type.equals("platform")) {
+					EntityController.addEntity(new Platform(xpos, ypos, xsize, ysize));
 				} else if (type.equals("ballspawner")) {
 					EntityController.addEntity(new BallSpawner(xpos, ypos));
 				} else if (type.equals("bar")) {

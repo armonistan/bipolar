@@ -7,6 +7,8 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
+import com.bipolar.resourceloader.ResourceLoader;
+
 public class Entity {
 	
 	protected int width;
@@ -31,7 +33,8 @@ public class Entity {
 	
 	public Entity(int x, int y) {
 		Point p = new Point(x, y);
-		position = p;
+		this.position = p;
+		this.image = ResourceLoader.getImage("tempballspawner");
 	}
 	
 	public Entity(int x, int y, boolean solid, boolean state){
@@ -56,7 +59,7 @@ public class Entity {
 	public void render(Polygon cP){
 		for(int i = 0; i<cP.npoints; i++){
 			Point p = new Point(quad.xpoints[i], quad.ypoints[i]);
-			if(cP.contains(p)){
+			if(cP.contains(p) && !image.equals(null)){
 				image.draw(position.x, position.y);
 				return;
 			}
