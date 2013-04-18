@@ -68,14 +68,8 @@ public class Entity {
 	
 	public void render(Camera c){
 		transform(c);
-<<<<<<< HEAD
-		for(int i = 0; i<c.getCameraPort().npoints; i++){
-			Point p = new Point(transformedQuad.xpoints[i], transformedQuad.ypoints[i]);
-			if(c.getCameraPort().contains(p) && !image.equals(null)){
-=======
 		if(!image.equals(null)){
 				System.out.println("drawn");
->>>>>>> 67b437e581f08a6793f31bbeeff7c5b61db540ec
 				image.draw(transformedPosition.x, transformedPosition.y);
 				return;
 		}
