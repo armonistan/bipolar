@@ -1,6 +1,5 @@
 package com.bipolar.model;
 
-import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -13,20 +12,16 @@ import org.newdawn.slick.SlickException;
 import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
 import com.bipolar.entities.BallSpawner;
-import com.bipolar.entities.Ball;
 import com.bipolar.entities.Bar;
-import com.bipolar.entities.Entity;
 import com.bipolar.entities.Field;
 import com.bipolar.entities.Fuse;
 import com.bipolar.entities.Gate;
 import com.bipolar.entities.Machine;
 import com.bipolar.entities.Platform;
 import com.bipolar.entities.Player;
-import com.bipolar.resourceloader.ResourceLoader;
-import com.bipolar.states.Level;
+import com.bipolar.entities.PlayerSpawner;
 import com.bipolar.view.Camera;
 import com.bipolar.entities.Pad;
-import com.bipolar.entities.Player;
 import com.bipolar.entities.Sparks;
 import com.bipolar.entities.Sphere;
 import com.bipolar.entities.Steam;
@@ -39,6 +34,7 @@ public class LevelController {
 	private static Scanner s;
 	public static Image background, midground, foreground;
 	public static Camera camera;
+	public static int delta;
 	
 	public static void setLevel(int level) {
 		if (level > -1 && level < Bipolar.LEVELPERWORLD) {
@@ -128,6 +124,8 @@ public class LevelController {
 					EntityController.addEntity(new Platform(xpos, ypos, xsize, ysize));
 				} else if (type.equals("ballspawner")) {
 					EntityController.addEntity(new BallSpawner(xpos, ypos));
+				} else if (type.equals("playerspawner")) {
+					EntityController.addEntity(new PlayerSpawner(xpos, ypos));
 				} else if (type.equals("bar")) {
 					EntityController.addEntity(new Bar(xpos, ypos, solid, state));
 				} else if (type.equals("field")) {
@@ -168,9 +166,10 @@ public class LevelController {
 		LevelController.foreground = frg;
 	}
 	
-	public static void updateLevel() {
+	public static void updateLevel(int delta) {
 		EntityController.update();
-		camera.update();
+		LevelController.delta = delta;
+		LevelController.camera.update();
 	}
 	
 	public static void renderLevel(Graphics g) {

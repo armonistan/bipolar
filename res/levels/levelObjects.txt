@@ -4,8 +4,9 @@
 
 //tells the parser where a level's objects begin and end
 #:0:0
-player:300:300:1:0
-platform:50:125:200:25
+fuse:100:400:1:1
+platform:50:125:2000:25
+player:400:300:1:0
 #:0:0
 
 #:0:1

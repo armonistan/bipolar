@@ -12,6 +12,7 @@ public class BallSpawner extends Entity {
 	
 	public BallSpawner(int xpos, int ypos) {
 		super(xpos, ypos);
+		this.image = ResourceLoader.getImage("ballspawner");
 	}
 
 	public void update(){

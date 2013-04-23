@@ -29,3 +29,9 @@ Settings menu added
 Camera added
 Changed ResourceHandler to be a static class
 Implemented LevelController, EntityController, PlayerController, Entity shells
+
+ALPHA 0.5
+-----------
+LevelController finished
+Camera finished
+Basic Sprite set added

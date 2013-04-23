@@ -1,8 +1,12 @@
 package com.bipolar.entities;
 
-import org.newdawn.slick.geom.Rectangle;
+import java.awt.Point;
 
-import com.bipolar.resourceloader.ResourceLoader;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Transform;
+
+import com.bipolar.states.Level;
+import com.bipolar.view.Camera;
 
 public class Platform extends Entity{
 
@@ -12,7 +16,7 @@ public class Platform extends Entity{
 	
 	public Platform(int x, int y) {
 		super(x, y);
-		image = ResourceLoader.getImage("tempball");
+		image = null;
 		this.width = 100;
 		this.height = 25;
 		this.setGeom(x, y, this.width, this.height);
@@ -21,9 +25,9 @@ public class Platform extends Entity{
 	
 	public Platform(int x, int y, int width, int height) {
 		super(x, y);
-		this.image = ResourceLoader.getImage("tempball");
 		this.width = width;
 		this.height = height;
+		this.position = new Point(x, y);
 		this.setGeom(x, y, width, height);
 	}
 	
@@ -31,8 +35,16 @@ public class Platform extends Entity{
 		hitbox = new Rectangle(x, y, width, height);
 	}
 	
-	public void render(){
-		
+	public void render(Camera c){
+		transform(c);
+		new Transform();
+		Transform drawTf = Transform.createTranslateTransform
+				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
+		Level.drawObj.draw(this.hitbox.transform(drawTf));
+	}
+	
+	public void update(){
+		//System.out.println("Hitbox x: " + this.transformedPosition.x + ", y: " + this.transformedPosition.y);
 	}
 	
 }

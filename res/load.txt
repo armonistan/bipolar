@@ -24,6 +24,6 @@ image:machine:/res/levels/spritesheets/machine.png
 image:pad:/res/levels/spritesheets/pad.png
 image:player:/res/levels/spritesheets/player.png
 image:playerspawner:/res/levels/spritesheets/playerspawner.png
-image:smoke:/res/levels/spritesheets/smoke.png
+image:steam:/res/levels/spritesheets/steam.png
 image:sparks:/res/levels/spritesheets/sparks.png
 image:sphere:/res/levels/spritesheets/sphere.png

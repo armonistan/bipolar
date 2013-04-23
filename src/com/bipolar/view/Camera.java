@@ -1,57 +1,57 @@
 package com.bipolar.view;
 
-import java.awt.Polygon;
-import java.util.ArrayList;
-
 import org.newdawn.slick.GameContainer;
-
+import org.newdawn.slick.geom.Rectangle;
+import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
-import com.bipolar.entities.*;
-import com.bipolar.model.LevelController;
 
 public class Camera {
 	
-	private Polygon cameraPort;
+	public Rectangle cameraPort;
+	public Rectangle innerBox;
 	public int width;
 	public int height;
 	
+	private float dx, dy;
+	
 	public Camera(GameContainer w){
-		cameraPort = new Polygon();
-		cameraPort.addPoint(0, 0);
-		cameraPort.addPoint(w.getWidth(), 0);
-		cameraPort.addPoint(0, w.getHeight());
-		cameraPort.addPoint(w.getWidth(), w.getHeight());
-		
-		width = w.getWidth();
-		height = w.getHeight();
+		this.height = Bipolar.HEIGHT;
+		this.width = Bipolar.WIDTH;
+		cameraPort = new Rectangle(0, 0, this.width, this.height);
+		innerBox = new Rectangle( this.width / 4, this.height / 4, 
+				this.width / 2, this.height / 2);
 	}
 	
 	public void update(){
-		Polygon player = EntityController.player.getPosition();
-		//System.out.println(EntityController.player + "\n");
-
+		Rectangle player = EntityController.player.getPosition();
+		dx = EntityController.player.getVelocity().x;
+		dy = EntityController.player.getVelocity().y;
 		
-		if(player.xpoints[0] <= cameraPort.xpoints[0] + (int)(width/5))
-			moveCameraPortX(-1);
-		else if(player.xpoints[1] >= cameraPort.xpoints[1] - (int)(width/5))
-			moveCameraPortX(1);
-		if(player.ypoints[0] <= cameraPort.ypoints[0] + (int)(height/5))
-			moveCameraPortY(-1);
-		else if(player.ypoints[2] >= cameraPort.ypoints[2] - (int)(height/5))
-			moveCameraPortY(1);
+		if(player.getMinX() < innerBox.getMinX()) {
+			this.moveCameraPortX(dx - 1);
+		}
+		if(player.getMaxX() > innerBox.getMaxX()) {
+			this.moveCameraPortX(dx + 1);
+		}
+		if(player.getMinY() < innerBox.getMinY()) {
+			this.moveCameraPortY(dy - 1);
+		}
+		if(player.getMaxY() > innerBox.getMaxY()) {
+			this.moveCameraPortY(dy + 1);
+		}
 	}
 	
-	private void moveCameraPortX(int d){
-		for(int j = 0; j < cameraPort.npoints; j++)
-			cameraPort.xpoints[j] += d;
+	private void moveCameraPortX(float d){
+		this.cameraPort.setLocation(cameraPort.getX() + d, cameraPort.getY());
+		this.innerBox.setLocation(innerBox.getX() + d, innerBox.getY());
 	}
 	
-	private void moveCameraPortY(int d){
-		for(int j = 0; j < cameraPort.npoints; j++)
-			cameraPort.ypoints[j] += d;
+	private void moveCameraPortY(float d){
+		this.cameraPort.setLocation(cameraPort.getX(), cameraPort.getY() + d);
+		this.innerBox.setLocation(innerBox.getX(), innerBox.getY() + d);
 	}
 	
-	public Polygon getCameraPort(){
+	public Rectangle getCameraPort(){
 		return cameraPort;
 	}
 

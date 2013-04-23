@@ -1,9 +1,6 @@
 package com.bipolar.states;
 
-import java.awt.Point;
 import org.newdawn.slick.Color;
-
-import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,19 +10,14 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.bipolar.Bipolar;
-import com.bipolar.controller.EntityController;
-import com.bipolar.entities.Ball;
 import com.bipolar.model.LevelController;
-import com.bipolar.entities.BallSpawner;
-import com.bipolar.entities.Entity;
 import com.bipolar.entities.Player;
-import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.view.Camera;
 
 public class Level extends BasicGameState {
 	
 	public int stateID;
-	private Camera camera;
+	public static Graphics drawObj = null;
 	int worldID, levelID;
 	Input in;
 	
@@ -57,8 +49,8 @@ public class Level extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		g.setColor(Color.white);
-		g.drawString(this.worldID + ", " + this.levelID, container.getWidth()/2, container.getHeight()/2);
+		Level.drawObj = g;
+		g.setBackground(new Color(0x93CCEA));
 		LevelController.renderLevel(g);
 	}
 
@@ -68,7 +60,7 @@ public class Level extends BasicGameState {
 		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		}
-		LevelController.updateLevel();
+		LevelController.updateLevel(delta);
 		
 		if (in.isKeyPressed(Input.KEY_ENTER)) {
 			if (this.levelID + 1 < Bipolar.LEVELPERWORLD) {
