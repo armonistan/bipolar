@@ -12,7 +12,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.bipolar.Bipolar;
 import com.bipolar.model.LevelController;
 import com.bipolar.entities.Player;
-import com.bipolar.view.Camera;
 
 public class Level extends BasicGameState {
 	
@@ -42,6 +41,7 @@ public class Level extends BasicGameState {
 		} else { 
 			//TODO interface with LevelController to load the appropriate level stuff
 		}
+		LevelController.clearLevel();
 		LevelController.enter();
 		Player.setInput(in);
 	}

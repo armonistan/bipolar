@@ -35,3 +35,7 @@ ALPHA 0.5
 LevelController finished
 Camera finished
 Basic Sprite set added
+Basic collision detection added
+
+ALPHA 0.6
+-----------

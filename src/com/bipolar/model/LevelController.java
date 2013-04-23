@@ -72,6 +72,10 @@ public class LevelController {
 		
 	}
 	
+	public static void clearLevel(){
+		EntityController.deleteAllEntities();
+	}
+	
 	public static void populateLevel() throws SlickException {
 		String level = "res/levels/levelObjects.txt";
 		try {

@@ -14,7 +14,7 @@ public class Camera {
 	
 	private float dx, dy;
 	
-	public Camera(GameContainer w){
+	public Camera(GameContainer w) {
 		this.height = Bipolar.HEIGHT;
 		this.width = Bipolar.WIDTH;
 		cameraPort = new Rectangle(0, 0, this.width, this.height);
@@ -22,36 +22,36 @@ public class Camera {
 				this.width / 2, this.height / 2);
 	}
 	
-	public void update(){
+	public void update() {
 		Rectangle player = EntityController.player.getPosition();
 		dx = EntityController.player.getVelocity().x;
 		dy = EntityController.player.getVelocity().y;
 		
-		if(player.getMinX() < innerBox.getMinX()) {
+		if (player.getMinX() < innerBox.getMinX()) {
 			this.moveCameraPortX(dx - 1);
 		}
-		if(player.getMaxX() > innerBox.getMaxX()) {
+		if (player.getMaxX() > innerBox.getMaxX()) {
 			this.moveCameraPortX(dx + 1);
 		}
-		if(player.getMinY() < innerBox.getMinY()) {
+		if (player.getMinY() < innerBox.getMinY()) {
 			this.moveCameraPortY(dy - 1);
 		}
-		if(player.getMaxY() > innerBox.getMaxY()) {
+		if (player.getMaxY() > innerBox.getMaxY()) {
 			this.moveCameraPortY(dy + 1);
 		}
 	}
 	
-	private void moveCameraPortX(float d){
+	private void moveCameraPortX(float d) {
 		this.cameraPort.setLocation(cameraPort.getX() + d, cameraPort.getY());
 		this.innerBox.setLocation(innerBox.getX() + d, innerBox.getY());
 	}
 	
-	private void moveCameraPortY(float d){
+	private void moveCameraPortY(float d) {
 		this.cameraPort.setLocation(cameraPort.getX(), cameraPort.getY() + d);
 		this.innerBox.setLocation(innerBox.getX(), innerBox.getY() + d);
 	}
 	
-	public Rectangle getCameraPort(){
+	public Rectangle getCameraPort() {
 		return cameraPort;
 	}
 

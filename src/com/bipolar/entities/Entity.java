@@ -29,7 +29,7 @@ public class Entity {
 		this.height = 0;
 	}
 	
-	public Entity(int x, int y, boolean solid, boolean state){
+	public Entity(int x, int y, boolean solid, boolean state) {
 		this.position = new Point(x, y);
 		this.transformedPosition = new Point(x, y);
 		this.solid = solid;
@@ -41,38 +41,38 @@ public class Entity {
 		this.hitbox = new Rectangle(x, y, this.width, this.height);
 	}
 	
-	public void setPosition(Point p){
+	public void setPosition(Point p) {
 		position = p;
 	}
 	
-	public void setTransformedPosition(Point p){
+	public void setTransformedPosition(Point p) {
 		transformedPosition = p;
 	}
 	
-	public void update(){
+	public void update() {
 	}
 	
-	public void render(Camera c){
+	public void render(Camera c) {
 		transform(c);
-		if(image != null){
+		if (image != null) {
 			image.draw(transformedPosition.x, transformedPosition.y);
 		}
 	}
 	
-	public void transform(Camera c){
+	public void transform(Camera c) {
 		int transformedX = (int) (position.x - c.getCameraPort().getMinX());
 		int transformedY = (int) (position.y - c.getCameraPort().getMinY());
 
 		transformedPosition.setLocation(transformedX, transformedY);
 	}
 	
-	public Rectangle getPosition(){
+	public Rectangle getPosition() {
 		setPosition(position);
 		
 		return hitbox;
 	}
 	
-	public Rectangle getTransformedPosition(){
+	public Rectangle getTransformedPosition() {
 		setTransformedPosition(position);
 		
 		return hitbox;
