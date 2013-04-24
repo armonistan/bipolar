@@ -116,7 +116,7 @@ public class LevelController {
 				int xsize = Integer.parseInt(split[3]);
 				int ysize = Integer.parseInt(split[4]);
 				boolean solid = Boolean.parseBoolean(split[3]);
-				boolean state = Boolean.parseBoolean(split[4]);
+				int state = Integer.parseInt(split[4]);
 				
 				System.out.println("Adding object: " + type + " to level.");
 				

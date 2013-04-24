@@ -3,6 +3,7 @@ package com.bipolar.entities;
 import java.awt.Point;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import com.bipolar.view.Camera;
 import com.bipolar.resourceloader.ResourceLoader;
@@ -11,12 +12,13 @@ public class Entity {
 	
 	protected int width;
 	protected int height;
+	protected int state;
 	
 	protected Point position;
 	protected Point transformedPosition;
 	
 	protected Image image;
-	protected boolean solid, state;
+	protected boolean solid;
 	
 	protected Rectangle hitbox;
 	protected Rectangle tfbox;
@@ -29,7 +31,7 @@ public class Entity {
 		this.height = 0;
 	}
 	
-	public Entity(int x, int y, boolean solid, boolean state) {
+	public Entity(int x, int y, boolean solid, int state) {
 		this.position = new Point(x, y);
 		this.transformedPosition = new Point(x, y);
 		this.solid = solid;
@@ -50,6 +52,10 @@ public class Entity {
 	}
 	
 	public void update() {
+	}
+	
+	public boolean isBlocked(Shape tf){
+		return false;
 	}
 	
 	public void render(Camera c) {
