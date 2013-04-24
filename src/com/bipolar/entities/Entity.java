@@ -3,7 +3,7 @@ package com.bipolar.entities;
 import java.awt.Point;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 
 import com.bipolar.view.Camera;
 import com.bipolar.resourceloader.ResourceLoader;
@@ -14,8 +14,8 @@ public class Entity {
 	protected int height;
 	protected int state;
 	
-	protected Point position;
-	protected Point transformedPosition;
+	protected Vector2f position;
+	protected Vector2f transformedPosition;
 	
 	protected Image image;
 	protected boolean solid;
@@ -24,16 +24,16 @@ public class Entity {
 	protected Rectangle tfbox;
 	
 	public Entity(int x, int y) {
-		this.position = new Point(x,y);
-		this.transformedPosition = new Point(x,y);
+		this.position = new Vector2f(x,y);
+		this.transformedPosition = new Vector2f(x,y);
 		this.image = null;
 		this.width = 0;
 		this.height = 0;
 	}
 	
 	public Entity(int x, int y, boolean solid, int state) {
-		this.position = new Point(x, y);
-		this.transformedPosition = new Point(x, y);
+		this.position = new Vector2f(x, y);
+		this.transformedPosition = new Vector2f(x, y);
 		this.solid = solid;
 		this.state = state;
 		this.image = null;
@@ -43,12 +43,12 @@ public class Entity {
 		this.hitbox = new Rectangle(x, y, this.width, this.height);
 	}
 	
-	public void setPosition(Point p) {
-		position = p;
+	public void setPosition(Vector2f position) {
+		this.position.set(position);
 	}
 	
-	public void setTransformedPosition(Point p) {
-		transformedPosition = p;
+	public void setTransformedPosition(Vector2f position) {
+		this.transformedPosition.set(position);
 	}
 	
 	public void update() {
@@ -66,10 +66,10 @@ public class Entity {
 	}
 	
 	public void transform(Camera c) {
-		int transformedX = (int) (position.x - c.getCameraPort().getMinX());
-		int transformedY = (int) (position.y - c.getCameraPort().getMinY());
+		float transformedX = position.x - c.getCameraPort().getMinX();
+		float transformedY = position.y - c.getCameraPort().getMinY();
 
-		transformedPosition.setLocation(transformedX, transformedY);
+		transformedPosition.set(transformedX, transformedY);
 	}
 	
 	public Rectangle getPosition() {

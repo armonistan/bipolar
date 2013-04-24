@@ -60,6 +60,7 @@ public class Level extends BasicGameState {
 		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		}
+		container.setMinimumLogicUpdateInterval(2 * Bipolar.slowdown);
 		LevelController.updateLevel(delta);
 		
 		if (in.isKeyPressed(Input.KEY_ENTER)) {

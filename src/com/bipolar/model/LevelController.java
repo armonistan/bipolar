@@ -69,7 +69,7 @@ public class LevelController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		camera.enter();
 	}
 	
 	public static void clearLevel(){

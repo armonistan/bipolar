@@ -1,9 +1,9 @@
 package com.bipolar.entities;
 
-import java.awt.Point;
-
+import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.geom.Vector2f;
 
 import com.bipolar.states.Level;
 import com.bipolar.view.Camera;
@@ -27,7 +27,7 @@ public class Platform extends Entity{
 		super(x, y);
 		this.width = width;
 		this.height = height;
-		this.position = new Point(x, y);
+		this.position = new Vector2f(x, y);
 		this.setGeom(x, y, width, height);
 	}
 	
@@ -35,16 +35,16 @@ public class Platform extends Entity{
 		hitbox = new Rectangle(x, y, width, height);
 	}
 	
-	public void render(Camera c){
+	public void render(Camera c) {
 		transform(c);
 		new Transform();
 		Transform drawTf = Transform.createTranslateTransform
 				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
+		Level.drawObj.setColor(Color.black);
 		Level.drawObj.draw(this.hitbox.transform(drawTf));
 	}
 	
-	public void update(){
-		//System.out.println("Hitbox x: " + this.transformedPosition.x + ", y: " + this.transformedPosition.y);
+	public void update() {
 	}
 	
 }

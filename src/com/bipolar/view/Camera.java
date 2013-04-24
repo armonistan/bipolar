@@ -22,6 +22,14 @@ public class Camera {
 				this.width / 2, this.height / 2);
 	}
 	
+	public void enter() {
+		Rectangle player = EntityController.player.getPosition();
+		this.cameraPort.setCenterX(player.getCenterX());
+		this.cameraPort.setCenterY(player.getCenterY());
+		this.innerBox.setCenterX(player.getCenterX());
+		this.innerBox.setCenterY(player.getCenterY());
+	}
+	
 	public void update() {
 		Rectangle player = EntityController.player.getPosition();
 		dx = EntityController.player.getVelocity().x;

@@ -16,14 +16,14 @@ import com.bipolar.states.Level;
 import com.bipolar.view.Camera;
 
 public class Player extends Entity{
-
+	private static final float JUMP_EPSILON = .01f;
 	static Input input;
 	private Vector2f velocity, acceleration;
 	private Rectangle futureBox;
 	public ArrayList<Platform> colliders = new ArrayList<Platform>();
-	public final float PLAYER_SPEED = .65f;
+	public final float PLAYER_SPEED = 200f;
 	public final int JUMP_HEIGHT = -2;
-	public static float delta = 0f;
+	public static float delta = .001f;
 
 	public Player(int xpos, int ypos) {
 		super(xpos, ypos);
@@ -45,81 +45,150 @@ public class Player extends Entity{
 		hitbox = new Rectangle(x, y, width, height);
 	}
 
-	public void move(){
-		if (input.isKeyDown(Input.KEY_W) && this.acceleration.y == 0) {
-			this.velocity.y = -1.3f;
-			this.acceleration.y = Bipolar.G;
-		}
+	public void move() {
 		if (input.isKeyDown(Input.KEY_A)) {
 			this.velocity.x = -PLAYER_SPEED * Player.delta;
 		} else if (input.isKeyDown(Input.KEY_D)) {
 			this.velocity.x = PLAYER_SPEED * Player.delta;
 		} else {
 			this.acceleration.x = Bipolar.DRAG * Player.delta;
-			if(this.velocity.x < -.35f)
+			if(this.velocity.x < -.55f)
 				this.velocity.x += this.acceleration.x;
-			else if (this.velocity.x > .35f)
+			else if (this.velocity.x > .55f)
 				this.velocity.x -= this.acceleration.x;
 			else
-				this.velocity.x = 0;
+				this.velocity.x = 0f;
 		}
-		if (this.velocity.y < 6.0f)
+		if (this.velocity.y < 6.0f) {
 			this.velocity.y += this.acceleration.y;
-
-		this.futureBox.setLocation(this.position.x + this.velocity.x, this.position.y + this.velocity.y);
+		}
+		
+		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
+		Rectangle underBlock = isBlocked(this.futureBox);
+		if((underBlock != null) && (underBlock.getMinY() + JUMP_EPSILON > this.hitbox.getMaxY()) && (input.isKeyDown(Input.KEY_W))) {
+			this.velocity.y = -1.8f;
+		}
+		do {
+			this.fixVelocity(isBlocked(this.futureBox));
+			this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
+		} while(isBlocked(this.futureBox) != null);
 		this.updatePhysics();
 	}
-
-	public void updatePhysics(){
-		if (this.velocity.x > 0) {
-			this.position.x += Math.ceil(this.velocity.x);
+	
+	public void fixVelocity(Rectangle collideBox) {
+		if(collideBox == null) {
+			return;
+		}
+		boolean toFix; /*False == x, True == y*/
+		if(this.velocity.x == 0) {
+			toFix = true;
+		} else if(this.velocity.y == 0) {
+			toFix = false;
 		} else {
-			this.position.x += Math.floor(this.velocity.x);
+			int velQuad = quadrant(this.velocity);
+			Vector2f myCorner = getQuadrantCorner(this.hitbox, velQuad);
+			int oppositeQuad;
+			switch(velQuad) {
+				case 1:
+					oppositeQuad = 3;
+					break;
+				case 2:
+					oppositeQuad = 4;
+					break;
+				case 3:
+					oppositeQuad = 1;
+					break;
+				default:
+					oppositeQuad = 2;
+			}
+			Vector2f itsCorner = getQuadrantCorner(collideBox, oppositeQuad);
+			Vector2f myCornerToItsCorner = itsCorner.sub(myCorner);
+			float cross = myCornerToItsCorner.x * this.velocity.y - myCornerToItsCorner.y * this.velocity.x;
+			switch(velQuad) {
+				case 1:
+					toFix = (cross < 0);
+					break;
+				case 2:
+					toFix = (cross > 0);
+					break;
+				case 3:
+					toFix = (cross < 0);
+					break;
+				default:
+					toFix = (cross > 0);
+			}
+		}
+		float high;
+		float low = 0f;
+		float middle = low;
+		if(toFix) {
+			high = this.velocity.y;
+		} else {
+			high = this.velocity.x;
 		}
 
-		if (this.velocity.y > 0) {
-			this.position.y += Math.ceil(this.velocity.y);
-		} else {
-			this.position.y += Math.floor(this.velocity.y);
+		for (int i = 0; i < 10; i++) {
+			middle = (high + low) / 2f;
+			if(toFix) {
+				this.futureBox.setY(this.position.y + middle);
+			} else {
+				this.futureBox.setX(this.position.x + middle);
+			}
+			if (isBlocked(this.futureBox) != null) {
+				high = middle;
+			} else {
+				low = middle;
+			}
 		}
-
-		if (!isBlocked(this.futureBox)) {
-			this.acceleration.y = Bipolar.G;
+		if(toFix) {
+			this.velocity.y = low;
+		} else {
+			this.velocity.x = low;
 		}
 	}
+	
+	public int quadrant(Vector2f vector) {
+		if(vector.x < 0) {
+			if(vector.y < 0) {
+				return 3;
+			}
+			return 2;
+		}
+		if(vector.y < 0) {
+			return 4;
+		}
+		return 1;
+	}
+	
+	public Vector2f getQuadrantCorner(Rectangle rect, int quadrant) {
+		switch(quadrant) {
+			case 1:
+				return new Vector2f(rect.getMaxX(), rect.getMaxY());
+			case 2:
+				return new Vector2f(rect.getMinX(), rect.getMaxY());
+			case 3:
+				return new Vector2f(rect.getMinX(), rect.getMinY());
+			default:
+				return new Vector2f(rect.getMaxX(), rect.getMinY());
+		}
+	}
+	
+	public void updatePhysics(){
+		this.position.x += this.velocity.x;
+		this.position.y += this.velocity.y;
+	}
 
-	public boolean isBlocked(Shape tf){
+	public Rectangle isBlocked(Shape tf){
 		for (Entity e : EntityController.levelObjects) {
 			if (e instanceof Platform) {
 				Platform p = (Platform) e;
-				if (tf.intersects(p.hitbox)) {
-					this.acceleration.y = 0;
-					if (this.velocity.y >= 0) {
-						this.velocity.y = 0;
-						this.position.y = (int) (p.hitbox.getMinY() - this.hitbox.getHeight());
-					} else {
-						if (tf.getMinX() <= p.hitbox.getMinX()
-								&& tf.getMinY() > p.hitbox.getMaxY()) {
-							this.velocity.x = 0;
-							this.position.x = (int) (p.hitbox.getMinX() - tf.getWidth());
-							return false;
-						} else if (tf.getMaxX() >= p.hitbox.getMaxX()
-								&& tf.getMaxY() < p.hitbox.getMinY()) {
-							this.velocity.x = 0;
-							this.position.x = (int) p.hitbox.getMaxX();
-							return false;
-						} else if (tf.getMinY() <= p.hitbox.getMaxY()
-								&& tf.getMaxX() > p.hitbox.getMinX()) {
-							this.acceleration.y = Bipolar.G;
-							this.velocity.y = 0;
-							this.position.y = (int) (p.hitbox.getMaxY());
-						}
-					}
-					return true;
+				Rectangle r = p.hitbox;
+				if (tf.intersects(r)) {
+					return r;
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public Vector2f getVelocity(){
@@ -132,17 +201,25 @@ public class Player extends Entity{
 		Transform drawTf = Transform.createTranslateTransform
 				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
 		Level.drawObj.draw(this.hitbox.transform(drawTf));
+		Level.drawObj.draw(this.futureBox.transform(drawTf));
 		this.image.draw(this.transformedPosition.x, this.transformedPosition.y);
 	}
 
 	public void update(){
 		Player.delta = LevelController.delta * .001f;
+		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON) && Bipolar.slowdown < 10) {
+			Bipolar.slowdown++;
+		} else {
+			if (Bipolar.slowdown != 1) {
+				Bipolar.slowdown--;
+			}
+		}
 		this.move();
 		this.hitbox.setLocation(this.position.x, this.position.y);
 	}
 
 	public String toString(){
-		return 	("Player x: " + transformedPosition.x + ", y: " + transformedPosition.y);
+		return 	("Player x: " + position.x + ", y: " + position.y);
 	}
 
 }

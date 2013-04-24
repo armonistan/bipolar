@@ -35,8 +35,9 @@ public class Bipolar extends StateBasedGame {
 	public static final boolean DEVMODE 	= true;
 	
 	public static final float G = .0075f;
-	public static final float DRAG = .25f;
+	public static final float DRAG = .55f;
 	
+	public static int slowdown = 1;
 	public static int currentWorld;
 	public static int currentLevel;
 	public static boolean intro;
@@ -89,7 +90,7 @@ public class Bipolar extends StateBasedGame {
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new Bipolar("Bipolar"));
 		
-		app.setMaximumLogicUpdateInterval(120);
+		app.setMinimumLogicUpdateInterval(2 * slowdown);
 		app.setDisplayMode(WIDTH, HEIGHT, false);
 		app.start();
 	}
