@@ -140,9 +140,14 @@ public class LevelController {
 			} else if (type.equals("platform")) {
 				EntityController.addEntity(new Platform(xpos, ypos, xsize, ysize, drawLayer));
 			} else if (type.equals("ballspawner")) {
-				EntityController.addEntity(new BallSpawner(xpos, ypos, drawLayer));
+				BallSpawner bs = new BallSpawner(xpos, ypos, drawLayer);
+				EntityController.setBallSpawner(bs);
+				EntityController.addEntity(bs);
+				EntityController.ballSpawner.spawnBall();
 			} else if (type.equals("playerspawner")) {
-				EntityController.addEntity(new PlayerSpawner(xpos, ypos, drawLayer));
+				PlayerSpawner ps = new PlayerSpawner(xpos, ypos, drawLayer);
+				EntityController.setPlayerSpawner(ps);
+				EntityController.addEntity(ps);
 			} else if (type.equals("bar")) {
 				EntityController.addEntity(new Bar(xpos, ypos, solid, state, drawLayer));
 			} else if (type.equals("field")) {

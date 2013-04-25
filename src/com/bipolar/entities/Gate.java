@@ -11,6 +11,7 @@ public class Gate extends Entity{
 		super(xpos, ypos, solid, state, drawLayer);
 		this.image = ResourceLoader.getImage("gate");
 		this.hitbox = new Rectangle(xpos, ypos, this.image.getWidth(), this.image.getHeight());
+		this.state = 0;
 	}
 	
 	public void activate() {

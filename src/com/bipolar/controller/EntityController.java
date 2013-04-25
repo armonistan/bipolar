@@ -5,8 +5,10 @@ import java.util.HashSet;
 
 import com.bipolar.Bipolar;
 import com.bipolar.entities.Ball;
+import com.bipolar.entities.BallSpawner;
 import com.bipolar.entities.Entity;
 import com.bipolar.entities.Player;
+import com.bipolar.entities.PlayerSpawner;
 import com.bipolar.view.Camera;
 
 public class EntityController {
@@ -15,6 +17,8 @@ public class EntityController {
 	public static HashSet<Entity> toAdd = new HashSet<Entity>();
 	public static HashSet<Entity> toRemove = new HashSet<Entity>();
 	public static Player player;
+	public static PlayerSpawner playerSpawner;
+	public static BallSpawner ballSpawner;
 
 	public static void addEntity(Entity e) {
 		EntityController.toAdd.add(e);
@@ -35,6 +39,14 @@ public class EntityController {
 
 	public static void setPlayer(Player p) {
 		EntityController.player = p;
+	}
+	
+	public static void setPlayerSpawner(PlayerSpawner spawner) {
+		EntityController.playerSpawner = spawner;
+	}
+
+	public static void setBallSpawner(BallSpawner spawner) {
+		EntityController.ballSpawner = spawner;
 	}
 
 	public static void deleteAllEntities() {

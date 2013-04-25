@@ -100,6 +100,10 @@ public class Entity {
 		return this.hitbox;
 	}
 	
+	public Vector2f getPos() {
+		return this.position;
+	}
+	
 	public int getDrawLayer() {
 		return this.drawLayer;
 	}

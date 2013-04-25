@@ -20,7 +20,6 @@ public class Pad extends Entity{
 
 	
 	public void activate() {
-		System.out.println("activated!!!!!");
 		this.setState(0);
 	}
 	

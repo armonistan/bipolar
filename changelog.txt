@@ -44,4 +44,5 @@ Platforming working -- kisses to Grant
 Ball throwable & respawns
 EntityController innards changed to hashes -- solved remove and add entity problem
 Buttons, Wires, Gates added
+Player respawns
 Fuses added

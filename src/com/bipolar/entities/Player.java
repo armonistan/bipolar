@@ -22,6 +22,7 @@ public class Player extends Entity{
 	static Input input;
 	private Vector2f velocity, acceleration;
 	private Rectangle futureBox;
+	private boolean holdingBall = false;
 	public ArrayList<Platform> colliders = new ArrayList<Platform>();
 	public final float PLAYER_SPEED = 200f;
 	public final int JUMP_HEIGHT = -2;
@@ -65,7 +66,7 @@ public class Player extends Entity{
 		if (this.velocity.y < 6.0f) {
 			this.velocity.y += this.acceleration.y;
 		}
-		
+
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		Rectangle underBlock = isBlocked(this.futureBox);
 		if((underBlock != null) && (underBlock.getMinY() + JUMP_EPSILON > this.hitbox.getMaxY()) && (input.isKeyDown(Input.KEY_W))) {
@@ -77,7 +78,7 @@ public class Player extends Entity{
 		} while(isBlocked(this.futureBox) != null);
 		this.updatePhysics();
 	}
-	
+
 	public void fixVelocity(Rectangle collideBox) {
 		if(collideBox == null) {
 			return;
@@ -92,17 +93,17 @@ public class Player extends Entity{
 			Vector2f myCorner = getQuadrantCorner(this.hitbox, velQuad);
 			int oppositeQuad;
 			switch(velQuad) {
-				case 1:
-					oppositeQuad = 3;
-					break;
-				case 2:
-					oppositeQuad = 4;
-					break;
-				case 3:
-					oppositeQuad = 1;
-					break;
-				default:
-					oppositeQuad = 2;
+			case 1:
+				oppositeQuad = 3;
+				break;
+			case 2:
+				oppositeQuad = 4;
+				break;
+			case 3:
+				oppositeQuad = 1;
+				break;
+			default:
+				oppositeQuad = 2;
 			}
 			Vector2f itsCorner = getQuadrantCorner(collideBox, oppositeQuad);
 			Vector2f myCornerToItsCorner = itsCorner.sub(myCorner);
@@ -137,7 +138,7 @@ public class Player extends Entity{
 			this.velocity.x = low;
 		}
 	}
-	
+
 	public int quadrant(Vector2f vector) {
 		if(vector.x < 0) {
 			if(vector.y < 0) {
@@ -150,20 +151,20 @@ public class Player extends Entity{
 		}
 		return 1;
 	}
-	
+
 	public Vector2f getQuadrantCorner(Rectangle rect, int quadrant) {
 		switch(quadrant) {
-			case 1:
-				return new Vector2f(rect.getMaxX(), rect.getMaxY());
-			case 2:
-				return new Vector2f(rect.getMinX(), rect.getMaxY());
-			case 3:
-				return new Vector2f(rect.getMinX(), rect.getMinY());
-			default:
-				return new Vector2f(rect.getMaxX(), rect.getMinY());
+		case 1:
+			return new Vector2f(rect.getMaxX(), rect.getMaxY());
+		case 2:
+			return new Vector2f(rect.getMinX(), rect.getMaxY());
+		case 3:
+			return new Vector2f(rect.getMinX(), rect.getMinY());
+		default:
+			return new Vector2f(rect.getMaxX(), rect.getMinY());
 		}
 	}
-	
+
 	public void updatePhysics(){
 		this.position.x += this.velocity.x;
 		this.position.y += this.velocity.y;
@@ -184,6 +185,15 @@ public class Player extends Entity{
 						p.setState(1);
 					}
 					return e.hitbox;
+				}
+			} else if (e instanceof Ball) {
+				if (tf.intersects(e.hitbox)) {
+					Ball b = (Ball) e;
+					if (b.getVelocity().x == 0 && b.getVelocity().y == 0
+							&& b.getRespawned()) {
+						holdingBall = true;
+						EntityController.removeEntity(e);
+					}
 				}
 			}
 		}
@@ -213,17 +223,32 @@ public class Player extends Entity{
 				Bipolar.slowdown--;
 			}
 		}
-		
-		if(Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-			Vector2f mousePos = new Vector2f(Mouse.getX(), Display.getHeight() - Mouse.getY());
-			Vector2f onscreenPos = EntityController.player.transformedPosition.add(new Vector2f(EntityController.player.hitbox.getWidth() / 2, EntityController.player.hitbox.getHeight() / 2));
-			Vector2f direction = mousePos.sub(onscreenPos).normalise();
-			new Ball((int) this.hitbox.getCenterX(), (int) this.hitbox.getCenterY(), direction);
+
+		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+			if (holdingBall) {
+				Vector2f mousePos = new Vector2f(Mouse.getX(), Display.getHeight() - Mouse.getY());
+				Vector2f onscreenPos = EntityController.player.transformedPosition.add(new Vector2f(EntityController.player.hitbox.getWidth() / 2, EntityController.player.hitbox.getHeight() / 2));
+				Vector2f direction = mousePos.sub(onscreenPos).normalise();
+				new Ball((int) this.hitbox.getCenterX(), (int) this.hitbox.getCenterY(), direction);
+				holdingBall = false;
+			} else {
+				EntityController.ballSpawner.spawnBall();
+			}
 		}
-		
+
 		this.move();
+
+		if (this.position.x > Bipolar.MAXWIDTH
+				|| this.position.x < -Bipolar.MAXWIDTH
+				|| this.position.y > Bipolar.MAXHEIGHT
+				|| this.position.y < -Bipolar.MAXHEIGHT) {
+			this.position.set(EntityController.playerSpawner.position);
+			this.velocity.set(0, 0);
+			this.hitbox.setLocation(this.position.x, this.position.y);
+			LevelController.camera.snapToPlayer();
+		}
+
 		this.hitbox.setLocation(this.position.x, this.position.y);
-		
 	}
 
 	public String toString(){

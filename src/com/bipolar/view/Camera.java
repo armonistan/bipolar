@@ -23,6 +23,10 @@ public class Camera {
 	}
 	
 	public void enter() {
+		this.snapToPlayer();
+	}
+	
+	public void snapToPlayer() {
 		Rectangle player = EntityController.player.getPosition();
 		this.cameraPort.setCenterX(player.getCenterX());
 		this.cameraPort.setCenterY(player.getCenterY());
@@ -36,16 +40,16 @@ public class Camera {
 		dy = EntityController.player.getVelocity().y;
 		
 		if (player.getMinX() < innerBox.getMinX()) {
-			this.moveCameraPortX(dx - 1);
+			this.moveCameraPortX(dx);
 		}
 		if (player.getMaxX() > innerBox.getMaxX()) {
-			this.moveCameraPortX(dx + 1);
+			this.moveCameraPortX(dx);
 		}
 		if (player.getMinY() < innerBox.getMinY()) {
-			this.moveCameraPortY(dy - 1);
+			this.moveCameraPortY(dy);
 		}
 		if (player.getMaxY() > innerBox.getMaxY()) {
-			this.moveCameraPortY(dy + 1);
+			this.moveCameraPortY(dy);
 		}
 	}
 	

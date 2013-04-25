@@ -22,6 +22,8 @@ public class Bipolar extends StateBasedGame {
 	
 	public static final int WIDTH			= 800;
 	public static final int HEIGHT			= 600;
+	public static final int MAXWIDTH		= 5 * WIDTH;
+	public static final int MAXHEIGHT		= 5 * HEIGHT;
 	
 	public static final int LOADINGSTATE	= 0;
 	public static final int MENUSTATE		= 1;
