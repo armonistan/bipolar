@@ -58,20 +58,23 @@ public class Level extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		if (LevelController.getCompleted()) {
+			LevelController.destroyLevel();
+			LevelController.setCompleted(false);
 			if (this.levelID + 1 < Bipolar.LEVELPERWORLD) {
 				Bipolar.level.get(this.worldID)[this.levelID + 1] = true;
 			} else if (this.worldID + 1 < Bipolar.NUMWORLDS){
 				Bipolar.world[this.worldID + 1] = true;
 			}
+			game.enterState(Bipolar.SUBWORLDSTATE);
+		} else {
+			LevelController.updateLevel(delta);
 		}
 		
-		if (in.isKeyPressed(Input.KEY_ESCAPE) || LevelController.getCompleted()) {
+		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
-			LevelController.setCompleted(false);
 			LevelController.destroyLevel();
 		}
 		container.setMinimumLogicUpdateInterval(2 * Bipolar.slowdown);
-		LevelController.updateLevel(delta);
 	}
 
 	@Override

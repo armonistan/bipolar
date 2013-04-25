@@ -39,7 +39,9 @@ public class LevelController {
 	private static boolean connect = false;
 	private static Wire w = null;
 	private static boolean completed = false;
-	
+	private static int numFuses = 0;
+	private static int currentFuses = 0;
+
 	public static void setLevel(int level) {
 		if (level > -1 && level < Bipolar.LEVELPERWORLD) {
 			LevelController.levelID = level;
@@ -79,6 +81,7 @@ public class LevelController {
 
 	public static void clearLevel(){
 		EntityController.deleteAllEntities();
+		LevelController.numFuses = 0;
 	}
 
 	public static void populateLevel() throws SlickException {
@@ -153,6 +156,7 @@ public class LevelController {
 			} else if (type.equals("field")) {
 				EntityController.addEntity(new Field(xpos, ypos, solid, state, drawLayer));
 			} else if (type.equals("fuse")) {
+				LevelController.numFuses++;
 				EntityController.addEntity(new Fuse(xpos, ypos, solid, state, drawLayer));
 			} else if (type.equals("gate")) {
 				Gate g = new Gate(xpos, ypos, solid, state, drawLayer);
@@ -199,26 +203,38 @@ public class LevelController {
 	public static void setForeground(Image frg) {
 		LevelController.foreground = frg;
 	}
-	
+
 	public static boolean getCompleted() {
 		return LevelController.completed;
 	}
-	
+
+	public static void addPowered() {
+		LevelController.currentFuses++;
+		System.out.println(LevelController.currentFuses + " of " + LevelController.numFuses);
+		if (LevelController.numFuses == LevelController.currentFuses) {
+			LevelController.setCompleted(true);
+		}
+	}
+
 	public static void setCompleted(boolean complete) {
 		LevelController.completed = complete;
 	}
 
 	public static void updateLevel(int delta) {
-		EntityController.update();
-		LevelController.delta = delta;
-		LevelController.camera.update();
+		if (!LevelController.completed) {
+			EntityController.update();
+			LevelController.delta = delta;
+			LevelController.camera.update();
+		}
 	}
 
 	public static void renderLevel(Graphics g) {
-		//LevelController.background.draw();
-		//LevelController.midground.draw();
-		//LevelController.foreground.draw();
-		EntityController.render(camera);
+		if (!LevelController.completed) {
+			//LevelController.background.draw();
+			//LevelController.midground.draw();
+			//LevelController.foreground.draw();
+			EntityController.render(camera);
+		}
 	}
 
 }

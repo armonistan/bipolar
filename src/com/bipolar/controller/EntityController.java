@@ -40,7 +40,7 @@ public class EntityController {
 	public static void setPlayer(Player p) {
 		EntityController.player = p;
 	}
-	
+
 	public static void setPlayerSpawner(PlayerSpawner spawner) {
 		EntityController.playerSpawner = spawner;
 	}
@@ -61,16 +61,20 @@ public class EntityController {
 	}
 
 	public static void update() {
-		for (Entity removeObject : toRemove) {
-			EntityController.getLevelObjects().remove(removeObject);
-			EntityController.renderables.get(removeObject.getDrawLayer()).remove(removeObject);
+		if (toRemove != null && renderables != null) {
+			for (Entity removeObject : toRemove) {
+				EntityController.getLevelObjects().remove(removeObject);
+				EntityController.renderables.get(removeObject.getDrawLayer()).remove(removeObject);
+			}
+			EntityController.toRemove.clear();
 		}
-		EntityController.toRemove.clear();
-		for (Entity addObject : toAdd) {
-			EntityController.getLevelObjects().add(addObject);
-			EntityController.renderables.get(addObject.getDrawLayer()).add(addObject);
+		if (toAdd != null && renderables != null) {
+			for (Entity addObject : toAdd) {
+				EntityController.getLevelObjects().add(addObject);
+				EntityController.renderables.get(addObject.getDrawLayer()).add(addObject);
+			}
+			toAdd.clear();
 		}
-		toAdd.clear();
 		for (Entity levelObject: EntityController.getLevelObjects()) {
 			levelObject.update();
 		}

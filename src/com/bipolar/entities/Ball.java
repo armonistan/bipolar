@@ -15,7 +15,7 @@ import com.bipolar.view.Camera;
 
 public class Ball extends Entity{
 	private static final float INIT_VEL = .5f;
-	private int state = 1; //neutral
+	private int state = -1; //neutral
 	private Vector2f velocity, acceleration;
 	private Rectangle futureBox;
 	private boolean respawned = true;
@@ -142,11 +142,21 @@ public class Ball extends Entity{
 					return e.hitbox;
 				}
 			} else if (e instanceof Fuse) {
+				Fuse f = (Fuse) e;
 				if (tf.intersects(e.hitbox)) {
-					System.out.println(this.state + " e:" + e.getState());
-					if (e.getState() == this.state) {
-						LevelController.setCompleted(true);
+					if (f.getState() == this.state && !f.getActive()) {
+						f.setActive();
+						EntityController.removeEntity(this);
+						LevelController.addPowered();
 					}
+				}
+			} else if (e instanceof Sparks) {
+				if (tf.intersects(e.hitbox)) {
+					this.state = 1;
+				}
+			} else if (e instanceof Steam) {
+				if (tf.intersects(e.hitbox)) {
+					this.state = 0;
 				}
 			}
 		}

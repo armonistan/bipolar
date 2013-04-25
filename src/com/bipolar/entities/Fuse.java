@@ -6,6 +6,8 @@ import com.bipolar.resourceloader.ResourceLoader;
 
 public class Fuse extends Entity{
 
+	private boolean active = false;
+	
 	public Fuse(int xpos, int ypos, boolean solid, int state, int drawLayer) {
 		super(xpos, ypos, solid, state, drawLayer);
 		this.image = ResourceLoader.getImage("fuse");
@@ -17,6 +19,14 @@ public class Fuse extends Entity{
 	
 	public int getState() {
 		return this.state;
+	}
+	
+	public void setActive() {
+		this.active = true;
+	}
+	
+	public boolean getActive() {
+		return this.active;
 	}
 
 }
