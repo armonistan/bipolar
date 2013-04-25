@@ -57,8 +57,10 @@ public class Level extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
+		if (in.isKeyPressed(Input.KEY_ESCAPE) || LevelController.getCompleted()) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
+			LevelController.setCompleted(false);
+			LevelController.destroyLevel();
 		}
 		container.setMinimumLogicUpdateInterval(2 * Bipolar.slowdown);
 		LevelController.updateLevel(delta);

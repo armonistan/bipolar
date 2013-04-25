@@ -1,44 +1,80 @@
 package com.bipolar.controller;
 
-import java.awt.Point;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
-import org.newdawn.slick.GameContainer;
-
+import com.bipolar.Bipolar;
 import com.bipolar.entities.Ball;
 import com.bipolar.entities.Entity;
 import com.bipolar.entities.Player;
-import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.view.Camera;
 
 public class EntityController {
-	public static ArrayList<Entity> levelObjects = new ArrayList<Entity>();
+	private static HashMap<Integer, HashSet<Entity>> renderables = new HashMap<Integer, HashSet<Entity>>(Bipolar.LAYERS);
+	private static HashSet<Entity> levelObjects = new HashSet<Entity>();
+	public static HashSet<Entity> toAdd = new HashSet<Entity>();
+	public static HashSet<Entity> toRemove = new HashSet<Entity>();
 	public static Player player;
-	
-	public static void addEntity(Entity e){
-		EntityController.levelObjects.add(e);
+
+	public static void addEntity(Entity e) {
+		EntityController.toAdd.add(e);
 	}
-	
-	public static void setPlayer(Player p){
-		player = p;
-	}
-	
-	public static void deleteAllEntities(){
-		for (int i = 0; i < EntityController.levelObjects.size(); i++) {
-			//tell each entity to delete itself
+
+	public static void addBall(Ball b) {
+		for(Entity e : EntityController.getLevelObjects()) {
+			if(e instanceof Ball) {
+				removeEntity(e);
+			}
 		}
-		EntityController.levelObjects.clear();
+		addEntity(b);
 	}
-	
-	public static void update(){
-		for (Entity levelObject: levelObjects) {
+
+	public static void removeEntity(Entity e) {
+		EntityController.toRemove.add(e);
+	}
+
+	public static void setPlayer(Player p) {
+		EntityController.player = p;
+	}
+
+	public static void deleteAllEntities() {
+		EntityController.getLevelObjects().clear();
+		EntityController.renderables.clear();
+	}
+
+	public static void enter() {
+		for (int i = 0; i < Bipolar.LAYERS; i++){
+			EntityController.renderables.put(i, new HashSet<Entity>());
+		}
+	}
+
+	public static void update() {
+		for (Entity removeObject : toRemove) {
+			EntityController.getLevelObjects().remove(removeObject);
+			EntityController.renderables.get(removeObject.getDrawLayer()).remove(removeObject);
+		}
+		EntityController.toRemove.clear();
+		for (Entity addObject : toAdd) {
+			EntityController.getLevelObjects().add(addObject);
+			EntityController.renderables.get(addObject.getDrawLayer()).add(addObject);
+		}
+		toAdd.clear();
+		for (Entity levelObject: EntityController.getLevelObjects()) {
 			levelObject.update();
 		}
 	}
-	
-	public static void render(Camera c){
-		for (Entity levelObject: levelObjects) {
-			levelObject.render(c);
+
+	public static void render(Camera c) {
+		for (int i = 0; i < Bipolar.LAYERS; i++) {
+			if (EntityController.renderables.get(i) != null) {
+				for (Entity e : EntityController.renderables.get(i)) {
+					e.render(c);
+				}
+			}
 		}
+	}
+
+	public static HashSet<Entity> getLevelObjects() {
+		return levelObjects;
 	}
 }

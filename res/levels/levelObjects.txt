@@ -1,16 +1,28 @@
-//entity type:x location:y location:solid:state
-//platform:top left x: top left y: width: height
+//entity type:x location:y location:solid:state:drawlevel
+//platform:top left x: top left y: width: height:0
 //state 0 = magnetic
 //state 1 = electric
 
+//WIRING BLOCKS OF OBJECTS
+//wire:0:0:0:0:0
+//inputObject:x:y:solid:state
+//activatedObject1:x:y:solid:state
+//activatedObject2:x:y:solid:state
+//activatedObject...:x:y:solid:state
+//activatedObjectN:x:y:solid:state
+//wire:0:0:0:0:0
+
 //tells the parser where a level's objects begin and end
 #:0:0
-fuse:100:400:1:1
-platform:50:125:2000:25
-platform:-400:300:500:25
-platform:-700:125:400:25
-player:400:10:1:0
-ball:500:10:1:0
+fuse:100:400:1:1:1
+platform:50:125:2000:25:0
+platform:-400:300:500:25:0
+platform:-700:125:400:25:0
+wire:0:0:0:0:0
+pad:100:100:true:-1:1
+gate:-400:100:true:-1:1
+wire:0:0:0:0:0
+player:400:10:1:0:9
 #:0:0
 
 #:0:1

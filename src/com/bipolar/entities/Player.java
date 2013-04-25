@@ -2,6 +2,8 @@ package com.bipolar.entities;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -25,9 +27,10 @@ public class Player extends Entity{
 	public final int JUMP_HEIGHT = -2;
 	public static float delta = .001f;
 
-	public Player(int xpos, int ypos) {
+	public Player(int xpos, int ypos, int drawLayer) {
 		super(xpos, ypos);
 		this.image = ResourceLoader.getImage("player");
+		this.drawLayer = drawLayer;
 		this.width = this.image.getWidth();
 		this.height = this.image.getHeight();
 		this.setGeom(xpos, ypos, this.width, this.height);
@@ -104,19 +107,7 @@ public class Player extends Entity{
 			Vector2f itsCorner = getQuadrantCorner(collideBox, oppositeQuad);
 			Vector2f myCornerToItsCorner = itsCorner.sub(myCorner);
 			float cross = myCornerToItsCorner.x * this.velocity.y - myCornerToItsCorner.y * this.velocity.x;
-			switch(velQuad) {
-				case 1:
-					toFix = (cross < 0);
-					break;
-				case 2:
-					toFix = (cross > 0);
-					break;
-				case 3:
-					toFix = (cross < 0);
-					break;
-				default:
-					toFix = (cross > 0);
-			}
+			toFix = (cross * velocity.x * velocity.y < 0);
 		}
 		float high;
 		float low = 0f;
@@ -179,12 +170,20 @@ public class Player extends Entity{
 	}
 
 	public Rectangle isBlocked(Shape tf){
-		for (Entity e : EntityController.levelObjects) {
+		for (Entity e : EntityController.getLevelObjects()) {
 			if (e instanceof Platform) {
 				Platform p = (Platform) e;
 				Rectangle r = p.hitbox;
 				if (tf.intersects(r)) {
 					return r;
+				}
+			} else if (e.solid) {
+				if (tf.intersects(e.hitbox)) {
+					if (e instanceof Pad) {
+						Pad p = (Pad) e;
+						p.setState(1);
+					}
+					return e.hitbox;
 				}
 			}
 		}
@@ -214,8 +213,17 @@ public class Player extends Entity{
 				Bipolar.slowdown--;
 			}
 		}
+		
+		if(Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+			Vector2f mousePos = new Vector2f(Mouse.getX(), Display.getHeight() - Mouse.getY());
+			Vector2f onscreenPos = EntityController.player.transformedPosition.add(new Vector2f(EntityController.player.hitbox.getWidth() / 2, EntityController.player.hitbox.getHeight() / 2));
+			Vector2f direction = mousePos.sub(onscreenPos).normalise();
+			new Ball((int) this.hitbox.getCenterX(), (int) this.hitbox.getCenterY(), direction);
+		}
+		
 		this.move();
 		this.hitbox.setLocation(this.position.x, this.position.y);
+		
 	}
 
 	public String toString(){

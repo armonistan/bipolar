@@ -10,7 +10,7 @@ import com.bipolar.view.Camera;
 
 public class BallSpawner extends Entity {
 	
-	public BallSpawner(int xpos, int ypos) {
+	public BallSpawner(int xpos, int ypos, int drawLayer) {
 		super(xpos, ypos);
 		this.image = ResourceLoader.getImage("ballspawner");
 	}

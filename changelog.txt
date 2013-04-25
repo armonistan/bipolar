@@ -42,6 +42,6 @@ ALPHA 0.6
 Added Debug tool -- Use RMB to slow the game down so you can accurately watch things
 Platforming working -- kisses to Grant
 Ball throwable & respawns
-
-
-
+EntityController innards changed to hashes -- solved remove and add entity problem
+Buttons, Wires, Gates added
+Fuses added

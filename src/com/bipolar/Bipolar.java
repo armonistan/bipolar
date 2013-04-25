@@ -33,6 +33,7 @@ public class Bipolar extends StateBasedGame {
 	public static final int NUMWORLDS		= 1;
 	public static final int LEVELPERWORLD	= 10;
 	public static final boolean DEVMODE 	= true;
+	public static final int LAYERS = 10;
 	
 	public static final float G = .0075f;
 	public static final float DRAG = .55f;

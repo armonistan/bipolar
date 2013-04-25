@@ -23,8 +23,9 @@ public class Platform extends Entity{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Platform(int x, int y, int width, int height) {
+	public Platform(int x, int y, int width, int height, int drawLayer) {
 		super(x, y);
+		this.drawLayer = drawLayer;
 		this.width = width;
 		this.height = height;
 		this.position = new Vector2f(x, y);
