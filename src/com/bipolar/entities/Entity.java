@@ -1,12 +1,11 @@
 package com.bipolar.entities;
 
-import java.awt.Point;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.bipolar.view.Camera;
-import com.bipolar.resourceloader.ResourceLoader;
 
 public class Entity {
 	
@@ -54,8 +53,8 @@ public class Entity {
 	public void update() {
 	}
 	
-	public boolean isBlocked(Shape tf){
-		return false;
+	public Rectangle isBlocked(Shape tf){
+		return null;
 	}
 	
 	public void render(Camera c) {

@@ -30,7 +30,7 @@ public class Ball extends Entity{
 		
 	}
 	
-	public boolean isBlocked(Shape tf){
+	public Rectangle isBlocked(Shape tf){
 		for (Entity e : EntityController.levelObjects) {
 			if (e instanceof Platform) {
 				Platform p = (Platform) e;
@@ -44,12 +44,12 @@ public class Ball extends Entity{
 								&& tf.getMinY() > p.hitbox.getMaxY()) {
 							this.velocity.x = 0;
 							this.position.x = (int) (p.hitbox.getMinX() - tf.getWidth());
-							return false;
+							return p.hitbox;
 						} else if (tf.getMaxX() >= p.hitbox.getMaxX()
 								&& tf.getMaxY() < p.hitbox.getMinY()) {
 							this.velocity.x = 0;
 							this.position.x = (int) p.hitbox.getMaxX();
-							return false;
+							return p.hitbox;
 						} else if (tf.getMinY() <= p.hitbox.getMaxY()
 								&& tf.getMaxX() > p.hitbox.getMinX()) {
 							this.acceleration.y = Bipolar.G;
@@ -57,11 +57,11 @@ public class Ball extends Entity{
 							this.position.y = (int) (p.hitbox.getMaxY());
 						}
 					}
-					return true;
+					return p.hitbox;
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public void setGeom(int x, int y, int width, int height) {
