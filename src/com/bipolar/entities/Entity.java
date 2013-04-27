@@ -31,6 +31,15 @@ public class Entity {
 		this.height = 0;
 	}
 	
+	public Entity(int x, int y, int state) {
+		this.position = new Vector2f(0,0);
+		this.transformedPosition = new Vector2f(0,0);
+		this.state = state;
+		this.image = null;
+		this.width = 0;
+		this.height = 0;
+	}
+	
 	public Entity(int x, int y, boolean solid, int state, int drawLayer) {
 		this.position = new Vector2f(x, y);
 		this.transformedPosition = new Vector2f(x, y);

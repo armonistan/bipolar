@@ -39,6 +39,7 @@ public class Bipolar extends StateBasedGame {
 	
 	public static final float G = .0075f;
 	public static final float DRAG = .55f;
+	public static final float PERMITTIVITY = .15f;
 	
 	public static int slowdown = 1;
 	public static int currentWorld;

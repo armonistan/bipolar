@@ -154,7 +154,7 @@ public class LevelController {
 			} else if (type.equals("bar")) {
 				EntityController.addEntity(new Bar(xpos, ypos, solid, state, drawLayer));
 			} else if (type.equals("field")) {
-				EntityController.addEntity(new Field(xpos, ypos, solid, state, drawLayer));
+				EntityController.addEntity(new Field(xpos, ypos, state, drawLayer));
 			} else if (type.equals("fuse")) {
 				LevelController.numFuses++;
 				EntityController.addEntity(new Fuse(xpos, ypos, solid, state, drawLayer));
