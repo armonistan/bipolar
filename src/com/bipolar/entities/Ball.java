@@ -31,6 +31,9 @@ public class Ball extends Entity{
 		this.velocity = initDirection.scale(INIT_VEL);
 		this.acceleration = new Vector2f();
 		EntityController.addBall(this);
+		if (LevelController.getCameraFocus()) {
+			LevelController.camera.snapToBall();
+		}
 	}
 
 	public void update(){
@@ -41,6 +44,9 @@ public class Ball extends Entity{
 				|| this.position.x < -Bipolar.MAXWIDTH
 				|| this.position.y > Bipolar.MAXHEIGHT
 				|| this.position.y < -Bipolar.MAXHEIGHT) {
+			if (LevelController.getCameraFocus()) {
+				LevelController.camera.snapToBall();
+			}
 			EntityController.ballSpawner.spawnBall();
 			this.hitbox.setLocation(this.position.x, this.position.y);
 		}
@@ -60,9 +66,30 @@ public class Ball extends Entity{
 
 
 	public void move() {
+		setAcceleration();
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		fixVelocity(isBlocked(this.futureBox));
 		updatePhysics();
+	}
+
+	public void setAcceleration() {
+		this.acceleration.set(0, 0);
+		for (Entity e : EntityController.getLevelObjects()) {
+			if (e instanceof Bar) {
+				Bar b = (Bar) e;
+				if (b.getState() == this.state) {
+					this.acceleration.add(b.getForce(this.position.copy()));
+				}
+			} else if (e instanceof Sphere) {
+				Sphere s = (Sphere) e;
+				if (s.getState() == this.state) {
+					this.acceleration.add(s.getForce(this.position.copy()));
+				}
+			}
+		}
+		if (Math.abs(this.velocity.x) < 1.0f && Math.abs(this.velocity.y) < 1.0f) {
+			this.velocity.add(this.acceleration);
+		}
 	}
 
 	public void fixVelocity(Rectangle collideBox) {

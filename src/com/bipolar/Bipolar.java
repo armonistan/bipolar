@@ -37,8 +37,10 @@ public class Bipolar extends StateBasedGame {
 	public static final boolean DEVMODE 	= true;
 	public static final int LAYERS = 10;
 	
+	public static final int FORCE_SCALE = 25;
 	public static final float G = .0075f;
 	public static final float DRAG = .55f;
+	public static final float PERMEABILITY = 4f;
 	
 	public static int slowdown = 1;
 	public static int currentWorld;

@@ -27,3 +27,7 @@ image:playerspawner:/res/levels/spritesheets/playerspawner.png
 image:steam:/res/levels/spritesheets/steam.png
 image:sparks:/res/levels/spritesheets/sparks.png
 image:sphere:/res/levels/spritesheets/sphere.png
+image:posmag:/res/levels/spritesheets/posmag.png
+image:negmag:/res/levels/spritesheets/negmag.png
+image:poselec:/res/levels/spritesheets/poselec.png
+image:negelec:/res/levels/spritesheets/negelec.png

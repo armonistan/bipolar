@@ -14,6 +14,8 @@
 
 //tells the parser where a level's objects begin and end
 #:0:0
+bar:700:10:true:0:4
+sphere:-600:0:true:1:4
 fuse:-500:180:false:1:1
 fuse:700:40:false:0:1
 platform:50:125:2000:25:0
@@ -21,6 +23,7 @@ platform:-400:300:500:25:0
 platform:-700:125:400:25:0
 sparks:-425:-210:false:10:2
 steam:500:-100:false:20:2
+steam:800:-100:false:20:2
 playerspawner:300:-100:0:0:9
 ballspawner:250:-100:0:0:1
 wire:0:0:0:0:0

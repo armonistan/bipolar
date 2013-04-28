@@ -41,6 +41,7 @@ public class LevelController {
 	private static boolean completed = false;
 	private static int numFuses = 0;
 	private static int currentFuses = 0;
+	private static boolean cameraMode = false;
 
 	public static void setLevel(int level) {
 		if (level > -1 && level < Bipolar.LEVELPERWORLD) {
@@ -153,8 +154,6 @@ public class LevelController {
 				EntityController.addEntity(ps);
 			} else if (type.equals("bar")) {
 				EntityController.addEntity(new Bar(xpos, ypos, solid, state, drawLayer));
-			} else if (type.equals("field")) {
-				EntityController.addEntity(new Field(xpos, ypos, solid, state, drawLayer));
 			} else if (type.equals("fuse")) {
 				LevelController.numFuses++;
 				EntityController.addEntity(new Fuse(xpos, ypos, solid, state, drawLayer));
@@ -203,6 +202,19 @@ public class LevelController {
 	public static void setForeground(Image frg) {
 		LevelController.foreground = frg;
 	}
+	
+	public static void toggleCamera() {
+		if (LevelController.cameraMode) {
+			LevelController.camera.snapToPlayer();
+		} else {
+			LevelController.camera.snapToBall();
+		}
+		LevelController.cameraMode = !LevelController.cameraMode;
+	}
+	
+	public static boolean getCameraFocus() {
+		return LevelController.cameraMode;
+	}
 
 	public static boolean getCompleted() {
 		return LevelController.completed;
@@ -224,7 +236,7 @@ public class LevelController {
 		if (!LevelController.completed) {
 			EntityController.update();
 			LevelController.delta = delta;
-			LevelController.camera.update();
+			LevelController.camera.update(LevelController.cameraMode);
 		}
 	}
 

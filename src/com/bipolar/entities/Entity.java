@@ -44,6 +44,14 @@ public class Entity {
 		this.hitbox = new Rectangle(x, y, this.width, this.height);
 	}
 	
+	public Entity(int x, int y, int charge) {
+		this.position = new Vector2f(x,y);
+		this.transformedPosition = new Vector2f(x,y);
+		this.image = null;
+		this.width = 0;
+		this.height = 0;
+	}
+
 	public void update() {
 	}
 	

@@ -245,7 +245,9 @@ public class Player extends Entity{
 			this.position.set(EntityController.playerSpawner.position);
 			this.velocity.set(0, 0);
 			this.hitbox.setLocation(this.position.x, this.position.y);
-			LevelController.camera.snapToPlayer();
+			if (!LevelController.getCameraFocus()) {
+				LevelController.camera.snapToPlayer();
+			}
 		}
 
 		this.hitbox.setLocation(this.position.x, this.position.y);

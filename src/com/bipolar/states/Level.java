@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.svg.Gradient;
 
 import com.bipolar.Bipolar;
 import com.bipolar.model.LevelController;
@@ -67,6 +68,9 @@ public class Level extends BasicGameState {
 			}
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		} else {
+			if (in.isKeyPressed(Input.KEY_C)) {
+				LevelController.toggleCamera();
+			}
 			LevelController.updateLevel(delta);
 		}
 		
