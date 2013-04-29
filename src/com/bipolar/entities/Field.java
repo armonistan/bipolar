@@ -27,6 +27,23 @@ public class Field extends Entity{
 			}
 		}
 	}
+	
+	public void invertCharge() {
+		this.charge *= -1;
+		if (state == 0) {
+			if (charge < 0) {
+				this.image = ResourceLoader.getImage("negmag");
+			} else {
+				this.image = ResourceLoader.getImage("posmag");
+			}
+		} else {
+			if (charge < 0) {
+				this.image = ResourceLoader.getImage("negelec");
+			} else {
+				this.image = ResourceLoader.getImage("poselec");
+			}
+		}
+	}
 
 	public Vector2f getInfluence(Vector2f pos) {
 		Vector2f forceExerted;

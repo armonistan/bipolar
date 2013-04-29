@@ -1,16 +1,13 @@
 package com.bipolar.entities;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
 import com.bipolar.model.LevelController;
 import com.bipolar.resourceloader.ResourceLoader;
-import com.bipolar.states.Level;
 import com.bipolar.view.Camera;
 
 public class Ball extends Entity{
@@ -55,10 +52,6 @@ public class Ball extends Entity{
 
 	public void render(Camera c) {
 		transform(c);
-		new Transform();
-		Transform drawTf = Transform.createTranslateTransform
-				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
-		Level.drawObj.setColor(Color.black);
 		this.image.draw(this.transformedPosition.x, this.transformedPosition.y);
 	}
 
@@ -162,10 +155,6 @@ public class Ball extends Entity{
 				if (tf.intersects(r)) {
 					return r;
 				}
-			} else if (e.solid) {
-				if (tf.intersects(e.hitbox)) {
-					return e.hitbox;
-				}
 			} else if (e instanceof Fuse) {
 				Fuse f = (Fuse) e;
 				if (tf.intersects(e.hitbox)) {
@@ -176,14 +165,33 @@ public class Ball extends Entity{
 					}
 				}
 			} else if (e instanceof Steam) {
-				if (tf.intersects(e.hitbox)) {
+				if (tf.intersects(e.hitbox) && ((Steam) e).on()) {
 					this.state = 0;
 					this.image = this.sheet.getSubImage(1, 0);
 				}
 			} else if (e instanceof Sparks) {
-				if (tf.intersects(e.hitbox)) {
+				if (tf.intersects(e.hitbox) && ((Sparks) e).on()) {
 					this.state = 1;
 					this.image = this.sheet.getSubImage(2, 0);
+				}
+			} else if (e instanceof Machine) {
+				Machine m = (Machine) e;
+				if (tf.intersects(m.hitbox)) {
+					if (this.state == 0 && m.takingM()) {
+						m.filledM();
+						EntityController.removeEntity(this);
+						EntityController.ballSpawner.spawnBall();
+					} else if (this.state == 1 && m.takingE()) {
+						m.filledE();
+						EntityController.removeEntity(this);
+						EntityController.ballSpawner.spawnBall();
+					}
+					} else {
+						//return m.hitbox;
+					}
+			} else if (e.solid) {
+				if (tf.intersects(e.hitbox)) {
+					return e.hitbox;
 				}
 			}
 		}

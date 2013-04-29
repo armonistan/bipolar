@@ -133,6 +133,13 @@ public class LevelController {
 				ysize = Integer.parseInt(split[4]);
 			}
 			int drawLayer = Integer.parseInt(split[5]);
+			boolean on = false;
+			int status = 0;
+			if (type.equals("steam") || type.equals("sparks")) {
+				on = Boolean.parseBoolean(split[6]);
+			} else if (type.equals("machine")) {
+				status = Integer.parseInt(split[6]);
+			}
 
 			System.out.println("Adding object: " + type + " to level.");
 
@@ -152,7 +159,11 @@ public class LevelController {
 				EntityController.setPlayerSpawner(ps);
 				EntityController.addEntity(ps);
 			} else if (type.equals("bar")) {
-				EntityController.addEntity(new Bar(xpos, ypos, solid, state, drawLayer));
+				Bar b = new Bar(xpos, ypos, solid, state, drawLayer);
+				if (connect && w != null) {
+					w.addConnection(b);
+				}
+				EntityController.addEntity(b);
 			} else if (type.equals("fuse")) {
 				LevelController.numFuses++;
 				EntityController.addEntity(new Fuse(xpos, ypos, solid, state, drawLayer));
@@ -163,7 +174,11 @@ public class LevelController {
 					w.addConnection(g);
 				}
 			} else if (type.equals("machine")) {
-				EntityController.addEntity(new Machine(xpos, ypos, solid, state, drawLayer));
+				Machine m = new Machine(xpos, ypos, solid, state, drawLayer, status);
+				if (connect && w != null) {
+					w.addConnection(m);
+				}
+				EntityController.addEntity(m);
 			} else if (type.equals("pad")) {
 				Pad p = new Pad(xpos, ypos, solid, state, drawLayer);
 				EntityController.addEntity(p);
@@ -171,11 +186,23 @@ public class LevelController {
 					w.addConnection(p);
 				}
 			} else if (type.equals("sparks")) {
-				EntityController.addEntity(new Sparks(xpos, ypos, solid, state, drawLayer));
+				Sparks s = new Sparks(xpos, ypos, solid, state, drawLayer, on);
+				if (connect && w != null) {
+					w.addConnection(s);
+				}
+				EntityController.addEntity(s);
 			} else if (type.equals("sphere")) {
-				EntityController.addEntity(new Sphere(xpos, ypos, solid, state, drawLayer));
+				Sphere s = new Sphere(xpos, ypos, solid, state, drawLayer);
+				if (connect && w != null) {
+					w.addConnection(s);
+				}
+				EntityController.addEntity(s);
 			} else if (type.equals("steam")) {
-				EntityController.addEntity(new Steam(xpos, ypos, solid, state, drawLayer));
+				Steam s = new Steam(xpos, ypos, solid, state, drawLayer, on);
+				if (connect && w != null) {
+					w.addConnection(s);
+				}
+				EntityController.addEntity(s);
 			} else if (type.equals("wire")) {
 				w = new Wire(xpos, ypos, solid, state, drawLayer);
 				connect = !connect;
@@ -248,5 +275,4 @@ public class LevelController {
 			EntityController.render(camera);
 		}
 	}
-
 }

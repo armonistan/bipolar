@@ -33,6 +33,7 @@ public class Entity {
 
 	protected Rectangle hitbox;
 	protected Rectangle tfbox;
+	protected boolean cool;
 
 	public Entity(int x, int y) {
 		this.position = new Vector2f(x,y);
@@ -131,11 +132,22 @@ public class Entity {
 		return this.state;
 	}
 
+	public boolean cool() {
+		return this.cool;
+	}
 	public void activate(){
 	}
 
 	public void setState(int state){
 		this.state = state;
+	}
+	
+	public void toggleState() {
+		if (this.state == 0) {
+			this.state = 1;
+		} else if (this.state == 1) {
+			this.state = 0;
+		}
 	}
 
 	public Rectangle getPosition() {

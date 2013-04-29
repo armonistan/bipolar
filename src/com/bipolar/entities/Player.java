@@ -29,7 +29,7 @@ public class Player extends Entity{
 	public final float PLAYER_SPEED = 225f;
 	public final int JUMP_HEIGHT = -2;
 	public static float delta = .001f;
-	
+
 	private boolean flipped = false;
 	private Animation left;
 	private Animation right;
@@ -75,7 +75,7 @@ public class Player extends Entity{
 			}else if (this.velocity.x > .55f) {
 				this.velocity.x -= this.acceleration.x;
 			} else {
-				
+
 				this.velocity.x = 0f;
 			}
 		}
@@ -198,7 +198,9 @@ public class Player extends Entity{
 				if (tf.intersects(e.hitbox)) {
 					if (e instanceof Pad) {
 						Pad p = (Pad) e;
-						p.setState(1);
+						if(p.cool()) {
+							p.activate();
+						}
 					}
 					return e.hitbox;
 				}
