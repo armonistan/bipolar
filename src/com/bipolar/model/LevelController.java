@@ -134,10 +134,13 @@ public class LevelController {
 			int drawLayer = Integer.parseInt(split[5]);
 			boolean on = false;
 			int status = 0;
+			int flipped = 0;
 			if (type.equals("steam") || type.equals("sparks")) {
 				on = Boolean.parseBoolean(split[6]);
 			} else if (type.equals("machine")) {
 				status = Integer.parseInt(split[6]);
+			} else if (type.equals("bar") || type.equals("sphere")) {
+				flipped = Integer.parseInt(split[6]);
 			}
 
 			System.out.println("Adding object: " + type + " to level.");
@@ -158,7 +161,7 @@ public class LevelController {
 				EntityController.setPlayerSpawner(ps);
 				EntityController.addEntity(ps);
 			} else if (type.equals("bar")) {
-				Bar b = new Bar(xpos, ypos, solid, state, drawLayer);
+				Bar b = new Bar(xpos, ypos, solid, state, drawLayer, flipped);
 				if (connect && w != null) {
 					w.addConnection(b);
 				}
@@ -191,7 +194,7 @@ public class LevelController {
 				}
 				EntityController.addEntity(s);
 			} else if (type.equals("sphere")) {
-				Sphere s = new Sphere(xpos, ypos, solid, state, drawLayer);
+				Sphere s = new Sphere(xpos, ypos, solid, state, drawLayer, flipped);
 				if (connect && w != null) {
 					w.addConnection(s);
 				}

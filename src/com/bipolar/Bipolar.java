@@ -98,7 +98,6 @@ public class Bipolar extends StateBasedGame {
 		AppGameContainer app = new AppGameContainer(new Bipolar("Bipolar"));
 		
 		Bipolar.startTime = app.getTime();
-		app.setMinimumLogicUpdateInterval(2 * slowdown);
 		app.setDisplayMode(WIDTH, HEIGHT, false);
 		app.start();
 	}

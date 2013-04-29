@@ -28,6 +28,7 @@ public class Fuse extends Entity{
 
 	public void setActive() {
 		this.active = true;
+		this.image = ResourceLoader.getImage("closedfuse");
 		EntityController.ballSpawner.spawnBall();
 	}
 

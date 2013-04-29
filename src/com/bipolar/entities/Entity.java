@@ -30,6 +30,8 @@ public class Entity {
 	protected int currentFrame;
 	protected int sheetWidth;
 	protected int cycles;
+	protected int xScale = 1;
+	protected int yScale = 1;
 
 	protected Rectangle hitbox;
 	protected Rectangle tfbox;
@@ -107,7 +109,8 @@ public class Entity {
 	public void animate() {
 		if (this.anim != null) {
 			this.image = null;
-			Level.drawObj.drawAnimation(this.anim, this.transformedPosition.x, this.transformedPosition.y);
+			this.anim.draw(this.transformedPosition.x, this.transformedPosition.y,
+					this.width * this.xScale, this.height * this.yScale);
 		}
 	}
 

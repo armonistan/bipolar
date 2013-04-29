@@ -69,9 +69,9 @@ public class Player extends Entity{
 			this.velocity.x = PLAYER_SPEED * Player.delta;
 		} else {
 			this.acceleration.x = Bipolar.DRAG * Player.delta;
-			if(this.velocity.x < -.55f) {
+			if(this.velocity.x < -.85f) {
 				this.velocity.x += this.acceleration.x;
-			}else if (this.velocity.x > .55f) {
+			}else if (this.velocity.x > .85f) {
 				this.velocity.x -= this.acceleration.x;
 			} else {
 				this.velocity.x = 0f;
@@ -84,7 +84,7 @@ public class Player extends Entity{
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		Rectangle underBlock = isBlocked(this.futureBox);
 		if((underBlock != null) && (underBlock.getMinY() + JUMP_EPSILON > this.hitbox.getMaxY()) && (input.isKeyDown(Input.KEY_W))) {
-			this.velocity.y = -1.8f;
+			this.velocity.y = -1.7f;
 		}
 		do {
 			this.fixVelocity(isBlocked(this.futureBox));
@@ -154,7 +154,7 @@ public class Player extends Entity{
 				this.velocity.y = low;
 			} else {
 				this.velocity.x = low;
-				if (Math.abs(low) > 1) {
+				if (Math.abs(low) > .3f) {
 					System.out.println(this.velocity.x);
 				}
 			}
@@ -254,13 +254,6 @@ public class Player extends Entity{
 
 	public void update(){
 		Player.delta = LevelController.delta * .001f;
-		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON) && Bipolar.slowdown < 10) {
-			Bipolar.slowdown++;
-		} else {
-			if (Bipolar.slowdown != 1) {
-				Bipolar.slowdown--;
-			}
-		}
 
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			if (holdingBall) {

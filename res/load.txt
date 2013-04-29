@@ -27,6 +27,7 @@ image:ballspawner:/res/levels/spritesheets/ballspawner.png
 image:bar:/res/levels/spritesheets/bar.png
 image:efuse:/res/levels/spritesheets/electricfuse.png
 image:mfuse:/res/levels/spritesheets/magneticfuse.png
+image:closedfuse:/res/levels/spritesheets/closedfuse.png
 image:gate:/res/levels/spritesheets/gate.png
 image:machine:/res/levels/spritesheets/machine.png
 image:pad:/res/levels/spritesheets/pad.png

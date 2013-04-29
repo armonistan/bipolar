@@ -75,7 +75,6 @@ public class Level extends BasicGameState {
 			LevelController.destroyLevel();
 			LevelController.setCompleted(false);
 		}
-		container.setMinimumLogicUpdateInterval(2 * Bipolar.slowdown);
 	}
 
 	@Override

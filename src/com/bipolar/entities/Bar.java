@@ -13,16 +13,24 @@ public class Bar extends Entity{
 	private Field field2;
 	private long t1;
 	
-	public Bar(int xpos, int ypos, boolean solid, int state, int drawLayer) {
+	public Bar(int xpos, int ypos, boolean solid, int state, int drawLayer, int flipped) {
 		super(xpos, ypos, solid, state, drawLayer);
-		this.image = ResourceLoader.getImage("bar");
+		setSpriteSheet(ResourceLoader.getImage("bar"), 17, 65);
 		this.width = this.image.getWidth();
 		this.height = this.image.getHeight();
 		this.hitbox = new Rectangle(xpos, ypos, this.width, this.height);
 		this.field1 = new Field(xpos + this.width/2, ypos, this.state, 1);
 		this.field2 = new Field(xpos + this.width/2, ypos + this.height, this.state, -1);
+		if (this.state == 0) {
+			this.image = this.anim.getImage(0);
+		} else {
+			this.image = this.anim.getImage(1);
+		}
 		EntityController.addEntity(this.field1);
 		EntityController.addEntity(this.field2);
+		if (flipped == 1) {
+			this.activate();
+		}
 		this.cool = true;
 	}
 	

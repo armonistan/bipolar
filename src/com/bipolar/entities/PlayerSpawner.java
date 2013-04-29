@@ -16,6 +16,8 @@ public class PlayerSpawner extends Entity{
 		super(x, y);
 		this.drawLayer = drawLayer;
 		setSpriteSheet(ResourceLoader.getImage("playerspawner"), 48, 72);
+		this.width = 48;
+		this.height = 72;
 	}
 	
 	public void spawnPlayer() {
