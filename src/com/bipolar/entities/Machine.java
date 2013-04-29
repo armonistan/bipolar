@@ -9,7 +9,7 @@ public class Machine extends Entity{
 	
 	private boolean cool, eSlot, mSlot;
 	private long t1;
-	private int active, slots, type;
+	private int type;
 	
 	public Machine(int xpos, int ypos, boolean solid, int state, int drawLayer, int type) {
 		super(xpos, ypos, solid, state, drawLayer);
@@ -22,13 +22,15 @@ public class Machine extends Entity{
 		this.type = type;
 		if (this.type == 0) {
 			this.mSlot = true;
+			this.image = this.anim.getImage(1);
 		} else if (this.type == 1) {
 			this.eSlot = true;
+			this.image = this.anim.getImage(2);
 		} else {
+			this.image = this.anim.getImage(3);
 			this.eSlot = true;
 			this.mSlot = true;
 		}
-		this.active = 0;
 	}
 	
 	public boolean takingE() {
@@ -40,10 +42,15 @@ public class Machine extends Entity{
 	
 	public void filledE() {
 		this.eSlot = false;
+		if (this.takingM()) {
+			this.image = this.anim.getImage(1);
+		} else {
+			this.image = this.anim.getImage(0);
+		}
 	}
 	
 	public boolean takingM() {
-		if (this.type == 0 || this.type == 2 && this.eSlot) {
+		if (this.type == 0 || this.type == 2 && this.mSlot) {
 			return true;
 		}
 		return false;
@@ -51,6 +58,11 @@ public class Machine extends Entity{
 	
 	public void filledM() {
 		this.mSlot = false;
+		if (this.takingE()) {
+			this.image = this.anim.getImage(2);
+		} else {
+			this.image = this.anim.getImage(0);
+		}
 	}
 	
 	public boolean cool() {

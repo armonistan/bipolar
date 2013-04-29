@@ -35,10 +35,19 @@ player:400:10:1:0:7
 #:0:0
 
 #:0:1
-player:100:100:1:0:8
-playerspawner:300:-100:0:0:9
-ballspawner:250:-100:0:0:1
-platform:-100:300:450:25:0
+fuse:1260:-260:false:1:1
+playerspawner:300:-300:0:0:9
+ballspawner:250:-300:0:0:1
+platform:0:100:300:25:0
+platform:0:-100:300:25:0
+platform:320:0:300:25:0
+platform:640:-100:300:25:0
+platform:960:-200:300:25:0
+wire:0:0:0:0:0
+pad:0:-100:true:0:1
+gate:600:-100:true:-1:1
+wire:0:0:0:0:0
+player:-100:-100:1:0:8
 #:0:1
 
 #:0:2

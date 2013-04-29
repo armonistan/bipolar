@@ -181,14 +181,13 @@ public class Ball extends Entity{
 						m.filledM();
 						EntityController.removeEntity(this);
 						EntityController.ballSpawner.spawnBall();
-					} else if (this.state == 1 && m.takingE()) {
+					}
+					if (this.state == 1 && m.takingE()) {
 						m.filledE();
 						EntityController.removeEntity(this);
 						EntityController.ballSpawner.spawnBall();
 					}
-					} else {
-						//return m.hitbox;
-					}
+				}
 			} else if (e.solid) {
 				if (tf.intersects(e.hitbox)) {
 					return e.hitbox;

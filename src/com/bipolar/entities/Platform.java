@@ -20,7 +20,6 @@ public class Platform extends Entity{
 		this.width = 100;
 		this.height = 25;
 		this.setGeom(x, y, this.width, this.height);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Platform(int x, int y, int width, int height, int drawLayer) {
