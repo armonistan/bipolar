@@ -7,7 +7,6 @@ public class Wire extends Entity{
 	private Entity input;
 
 	public Wire(int xpos, int ypos, boolean solid, int state, int drawLayer) {
-		// TODO Auto-generated constructor stub
 		super(xpos, ypos, solid, state, drawLayer);
 		this.input = null;
 		this.connections = new ArrayList<Entity>();
@@ -29,6 +28,7 @@ public class Wire extends Entity{
 					e.setState(1);
 				}
 			}
+			this.input.setState(0);
 		}
 	}
 

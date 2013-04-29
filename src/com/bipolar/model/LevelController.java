@@ -73,7 +73,6 @@ public class LevelController {
 		try {
 			LevelController.populateLevel();
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		EntityController.enter();
@@ -169,7 +168,6 @@ public class LevelController {
 				Pad p = new Pad(xpos, ypos, solid, state, drawLayer);
 				EntityController.addEntity(p);
 				if (connect && w != null) {
-					System.out.println(w + " " + connect);
 					w.addConnection(p);
 				}
 			} else if (type.equals("sparks")) {
@@ -181,7 +179,6 @@ public class LevelController {
 			} else if (type.equals("wire")) {
 				w = new Wire(xpos, ypos, solid, state, drawLayer);
 				connect = !connect;
-				System.out.println(w + " " + connect);
 				EntityController.addEntity(w);
 			}
 		}
@@ -229,6 +226,9 @@ public class LevelController {
 	}
 
 	public static void setCompleted(boolean complete) {
+		if (!complete) {
+			LevelController.currentFuses = 0;
+		}
 		LevelController.completed = complete;
 	}
 

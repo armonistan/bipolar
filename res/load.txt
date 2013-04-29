@@ -18,11 +18,13 @@ animation:worldbutton:/res/menus/textures/worldbutton.png:125:85
 image:ball:/res/levels/spritesheets/ball.png
 image:ballspawner:/res/levels/spritesheets/ballspawner.png
 image:bar:/res/levels/spritesheets/bar.png
-image:fuse:/res/levels/spritesheets/fuse.png
+image:efuse:/res/levels/spritesheets/electricfuse.png
+image:mfuse:/res/levels/spritesheets/magneticfuse.png
 image:gate:/res/levels/spritesheets/gate.png
 image:machine:/res/levels/spritesheets/machine.png
 image:pad:/res/levels/spritesheets/pad.png
-image:player:/res/levels/spritesheets/player.png
+image:playerleft:/res/levels/spritesheets/playerLeft.png
+image:playerright:/res/levels/spritesheets/playerRight.png
 image:playerspawner:/res/levels/spritesheets/playerspawner.png
 image:steam:/res/levels/spritesheets/steam.png
 image:sparks:/res/levels/spritesheets/sparks.png

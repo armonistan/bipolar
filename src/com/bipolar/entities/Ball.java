@@ -22,8 +22,8 @@ public class Ball extends Entity{
 
 	public Ball(int xpos, int ypos, Vector2f initDirection) {
 		super(xpos, ypos);
-		this.image = ResourceLoader.getImage("ball");
-		this.drawLayer = 8;
+		this.setSpriteSheet(ResourceLoader.getImage("ball"), 11, 11);
+		this.drawLayer = 9;
 		this.width = this.image.getWidth();
 		this.height = this.image.getHeight();
 		this.setGeom(xpos, ypos, this.width, this.height);
@@ -59,8 +59,6 @@ public class Ball extends Entity{
 		Transform drawTf = Transform.createTranslateTransform
 				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
 		Level.drawObj.setColor(Color.black);
-		Level.drawObj.draw(this.hitbox.transform(drawTf));
-		Level.drawObj.draw(this.futureBox.transform(drawTf));
 		this.image.draw(this.transformedPosition.x, this.transformedPosition.y);
 	}
 
@@ -177,13 +175,15 @@ public class Ball extends Entity{
 						LevelController.addPowered();
 					}
 				}
-			} else if (e instanceof Sparks) {
-				if (tf.intersects(e.hitbox)) {
-					this.state = 1;
-				}
 			} else if (e instanceof Steam) {
 				if (tf.intersects(e.hitbox)) {
 					this.state = 0;
+					this.image = this.sheet.getSubImage(1, 0);
+				}
+			} else if (e instanceof Sparks) {
+				if (tf.intersects(e.hitbox)) {
+					this.state = 1;
+					this.image = this.sheet.getSubImage(2, 0);
 				}
 			}
 		}

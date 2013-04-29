@@ -17,8 +17,8 @@ public class BallSpawner extends Entity {
 	}
 	
 	public void spawnBall() {
-		Ball b = new Ball((int) (this.position.x + this.width / 2), 
-				(int) this.position.y + this.height, new Vector2f(0,0));
+		Ball b = new Ball((int) (this.position.x + this.width / 2 - 5), 
+				(int) this.position.y + this.height - 11, new Vector2f(0,0));
 		b.setRespawned(true);
 	}
 	
