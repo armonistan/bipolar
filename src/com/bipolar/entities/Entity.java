@@ -163,7 +163,11 @@ public class Entity {
 	}
 
 	public Vector2f getPos() {
-		return this.position;
+		return this.position.copy();
+	}
+	
+	public Vector2f getTfPos() {
+		return this.transformedPosition.copy();
 	}
 
 	public int getDrawLayer() {

@@ -7,16 +7,15 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
 import com.bipolar.model.LevelController;
 import com.bipolar.resourceloader.ResourceLoader;
-import com.bipolar.states.Level;
 import com.bipolar.view.Camera;
 
 public class Player extends Entity{
@@ -75,7 +74,6 @@ public class Player extends Entity{
 			}else if (this.velocity.x > .55f) {
 				this.velocity.x -= this.acceleration.x;
 			} else {
-
 				this.velocity.x = 0f;
 			}
 		}
@@ -148,10 +146,18 @@ public class Player extends Entity{
 				low = middle;
 			}
 		}
-		if(toFix) {
-			this.velocity.y = low;
-		} else {
-			this.velocity.x = low;
+		
+		Line c = new Line(new Vector2f(this.futureBox.getCenterX(), this.futureBox.getCenterY())
+			, new Vector2f(this.hitbox.getCenterX(), this.hitbox.getCenterY()));
+		if(isBlocked(c) == null) {
+			if(toFix) {
+				this.velocity.y = low;
+			} else {
+				this.velocity.x = low;
+				if (Math.abs(low) > 1) {
+					System.out.println(this.velocity.x);
+				}
+			}
 		}
 	}
 

@@ -13,13 +13,13 @@ import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
 import com.bipolar.entities.BallSpawner;
 import com.bipolar.entities.Bar;
-import com.bipolar.entities.Field;
 import com.bipolar.entities.Fuse;
 import com.bipolar.entities.Gate;
 import com.bipolar.entities.Machine;
 import com.bipolar.entities.Platform;
 import com.bipolar.entities.Player;
 import com.bipolar.entities.PlayerSpawner;
+import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.view.Camera;
 import com.bipolar.entities.Pad;
 import com.bipolar.entities.Sparks;
@@ -32,7 +32,7 @@ public class LevelController {
 	private static int levelID;
 	private static int worldID;
 	private static Scanner s;
-	public static Image background, midground, foreground;
+	public static Image background, farback, midback, closeback, midground, foreground;
 	public static Camera camera;
 	public static int delta;
 
@@ -42,6 +42,7 @@ public class LevelController {
 	private static int numFuses = 0;
 	private static int currentFuses = 0;
 	private static boolean cameraMode = false;
+	private static float drawFall = 0;
 
 	public static void setLevel(int level) {
 		if (level > -1 && level < Bipolar.LEVELPERWORLD) {
@@ -60,14 +61,12 @@ public class LevelController {
 	}
 
 	public static void enter() {
-		/*
-		 * This sets everything for the level:
-		 * populate
-		 * setbkg
-		 * setmdg
-		 * setfrg
-		 * 
-		 */
+		LevelController.background = (ResourceLoader.getImage("background"));
+		LevelController.farback = (ResourceLoader.getImage("farback"));
+		LevelController.midback = (ResourceLoader.getImage("midback"));
+		LevelController.closeback = (ResourceLoader.getImage("closeback"));
+		LevelController.midground = ResourceLoader.getImage("filter");
+		
 		LevelController.setLevel(Bipolar.currentLevel);
 		LevelController.setWorld(Bipolar.currentWorld);
 		try {
@@ -269,10 +268,22 @@ public class LevelController {
 
 	public static void renderLevel(Graphics g) {
 		if (!LevelController.completed) {
-			//LevelController.background.draw();
-			//LevelController.midground.draw();
-			//LevelController.foreground.draw();
+			LevelController.background.draw();
+			if (EntityController.player.getPos().y > 500) {
+				float scale = EntityController.player.getPos().y / 1000;
+				LevelController.drawFall = -EntityController.player.getPos().y * scale;
+			} else {
+				LevelController.drawFall = 0;
+			}
+			LevelController.farback.draw((float) (-200 - (EntityController.player.getPos().x) * .015), drawFall * .015f);
+			LevelController.midback.draw((float) (-200 - (EntityController.player.getPos().x) * .05), drawFall * .05f);
+			LevelController.closeback.draw((float) (-(EntityController.player.getPos().x) * .10), drawFall * .10f);
+			LevelController.midground.draw();
 			EntityController.render(camera);
 		}
+	}
+	
+	public static void translateBkg() {
+		
 	}
 }

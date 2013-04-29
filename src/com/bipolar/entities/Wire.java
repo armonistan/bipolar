@@ -27,7 +27,6 @@ public class Wire extends Entity{
 				this.connections.remove(0);
 			}
 			if (this.input.getState() == 1) {
-				System.out.println(this.input);
 				for (Entity e : this.connections) {
 					if(e.cool()) {
 						e.activate();

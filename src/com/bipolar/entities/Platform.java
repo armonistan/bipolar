@@ -40,8 +40,8 @@ public class Platform extends Entity{
 		new Transform();
 		Transform drawTf = Transform.createTranslateTransform
 				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
-		Level.drawObj.setColor(Color.black);
-		Level.drawObj.draw(this.hitbox.transform(drawTf));
+		Level.drawObj.setColor(Color.white);
+		Level.drawObj.fill(this.hitbox.transform(drawTf));
 	}
 	
 	public void update() {

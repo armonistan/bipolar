@@ -14,6 +14,13 @@ animation:applybutton:/res/menus/textures/applybutton.png:125:85:100
 animation:backbutton:/res/menus/textures/backbutton.png:125:85:100
 animation:worldbutton:/res/menus/textures/worldbutton.png:125:85
 
+//BACKGROUNDS AND FOREGROUNDS
+image:farback:/res/levels/textures/farback.png
+image:midback:/res/levels/textures/midback.png
+image:closeback:/res/levels/textures/closeback.png
+image:background:/res/levels/textures/background.png
+image:filter:/res/levels/textures/filter.png
+
 //LEVEL STUFF
 image:ball:/res/levels/spritesheets/ball.png
 image:ballspawner:/res/levels/spritesheets/ballspawner.png

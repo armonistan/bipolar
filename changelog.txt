@@ -59,9 +59,9 @@ Field images added
 Camera switching mode -- press 'C' to switch focus between player and ball
 Level design continuing
 
-ALPHA 0.9 TODO
+ALPHA 0.9
 ---------------
-proper texture resources
-proper animations
-proper background/foreground
-complete level design
+entity textures added
+background textures added
+parallax scrolling added
+NEED COMPLETED LEVELS
