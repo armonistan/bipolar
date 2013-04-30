@@ -78,7 +78,7 @@ public class Ball extends Entity{
 				}
 			}
 		}
-		if (Math.abs(this.velocity.x) < 1.0f && Math.abs(this.velocity.y) < 1.0f) {
+		if (Math.abs(this.velocity.x) < .7f && Math.abs(this.velocity.y) < .7f) {
 			this.velocity.add(this.acceleration);
 		}
 	}

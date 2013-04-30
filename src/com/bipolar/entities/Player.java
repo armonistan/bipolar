@@ -77,7 +77,7 @@ public class Player extends Entity{
 				this.velocity.x = 0f;
 			}
 		}
-		if (this.velocity.y < 6.0f) {
+		if (this.velocity.y < 2f) {
 			this.velocity.y += this.acceleration.y;
 		}
 
