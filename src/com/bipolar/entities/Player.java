@@ -85,7 +85,7 @@ public class Player extends Entity{
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		Rectangle underBlock = isBlocked(this.futureBox);
 		if((underBlock != null) && (underBlock.getMinY() + JUMP_EPSILON > this.hitbox.getMaxY()) && (input.isKeyDown(Input.KEY_W))) {
-			this.velocity.y -= 500f * Player.delta;
+			this.velocity.y -= 550f * Player.delta;
 		}
 		do {
 			this.fixVelocity(isBlocked(this.futureBox));

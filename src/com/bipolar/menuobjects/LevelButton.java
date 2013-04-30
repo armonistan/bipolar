@@ -15,6 +15,7 @@ public class LevelButton extends MenuButton{
 	public LevelButton(int worldID, int levelID, Input in){
 		super(ResourceLoader.getAnimation("world" + worldID));
 		this.in = in;
+		this.anim.stop();
 		this.worldID = worldID;
 		this.levelID = levelID;
 	}
@@ -34,12 +35,12 @@ public class LevelButton extends MenuButton{
 	
 	public void setAnimation(Animation anim){
 		this.anim = anim;
+		this.anim.stop();
 	}
 	
 	@Override
 	public boolean getClicked(){
-		if (this.anim.getFrame() == 1 
-				&& this.in.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+		if (this.hover && this.in.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			return true;
 		}
 		return false;
@@ -61,7 +62,7 @@ public class LevelButton extends MenuButton{
 	
 	@Override
 	public void render(Graphics g){
-		this.anim.draw(this.x, this.y);
+		this.image.draw(this.x, this.y);
 		g.setColor(org.newdawn.slick.Color.black);
 		g.drawString("Level\n\t" + (levelID + 1), this.x + 25, this.y + 20);
 	}

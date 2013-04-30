@@ -15,7 +15,6 @@
 //tells the parser where a level's objects begin and end
 #:0:0
 fuse: 1260:-260:false:1:1
-//fuse:750:20:false:0:1
 platform:0:-100:300:30:0
 platform:320:0:300:30:0
 platform:640:-100:300:30:0
@@ -38,13 +37,13 @@ platform:640:-100:300:30:0
 platform:960:-200:300:30:0
 wire:0:0:0:0:0
 pad:0:-120:true:0:1
-gate:640:-250:true:-1:1
+gate:640:-250:true:1:1
 wire:0:0:0:0:0
 player:100:-50:1:0:8
 #:0:1
 
 #:0:2
-fuse:720:150:false:1:1
+fuse: 720:150:false:1:1
 sparks:200:-350:false:2:2:true
 sparks:610:130:false:2:2:true
 playerspawner:100:-150:0:0:9
@@ -56,7 +55,7 @@ platform:360:100:400:30:0
 platform:300:230:350:30:0
 wire:0:0:0:0:0
 machine:100:-347:true:0:1:1
-gate:650:100:true:-1:1
+gate:650:100:true:1:1
 wire:0:0:0:0:0
 player:100:-150:1:0:8
 #:0:2
@@ -71,6 +70,7 @@ platform:0:-200:650:30:0
 platform:0:-400:30:200:0
 steam:630:-170:false:10:2:true
 bar:800:-100:true:0:4:0
+bar:800:-100:true:0:4:0
 fuse: 50:-300:false:0:1
 #:0:3
 
@@ -82,28 +82,137 @@ sparks:145:-510:false:10:2:true
 platform:0:0:150:30:0
 sphere:300:-150:true:1:4:0
 sphere:400:120:true:1:4:0
-sphere:650:90:true:1:4:0
-sphere:600:-100:true:1:4:0
-sphere:800:-120:true:1:4:0
+sphere:650:130:true:1:4:0
+sphere:600:-140:true:1:4:0
+sphere:850:-130:true:1:4:0
 fuse: 950:50:false:1:1
 #:0:4
 
 #:0:5
-player:100:100:1:0
+player:700:-170:1:0:8
+playerspawner:700:-170:0:0:9
+ballspawner:650:-170:0:0:1
+sparks:550:-380:false:4:2:true
+platform:0:0:1000:30:0
+platform:500:-200:800:30:0
+platform:500:-400:800:30:0
+platform:1270:-400:30:30:0
+platform:250:-275:150:30:0
+platform:100:-175:150:30:0
+platform:0:-30:150:30:0
+wire:0:0:0:0:0
+pad:570:-420:true:0:1
+gate:600:-360:true:1:1
+wire:0:0:0:0:0
+wire:0:0:0:0:0
+pad:770:-420:true:0:1
+gate:800:-360:true:1:1
+wire:0:0:0:0:0
+wire:0:0:0:0:0
+pad:970:-420:true:0:1
+gate:1000:-360:true:1:1
+wire:0:0:0:0:0
+wire:0:0:0:0:0
+pad:1170:-420:true:0:1
+gate:1200:-360:true:1:1
+wire:0:0:0:0:0
+fuse:1230:-320:false:1:1
 #:0:5
 
 #:0:6
-player:100:100:1:0
+player:100:-120:1:0:8
+playerspawner:50:-130:0:0:9
+ballspawner:100:-130:0:0:1
+platform:0:0:350:30:0
+platform:-300:-120:30:200:0
+platform:-250:-220:150:30:0
+platform:-200:170:650:30:0
+platform:350:-150:650:30:0
+platform:250:-270:50:30:0
+platform:90:-290:30:10:0
+platform:90:-200:30:10:0
+platform:500:20:500:30:0
+wire:0:0:0:0:0
+machine:-250:-314:true:0:1:0
+gate:740:-130:true:1:1
+wire:0:0:0:0:0
+wire:0:0:0:0:0
+machine:800:-245:true:0:1:1
+gate:840:-130:true:1:1
+wire:0:0:0:0:0
+wire:0:0:0:0:0
+machine:90:73:true:0:1:2
+gate:940:-130:true:1:1
+wire:0:0:0:0:0
+sparks:95:-290:false:2:2:true
+fuse: 980:-50:false:0:1
+steam:480:-120:false:9:2:true
 #:0:6
 
 #:0:7
-player:100:100:1:0
+player:320:-120:1:0:8
+playerspawner:320:-130:0:0:9
+ballspawner:270:-130:0:0:1
+platform:0:0:500:30:0
+platform:0:-500:30:500:0
+platform:0:-500:1000:30:0
+platform:970:-500:30:600:0
+platform:200:-300:30:300:0
+platform:200:-300:600:30:0
+platform:700:-70:50:30:0
+sparks:720:-270:false:4:2:true
+fuse: 100:-100:false:1:1
+wire:0:0:0:0:0
+pad:410:-15:true:0:1
+sphere:100:-300:true:1:4:0
+sphere:500:-450:true:1:4:0
+sphere:850:-100:true:1:4:0
+wire:0:0:0:0:0
 #:0:7
 
 #:0:8
-player:100:100:1:0
+player:120:-120:1:0:8
+playerspawner:120:-130:0:0:9
+ballspawner:70:-130:0:0:1
+platform:0:0:400:30:0
+platform:350:-200:400:30:0
+platform:720:-200:30:500:0
+platform:0:270:750:30:0
+steam:350:-160:false:10:2:true
+fuse: 100:130:false:0:1
+wire:0:0:0:0:0
+pad:240:-15:true:0:1
+bar:500:20:true:0:4:0
+bar:200:130:true:0:4:0
+wire:0:0:0:0:0
 #:0:8
 
 #:0:9
-player:100:100:1:0
+player:120:-120:1:0:8
+playerspawner:120:-130:0:0:9
+ballspawner:760:-230:0:0:1
+platform:0:0:300:30:0
+platform:270:-60:30:60:0
+platform:0:-300:300:30:0
+platform:350:-150:300:30:0
+platform:700:-45:350:30:0
+platform:1100:-175:300:30:0
+platform:1100:-375:400:30:0
+platform:1100:-675:800:30:0
+platform:1400:-25:300:30:0
+platform:1100:55:200:30:0
+fuse: 850:50:false:0:1
+sparks:320:-470:false:3:2:true
+steam:1355:-335:false:10:2:true
+steam:750:0:false:10:2:true
+wire:0:0:0:0:0
+pad:100:-315:true:0:1
+sphere:750:-460:true:1:4:0
+wire:0:0:0:0:0
+wire:0:0:0:0:0
+machine:1300:-480:true:0:1:2
+gate:700:-8:true:1:1
+gate:1030:-8:true:0:1
+wire:0:0:0:0:0
+bar:1700:-200:true:0:4:0
 #:0:9

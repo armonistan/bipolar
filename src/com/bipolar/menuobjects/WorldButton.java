@@ -14,7 +14,7 @@ public class WorldButton extends MenuButton{
 	public WorldButton(int id, Input in){
 		super(ResourceLoader.getAnimation("worldbutton"));
 		this.in = in;
-		this.worldID = id;
+		this.setWorld(id);
 	}
 	
 	public WorldButton(Animation anim, int id, Input in){
@@ -38,8 +38,7 @@ public class WorldButton extends MenuButton{
 	
 	@Override
 	public boolean getClicked(){
-		if (this.anim.getFrame() == 1 
-				&& this.in.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+		if (this.hover && this.in.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			return true;
 		}
 		return false;
@@ -61,7 +60,7 @@ public class WorldButton extends MenuButton{
 	
 	@Override
 	public void render(Graphics g){
-		this.anim.draw(this.x, this.y);
+		this.image.draw(this.x, this.y);
 		g.setColor(org.newdawn.slick.Color.black);
 		g.drawString("World\n" + (worldID + 1), this.x + 25, this.y + 20);
 	}

@@ -14,8 +14,9 @@ public class Gate extends Entity{
 		super(xpos, ypos, solid, state, drawLayer);
 		setSpriteSheet(ResourceLoader.getImage("gate"), 16, 156);
 		this.hitbox = new Rectangle(xpos, ypos, this.image.getWidth(), this.image.getHeight());
-		this.state = 0;
+		this.state = state;
 		this.cool = true;
+		this.activate();
 	}
 	
 	public boolean cool() {
