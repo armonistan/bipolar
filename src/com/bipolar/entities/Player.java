@@ -77,14 +77,14 @@ public class Player extends Entity{
 				this.velocity.x = 0f;
 			}
 		}
-		if (this.velocity.y < 6.0f) {
-			this.velocity.y += this.acceleration.y;
+		if (this.velocity.y < 1.0f) {
+			this.velocity.y += this.acceleration.y * Player.delta;
 		}
 
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		Rectangle underBlock = isBlocked(this.futureBox);
 		if((underBlock != null) && (underBlock.getMinY() + JUMP_EPSILON > this.hitbox.getMaxY()) && (input.isKeyDown(Input.KEY_W))) {
-			this.velocity.y = -1.7f;
+			this.velocity.y = -.4f;
 		}
 		do {
 			this.fixVelocity(isBlocked(this.futureBox));

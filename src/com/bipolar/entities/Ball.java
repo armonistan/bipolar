@@ -11,7 +11,7 @@ import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.view.Camera;
 
 public class Ball extends Entity{
-	private static final float INIT_VEL = .5f;
+	private static final float INIT_VEL = .3f;
 	private int state = -1; //neutral
 	private Vector2f velocity, acceleration;
 	private Rectangle futureBox;
@@ -78,8 +78,8 @@ public class Ball extends Entity{
 				}
 			}
 		}
-		if (Math.abs(this.velocity.x) < 1.0f && Math.abs(this.velocity.y) < 1.0f) {
-			this.velocity.add(this.acceleration);
+		if (Math.abs(this.velocity.x) < .5f && Math.abs(this.velocity.y) < .5f) {
+			this.velocity.add(this.acceleration.scale(LevelController.delta).copy());
 		}
 	}
 
