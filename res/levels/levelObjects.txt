@@ -44,7 +44,7 @@ player:100:-50:1:0:8
 #:0:1
 
 #:0:2
-fuse: 720:150:false:1:1
+fuse:720:150:false:1:1
 sparks:200:-350:false:2:2:true
 sparks:610:130:false:2:2:true
 playerspawner:100:-150:0:0:9

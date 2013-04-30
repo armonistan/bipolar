@@ -146,19 +146,17 @@ public class Player extends Entity{
 				low = middle;
 			}
 		}
-		
-		Line c = new Line(new Vector2f(this.futureBox.getCenterX(), this.futureBox.getCenterY())
-			, new Vector2f(this.hitbox.getCenterX(), this.hitbox.getCenterY()));
-		if(isBlocked(c) == null) {
-			if(toFix) {
-				this.velocity.y = low;
-			} else {
-				this.velocity.x = low;
-				if (Math.abs(low) > .3f) {
-					System.out.println(this.velocity.x);
-				}
+
+
+		if(toFix) {
+			this.velocity.y = low;
+		} else {
+			this.velocity.x = low;
+			if (Math.abs(low) > .3f) {
+				System.out.println(this.velocity.x);
 			}
 		}
+
 	}
 
 	public int quadrant(Vector2f vector) {

@@ -215,6 +215,7 @@ public class LevelController {
 
 	public static void destroyLevel() {
 		EntityController.deleteAllEntities();
+		EntityController.setBall(null);
 	}
 
 	public static void setBackground(Image bkg) {
