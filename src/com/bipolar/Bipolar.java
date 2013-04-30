@@ -37,10 +37,10 @@ public class Bipolar extends StateBasedGame {
 	public static final boolean DEVMODE 	= true;
 	public static final int LAYERS = 10;
 	
-	public static final int FORCE_SCALE = 15;
-	public static final float G = .75f;
+	public static final int FORCE_SCALE = 25;
+	public static final float G = .0075f;
 	public static final float DRAG = .55f;
-	public static final float PERMEABILITY = 2f;
+	public static final float PERMEABILITY = 4f;
 	
 	public static long startTime = 0;
 	public static long elapsedTime = 0;
@@ -99,6 +99,8 @@ public class Bipolar extends StateBasedGame {
 		
 		Bipolar.startTime = app.getTime();
 		app.setDisplayMode(WIDTH, HEIGHT, false);
+		app.setMinimumLogicUpdateInterval(3);
+		app.setMaximumLogicUpdateInterval(3);
 		app.start();
 	}
 	

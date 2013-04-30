@@ -61,7 +61,6 @@ public class Player extends Entity{
 	}
 
 	public void move() {
-		this.acceleration.y = Bipolar.G;
 		if (input.isKeyDown(Input.KEY_A)) {
 			this.flipped = true;
 			this.velocity.x = -PLAYER_SPEED * Player.delta;
@@ -78,21 +77,25 @@ public class Player extends Entity{
 				this.velocity.x = 0f;
 			}
 		}
-		if (this.velocity.y < 1.0f) {
+<<<<<<< HEAD
+		if (this.velocity.y < 2f) {
 			this.velocity.y += this.acceleration.y;
+=======
+		if (this.velocity.y < 1.0f) {
+			this.velocity.y += this.acceleration.y * Player.delta;
+>>>>>>> 53df08dd2e9510986685514495314d2201bc0f0b
 		}
 
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		Rectangle underBlock = isBlocked(this.futureBox);
 		if((underBlock != null) && (underBlock.getMinY() + JUMP_EPSILON > this.hitbox.getMaxY()) && (input.isKeyDown(Input.KEY_W))) {
-			this.velocity.y -= 500f * Player.delta;
+			this.velocity.y = -.4f;
 		}
 		do {
 			this.fixVelocity(isBlocked(this.futureBox));
 			this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		} while(isBlocked(this.futureBox) != null);
 		this.updatePhysics();
-		
 	}
 
 	public void fixVelocity(Rectangle collideBox) {
