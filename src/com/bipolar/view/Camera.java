@@ -34,21 +34,36 @@ public class Camera {
 		this.innerBox.setCenterY(player.getCenterY());
 	}
 	
-	public void update() {
-		Rectangle player = EntityController.player.getPosition();
-		dx = EntityController.player.getVelocity().x;
-		dy = EntityController.player.getVelocity().y;
+	public void snapToBall() {
+		Rectangle player = EntityController.ball.getPosition();
+		this.cameraPort.setCenterX(player.getCenterX());
+		this.cameraPort.setCenterY(player.getCenterY());
+		this.innerBox.setCenterX(player.getCenterX());
+		this.innerBox.setCenterY(player.getCenterY());
+	}
+	
+	public void update(boolean mode) {
+		Rectangle rect = null;
+		if (mode) {
+			rect = EntityController.ball.getPosition();
+			dx = EntityController.ball.getVelocity().x;
+			dy = EntityController.ball.getVelocity().y;
+		} else {
+			rect = EntityController.player.getPosition();
+			dx = EntityController.player.getVelocity().x;
+			dy = EntityController.player.getVelocity().y;
+		}
 		
-		if (player.getMinX() < innerBox.getMinX()) {
+		if (rect.getMinX() < innerBox.getMinX()) {
 			this.moveCameraPortX(dx);
 		}
-		if (player.getMaxX() > innerBox.getMaxX()) {
+		if (rect.getMaxX() > innerBox.getMaxX()) {
 			this.moveCameraPortX(dx);
 		}
-		if (player.getMinY() < innerBox.getMinY()) {
+		if (rect.getMinY() < innerBox.getMinY()) {
 			this.moveCameraPortY(dy);
 		}
-		if (player.getMaxY() > innerBox.getMaxY()) {
+		if (rect.getMaxY() > innerBox.getMaxY()) {
 			this.moveCameraPortY(dy);
 		}
 	}

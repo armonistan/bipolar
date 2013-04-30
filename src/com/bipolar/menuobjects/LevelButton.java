@@ -52,9 +52,9 @@ public class LevelButton extends MenuButton{
 					&& in.getAbsoluteMouseX() > this.x
 					&& in.getAbsoluteMouseY() < this.y + this.height
 					&& in.getAbsoluteMouseY() > this.y) {
-				super.setHover();
+				this.setHover();
 			} else {
-				super.setUnhover();
+				this.setUnhover();
 			}
 		}
 	}

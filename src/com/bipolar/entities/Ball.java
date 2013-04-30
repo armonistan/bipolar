@@ -1,16 +1,13 @@
 package com.bipolar.entities;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
 import com.bipolar.model.LevelController;
 import com.bipolar.resourceloader.ResourceLoader;
-import com.bipolar.states.Level;
 import com.bipolar.view.Camera;
 
 public class Ball extends Entity{
@@ -22,8 +19,8 @@ public class Ball extends Entity{
 
 	public Ball(int xpos, int ypos, Vector2f initDirection) {
 		super(xpos, ypos);
-		this.image = ResourceLoader.getImage("ball");
-		this.drawLayer = 8;
+		this.setSpriteSheet(ResourceLoader.getImage("ball"), 11, 11);
+		this.drawLayer = 9;
 		this.width = this.image.getWidth();
 		this.height = this.image.getHeight();
 		this.setGeom(xpos, ypos, this.width, this.height);
@@ -31,6 +28,9 @@ public class Ball extends Entity{
 		this.velocity = initDirection.scale(INIT_VEL);
 		this.acceleration = new Vector2f();
 		EntityController.addBall(this);
+		if (LevelController.getCameraFocus()) {
+			LevelController.camera.snapToBall();
+		}
 	}
 
 	public void update(){
@@ -41,6 +41,9 @@ public class Ball extends Entity{
 				|| this.position.x < -Bipolar.MAXWIDTH
 				|| this.position.y > Bipolar.MAXHEIGHT
 				|| this.position.y < -Bipolar.MAXHEIGHT) {
+			if (LevelController.getCameraFocus()) {
+				LevelController.camera.snapToBall();
+			}
 			EntityController.ballSpawner.spawnBall();
 			this.hitbox.setLocation(this.position.x, this.position.y);
 		}
@@ -49,20 +52,35 @@ public class Ball extends Entity{
 
 	public void render(Camera c) {
 		transform(c);
-		new Transform();
-		Transform drawTf = Transform.createTranslateTransform
-				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
-		Level.drawObj.setColor(Color.black);
-		Level.drawObj.draw(this.hitbox.transform(drawTf));
-		Level.drawObj.draw(this.futureBox.transform(drawTf));
 		this.image.draw(this.transformedPosition.x, this.transformedPosition.y);
 	}
 
 
 	public void move() {
+		setAcceleration();
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		fixVelocity(isBlocked(this.futureBox));
 		updatePhysics();
+	}
+
+	public void setAcceleration() {
+		this.acceleration.set(0, 0);
+		for (Entity e : EntityController.getLevelObjects()) {
+			if (e instanceof Bar) {
+				Bar b = (Bar) e;
+				if (b.getState() == this.state) {
+					this.acceleration.add(b.getForce(this.position.copy()));
+				}
+			} else if (e instanceof Sphere) {
+				Sphere s = (Sphere) e;
+				if (s.getState() == this.state) {
+					this.acceleration.add(s.getForce(this.position.copy()));
+				}
+			}
+		}
+		if (Math.abs(this.velocity.x) < 1.0f && Math.abs(this.velocity.y) < 1.0f) {
+			this.velocity.add(this.acceleration);
+		}
 	}
 
 	public void fixVelocity(Rectangle collideBox) {
@@ -137,10 +155,6 @@ public class Ball extends Entity{
 				if (tf.intersects(r)) {
 					return r;
 				}
-			} else if (e.solid) {
-				if (tf.intersects(e.hitbox)) {
-					return e.hitbox;
-				}
 			} else if (e instanceof Fuse) {
 				Fuse f = (Fuse) e;
 				if (tf.intersects(e.hitbox)) {
@@ -150,13 +164,33 @@ public class Ball extends Entity{
 						LevelController.addPowered();
 					}
 				}
-			} else if (e instanceof Sparks) {
-				if (tf.intersects(e.hitbox)) {
-					this.state = 1;
-				}
 			} else if (e instanceof Steam) {
-				if (tf.intersects(e.hitbox)) {
+				if (tf.intersects(e.hitbox) && ((Steam) e).on()) {
 					this.state = 0;
+					this.image = this.sheet.getSubImage(1, 0);
+				}
+			} else if (e instanceof Sparks) {
+				if (tf.intersects(e.hitbox) && ((Sparks) e).on()) {
+					this.state = 1;
+					this.image = this.sheet.getSubImage(2, 0);
+				}
+			} else if (e instanceof Machine) {
+				Machine m = (Machine) e;
+				if (tf.intersects(m.hitbox)) {
+					if (this.state == 0 && m.takingM()) {
+						m.filledM();
+						EntityController.removeEntity(this);
+						EntityController.ballSpawner.spawnBall();
+					}
+					if (this.state == 1 && m.takingE()) {
+						m.filledE();
+						EntityController.removeEntity(this);
+						EntityController.ballSpawner.spawnBall();
+					}
+				}
+			} else if (e.solid) {
+				if (tf.intersects(e.hitbox)) {
+					return e.hitbox;
 				}
 			}
 		}

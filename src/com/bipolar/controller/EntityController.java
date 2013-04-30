@@ -17,6 +17,7 @@ public class EntityController {
 	public static HashSet<Entity> toAdd = new HashSet<Entity>();
 	public static HashSet<Entity> toRemove = new HashSet<Entity>();
 	public static Player player;
+	public static Ball ball;
 	public static PlayerSpawner playerSpawner;
 	public static BallSpawner ballSpawner;
 
@@ -31,6 +32,7 @@ public class EntityController {
 			}
 		}
 		addEntity(b);
+		EntityController.setBall(b);
 	}
 
 	public static void removeEntity(Entity e) {
@@ -39,6 +41,10 @@ public class EntityController {
 
 	public static void setPlayer(Player p) {
 		EntityController.player = p;
+	}
+	
+	public static void setBall(Ball b) {
+		EntityController.ball = b;
 	}
 
 	public static void setPlayerSpawner(PlayerSpawner spawner) {

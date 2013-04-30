@@ -14,16 +14,30 @@ animation:applybutton:/res/menus/textures/applybutton.png:125:85:100
 animation:backbutton:/res/menus/textures/backbutton.png:125:85:100
 animation:worldbutton:/res/menus/textures/worldbutton.png:125:85
 
+//BACKGROUNDS AND FOREGROUNDS
+image:farback:/res/levels/textures/farback.png
+image:midback:/res/levels/textures/midback.png
+image:closeback:/res/levels/textures/closeback.png
+image:background:/res/levels/textures/background.png
+image:filter:/res/levels/textures/filter.png
+
 //LEVEL STUFF
 image:ball:/res/levels/spritesheets/ball.png
 image:ballspawner:/res/levels/spritesheets/ballspawner.png
 image:bar:/res/levels/spritesheets/bar.png
-image:fuse:/res/levels/spritesheets/fuse.png
+image:efuse:/res/levels/spritesheets/electricfuse.png
+image:mfuse:/res/levels/spritesheets/magneticfuse.png
+image:closedfuse:/res/levels/spritesheets/closedfuse.png
 image:gate:/res/levels/spritesheets/gate.png
 image:machine:/res/levels/spritesheets/machine.png
 image:pad:/res/levels/spritesheets/pad.png
-image:player:/res/levels/spritesheets/player.png
+image:playerleft:/res/levels/spritesheets/playerLeft.png
+image:playerright:/res/levels/spritesheets/playerRight.png
 image:playerspawner:/res/levels/spritesheets/playerspawner.png
 image:steam:/res/levels/spritesheets/steam.png
 image:sparks:/res/levels/spritesheets/sparks.png
 image:sphere:/res/levels/spritesheets/sphere.png
+image:posmag:/res/levels/spritesheets/posmag.png
+image:negmag:/res/levels/spritesheets/negmag.png
+image:poselec:/res/levels/spritesheets/poselec.png
+image:negelec:/res/levels/spritesheets/negelec.png

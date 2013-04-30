@@ -4,17 +4,18 @@ import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.bipolar.Bipolar;
 import com.bipolar.controller.EntityController;
 import com.bipolar.model.LevelController;
 import com.bipolar.resourceloader.ResourceLoader;
-import com.bipolar.states.Level;
 import com.bipolar.view.Camera;
 
 public class Player extends Entity{
@@ -24,13 +25,17 @@ public class Player extends Entity{
 	private Rectangle futureBox;
 	private boolean holdingBall = false;
 	public ArrayList<Platform> colliders = new ArrayList<Platform>();
-	public final float PLAYER_SPEED = 200f;
+	public final float PLAYER_SPEED = 225f;
 	public final int JUMP_HEIGHT = -2;
 	public static float delta = .001f;
 
+	private boolean flipped = false;
+	private Animation left;
+	private Animation right;
+
 	public Player(int xpos, int ypos, int drawLayer) {
 		super(xpos, ypos);
-		this.image = ResourceLoader.getImage("player");
+		setSpriteSheet(ResourceLoader.getImage("playerright"), 32, 64);
 		this.drawLayer = drawLayer;
 		this.width = this.image.getWidth();
 		this.height = this.image.getHeight();
@@ -39,6 +44,8 @@ public class Player extends Entity{
 		this.velocity = new Vector2f();
 		this.acceleration = new Vector2f();
 		this.acceleration.y = Bipolar.G;
+		this.left = new Animation(new SpriteSheet(ResourceLoader.getImage("playerleft"), 32, 64), 200);
+		this.right = new Animation(new SpriteSheet(ResourceLoader.getImage("playerright"), 32, 64), 200);
 	}
 
 	public static void setInput(Input in) {
@@ -49,19 +56,26 @@ public class Player extends Entity{
 		hitbox = new Rectangle(x, y, width, height);
 	}
 
+	public void setHitboxPos(float x, float y) {
+		this.hitbox.setLocation(x, y);
+	}
+
 	public void move() {
 		if (input.isKeyDown(Input.KEY_A)) {
+			this.flipped = true;
 			this.velocity.x = -PLAYER_SPEED * Player.delta;
 		} else if (input.isKeyDown(Input.KEY_D)) {
+			this.flipped = false;
 			this.velocity.x = PLAYER_SPEED * Player.delta;
 		} else {
 			this.acceleration.x = Bipolar.DRAG * Player.delta;
-			if(this.velocity.x < -.55f)
+			if(this.velocity.x < -.85f) {
 				this.velocity.x += this.acceleration.x;
-			else if (this.velocity.x > .55f)
+			}else if (this.velocity.x > .85f) {
 				this.velocity.x -= this.acceleration.x;
-			else
+			} else {
 				this.velocity.x = 0f;
+			}
 		}
 		if (this.velocity.y < 6.0f) {
 			this.velocity.y += this.acceleration.y;
@@ -70,7 +84,7 @@ public class Player extends Entity{
 		this.futureBox.setLocation(this.position.x + (this.velocity.x), this.position.y + (this.velocity.y));
 		Rectangle underBlock = isBlocked(this.futureBox);
 		if((underBlock != null) && (underBlock.getMinY() + JUMP_EPSILON > this.hitbox.getMaxY()) && (input.isKeyDown(Input.KEY_W))) {
-			this.velocity.y = -1.8f;
+			this.velocity.y = -1.7f;
 		}
 		do {
 			this.fixVelocity(isBlocked(this.futureBox));
@@ -132,10 +146,18 @@ public class Player extends Entity{
 				low = middle;
 			}
 		}
-		if(toFix) {
-			this.velocity.y = low;
-		} else {
-			this.velocity.x = low;
+		
+		Line c = new Line(new Vector2f(this.futureBox.getCenterX(), this.futureBox.getCenterY())
+			, new Vector2f(this.hitbox.getCenterX(), this.hitbox.getCenterY()));
+		if(isBlocked(c) == null) {
+			if(toFix) {
+				this.velocity.y = low;
+			} else {
+				this.velocity.x = low;
+				if (Math.abs(low) > .3f) {
+					System.out.println(this.velocity.x);
+				}
+			}
 		}
 	}
 
@@ -182,7 +204,9 @@ public class Player extends Entity{
 				if (tf.intersects(e.hitbox)) {
 					if (e instanceof Pad) {
 						Pad p = (Pad) e;
-						p.setState(1);
+						if(p.cool()) {
+							p.activate();
+						}
 					}
 					return e.hitbox;
 				}
@@ -200,29 +224,36 @@ public class Player extends Entity{
 		return null;
 	}
 
+	public void setVelocity(Vector2f vel) {
+		this.velocity.set(vel);
+	}
+
 	public Vector2f getVelocity(){
 		return this.velocity;
 	}
 
 	public void render(Camera c){
 		transform(c);
-		new Transform();
-		Transform drawTf = Transform.createTranslateTransform
-				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
-		Level.drawObj.draw(this.hitbox.transform(drawTf));
-		Level.drawObj.draw(this.futureBox.transform(drawTf));
-		this.image.draw(this.transformedPosition.x, this.transformedPosition.y);
+		if (this.velocity.x != 0) {
+			if (this.flipped) {
+				this.anim = this.left;
+			} else {
+				this.anim = this.right;
+			}
+			this.animating = true;
+		} else {
+			this.animating = false;
+		}
+		if (this.animating) {
+			this.anim.draw(this.transformedPosition.x, this.transformedPosition.y);
+		} else {
+			this.image = this.anim.getCurrentFrame();
+			this.image.draw(this.transformedPosition.x, this.transformedPosition.y);
+		}
 	}
 
 	public void update(){
 		Player.delta = LevelController.delta * .001f;
-		if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON) && Bipolar.slowdown < 10) {
-			Bipolar.slowdown++;
-		} else {
-			if (Bipolar.slowdown != 1) {
-				Bipolar.slowdown--;
-			}
-		}
 
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			if (holdingBall) {
@@ -242,12 +273,8 @@ public class Player extends Entity{
 				|| this.position.x < -Bipolar.MAXWIDTH
 				|| this.position.y > Bipolar.MAXHEIGHT
 				|| this.position.y < -Bipolar.MAXHEIGHT) {
-			this.position.set(EntityController.playerSpawner.position);
-			this.velocity.set(0, 0);
-			this.hitbox.setLocation(this.position.x, this.position.y);
-			LevelController.camera.snapToPlayer();
+			EntityController.playerSpawner.spawnPlayer();
 		}
-
 		this.hitbox.setLocation(this.position.x, this.position.y);
 	}
 

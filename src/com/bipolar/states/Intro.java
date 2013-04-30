@@ -21,9 +21,9 @@ public class Intro extends BasicGameState{
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		this.in = container.getInput();
-		
+		Bipolar.world[0] = true;
+		Bipolar.level.get(0)[0] = true;
 	}
 
 	@Override

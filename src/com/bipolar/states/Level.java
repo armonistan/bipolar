@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.svg.Gradient;
 
 import com.bipolar.Bipolar;
 import com.bipolar.model.LevelController;
@@ -35,12 +36,7 @@ public class Level extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) {
 		this.worldID = Bipolar.currentWorld;
 		this.levelID = Bipolar.currentLevel;
-		if (Bipolar.DEVMODE) {
-			System.out.println("Welcome developer!");
-			//TODO set access for certain permissions here, like possible level editing
-		} else { 
-			//TODO interface with LevelController to load the appropriate level stuff
-		}
+
 		LevelController.clearLevel();
 		LevelController.enter();
 		Player.setInput(in);
@@ -57,6 +53,7 @@ public class Level extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+		Bipolar.elapsedTime = container.getTime() - Bipolar.startTime;
 		if (LevelController.getCompleted()) {
 			LevelController.destroyLevel();
 			LevelController.setCompleted(false);
@@ -67,14 +64,17 @@ public class Level extends BasicGameState {
 			}
 			game.enterState(Bipolar.SUBWORLDSTATE);
 		} else {
+			if (in.isKeyPressed(Input.KEY_C)) {
+				LevelController.toggleCamera();
+			}
 			LevelController.updateLevel(delta);
 		}
 		
 		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(Bipolar.SUBWORLDSTATE);
 			LevelController.destroyLevel();
+			LevelController.setCompleted(false);
 		}
-		container.setMinimumLogicUpdateInterval(2 * Bipolar.slowdown);
 	}
 
 	@Override

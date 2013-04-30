@@ -161,11 +161,17 @@ public class LevelController {
 				EntityController.setPlayerSpawner(ps);
 				EntityController.addEntity(ps);
 			} else if (type.equals("bar")) {
+<<<<<<< HEAD
+				EntityController.addEntity(new Bar(xpos, ypos, solid, state, drawLayer));
+			} else if (type.equals("field")) {
+				EntityController.addEntity(new Field(xpos, ypos, state, drawLayer));
+=======
 				Bar b = new Bar(xpos, ypos, solid, state, drawLayer, flipped);
 				if (connect && w != null) {
 					w.addConnection(b);
 				}
 				EntityController.addEntity(b);
+>>>>>>> 3cbcd1fc45051faf67b2057dea3187cf0a90c433
 			} else if (type.equals("fuse")) {
 				LevelController.numFuses++;
 				EntityController.addEntity(new Fuse(xpos, ypos, solid, state, drawLayer));

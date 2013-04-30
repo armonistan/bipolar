@@ -20,7 +20,6 @@ public class Platform extends Entity{
 		this.width = 100;
 		this.height = 25;
 		this.setGeom(x, y, this.width, this.height);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Platform(int x, int y, int width, int height, int drawLayer) {
@@ -41,8 +40,8 @@ public class Platform extends Entity{
 		new Transform();
 		Transform drawTf = Transform.createTranslateTransform
 				(this.transformedPosition.x - this.position.x , this.transformedPosition.y - this.position.y);
-		Level.drawObj.setColor(Color.black);
-		Level.drawObj.draw(this.hitbox.transform(drawTf));
+		Level.drawObj.setColor(Color.white);
+		Level.drawObj.fill(this.hitbox.transform(drawTf));
 	}
 	
 	public void update() {
