@@ -1,0 +1,129 @@
+//entity type:x location:y location:solid:state/scale:drawlevel
+//platform:top left x: top left y: width: height:0
+//state 0 = magnetic
+//state 1 = electric
+
+//WIRING BLOCKS OF OBJECTS
+//wire:0:0:0:0:0
+//inputObject:x:y:solid:state
+//activatedObject1:x:y:solid:state
+//activatedObject2:x:y:solid:state
+//activatedObject...:x:y:solid:state
+//activatedObjectN:x:y:solid:state
+//wire:0:0:0:0:0
+
+//tells the parser where a level's objects begin and end
+#:0:0
+<<<<<<< HEAD
+field:0:0:0:0:0
+bar:0:0:true:1:2
+sphere:-100:0:true:1:2
+fuse:-500:180:false:1:1
+fuse:700:40:false:0:1
+platform:50:125:2000:25:0
+platform:-400:300:500:25:0
+platform:-700:125:400:25:0
+sparks:-425:-210:false:10:2
+steam:500:-100:false:20:2
+playerspawner:300:-100:0:0:9
+ballspawner:250:-100:0:0:1
+wire:0:0:0:0:0
+pad:100:100:true:-1:1
+gate:-400:100:true:-1:1
+wire:0:0:0:0:0
+player:400:10:1:0:8
+=======
+fuse: 1260:-260:false:1:1
+//fuse:750:20:false:0:1
+platform:0:-100:300:30:0
+platform:320:0:300:30:0
+platform:640:-100:300:30:0
+platform:960:-200:300:30:0
+sparks:1125:-310:false:3:2:true
+playerspawner:100:-300:0:0:8
+ballspawner:250:-200:0:0:1
+player:100:-300:1:0:7
+>>>>>>> 3cbcd1fc45051faf67b2057dea3187cf0a90c433
+#:0:0
+
+#:0:1
+fuse: 1260:-260:false:1:1
+sparks:1125:-310:false:3:2:true
+playerspawner:100:-50:0:0:9
+ballspawner:50:-50:0:0:1
+platform:0:100:300:30:0
+platform:0:-100:260:30:0
+platform:360:0:200:30:0
+platform:640:-100:300:30:0
+platform:960:-200:300:30:0
+wire:0:0:0:0:0
+pad:0:-120:true:0:1
+gate:640:-250:true:-1:1
+wire:0:0:0:0:0
+player:100:-50:1:0:8
+#:0:1
+
+#:0:2
+fuse: 720:150:false:1:1
+sparks:200:-350:false:2:2:true
+sparks:610:130:false:2:2:true
+playerspawner:100:-150:0:0:9
+ballspawner:50:-150:0:0:1
+platform:0:0:260:30:0
+platform:0:-250:300:30:0
+platform:0:-385:800:30:0
+platform:360:100:400:30:0
+platform:300:230:350:30:0
+wire:0:0:0:0:0
+machine:100:-347:true:0:1:1
+gate:650:100:true:-1:1
+wire:0:0:0:0:0
+player:100:-150:1:0:8
+#:0:2
+
+#:0:3
+player:100:-120:1:0:8
+playerspawner:100:-170:0:0:9
+ballspawner:500:-170:0:0:1
+platform:0:0:650:30:0
+platform:0:-400:700:30:0
+platform:0:-200:650:30:0
+platform:0:-400:30:200:0
+steam:630:-170:false:10:2:true
+bar:800:-100:true:0:4:0
+fuse: 50:-300:false:0:1
+#:0:3
+
+#:0:4
+player:50:-120:1:0:8
+playerspawner:50:-100:0:0:9
+ballspawner:10:-100:0:0:1
+sparks:145:-510:false:10:2:true
+platform:0:0:150:30:0
+sphere:300:-150:true:1:4:0
+sphere:400:120:true:1:4:0
+sphere:650:90:true:1:4:0
+sphere:600:-100:true:1:4:0
+sphere:800:-120:true:1:4:0
+fuse: 950:50:false:1:1
+#:0:4
+
+#:0:5
+player:100:100:1:0
+#:0:5
+
+#:0:6
+player:100:100:1:0
+#:0:6
+
+#:0:7
+player:100:100:1:0
+#:0:7
+
+#:0:8
+player:100:100:1:0
+#:0:8
+
+#:0:9
+player:100:100:1:0
+#:0:9

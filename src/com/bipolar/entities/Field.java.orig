@@ -1,12 +1,31 @@
 package com.bipolar.entities;
 
 import org.newdawn.slick.geom.Vector2f;
+<<<<<<< HEAD
+
+public class Field extends Entity{
+	
+	int strength = 0;
+	
+	public Field(int x, int y, int state, int strength){
+		super(x, y, state);
+		this.strength = strength;
+	}
+	
+	public Vector2f getInfluence(Vector2f pos) {
+		Vector2f electricComponent;
+		Vector2f magneticComponent;
+		
+		Vector2f rHat = 
+		
+		return null;
+=======
 import com.bipolar.Bipolar;
 import com.bipolar.resourceloader.ResourceLoader;
 import com.bipolar.view.Camera;
 
 public class Field extends Entity{
-	
+
 	private int charge;
 
 	public Field(int xpos, int ypos, int state, int charge) {
@@ -26,6 +45,7 @@ public class Field extends Entity{
 				this.image = ResourceLoader.getImage("poselec");
 			}
 		}
+>>>>>>> 3cbcd1fc45051faf67b2057dea3187cf0a90c433
 	}
 	
 	public void invertCharge() {
